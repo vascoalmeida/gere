@@ -1,5 +1,18 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 5px;
+}
+
+.title {
+	font-size: 7rem;
+	font-family: "Open Sans";
+}
+
+.text {
+	font-size: 4rem;
+	color: white;
 }

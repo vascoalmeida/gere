@@ -1,0 +1,98 @@
+body {
+    overflow: hidden;
+    color: #0f0a0a;
+    background-image: url("https://images.unsplash.com/photo-1428677361686-f9d23be145c9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=33537d2c86cc6b211f35f1b474f631be&auto=format&fit=crop&w=750&q=80");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    /*
+    Colors)
+        Main: #f7f7f7
+        Secondary: #1d84b5
+        Typography: #0f0a0a;
+        Warning/error: #cc2936
+
+
+        #ddd92a
+    */
+}
+
+#main-page-wrapper {
+    width: 100vw;
+    height: 100vh;
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-page-content-container {
+    width: 161rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f7f7;
+}
+
+#main-page-content {
+    height: 60%;
+}
+
+#main-nav {
+    font-size: 4rem;
+    font-family: "Source Sans Pro";
+    letter-spacing: 1px;
+    display: flex;
+    padding: 2rem 0;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+#main-nav a {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    line-height: 10rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 2.7rem;
+    letter-spacing: 0.3em;
+    color: #0f0f0f;
+    transform: scale(1, 0.9);
+}
+
+form {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#form-title {
+    font-size: 6rem;
+    letter-spacing: 2px;
+    font-family: "Open Sans";
+}
+
+input[type="text"], input[type="password"] {
+    background-color: transparent;
+    border: none;
+    border-bottom: 0.2rem solid #272727;
+    margin-top: 5rem;
+    padding: 2rem 0 2rem 0;
+    width: 60%;
+    font-family: "Open Sans";
+}
+input:focus {
+    outline: 0;
+}
+
+::placeholder {
+    color: #0f0f0f;
+    font-family: "Open Sans";
+    letter-spacing: 0.3rem;
+    opacity: 0.8;
+}
+
+.active {
+    opacity: 0.3;
+    cursor: default !important;
+}
