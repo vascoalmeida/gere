@@ -1,0 +1,93 @@
+.help-nav {
+    display: none;
+}
+
+/* --------- */
+
+#main-page {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+}
+
+#header-nav {
+    width: 100vw;
+    background-color: #fafafa;
+    box-shadow: 0 -1rem 3rem #131d22;
+    height: 9rem;
+    padding: 1rem 0;
+}
+
+#im-logo {
+    height: 100%;
+}
+
+#panels-container {
+    display: flex;
+}
+
+#menu-panel {
+    width: 13%;
+    min-width: 35rem;
+    background-color: #2f2f2f;
+}
+
+#menu {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.menu-item {
+    margin: 10rem 0;
+    height: 10rem;
+    line-height: 10rem;
+    overflow: hidden;
+}
+
+.menu-item > a {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    font-size: 3.5rem;
+    font-family: "Oxygen";
+    text-decoration: none;
+    color: #f7f7f7;
+    padding-left: 3rem;
+    transition: all 200ms 50ms ease;
+}
+
+.menu-item > a:hover {
+    background-color: #3f3f3f;
+}
+
+#main-content {
+    width: 100%;
+    overflow-y: auto;
+    overflow-x : hidden;
+}
+
+h1 {
+    font-size: 10rem;
+}
+
+/*::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+  
+::-webkit-scrollbar {
+    width: 1.8rem;
+    background-color: transparent;
+}
+  
+::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: #0f0a0a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #4b4646;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #252424;
+}*/

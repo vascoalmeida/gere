@@ -7,12 +7,35 @@ html {
 	font-size: 5px;
 }
 
+body {
+	overflow-x: hidden;
+}
+
+input {
+	user-select: none;
+}
+
 .title {
 	font-size: 7rem;
-	font-family: "Open Sans";
+	font-family: "Lato";
+	text-transform: none;
+	color: #0f0a0a;
+	text-align: center;
 }
 
 .text {
-	font-size: 4rem;
+	font-size: 3rem;
+	font-family: "Open Sans";
+}
+
+.light-text {
 	color: white;
+}
+
+.dark-text {
+	color: #0f0a0a;
+}
+
+#root {
+	width: 100vw;
 }

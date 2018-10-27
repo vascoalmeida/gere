@@ -7,7 +7,6 @@ import {
 import LoginForm from "../loginForm/loginForm";
 import RegisterForm from "../registerForm/registerForm";
 import "./homePage.css";
-import ServerReqButton from "../serverReqBtn/serverReqBtn";
 
 class HomePage extends Component {
     render() {

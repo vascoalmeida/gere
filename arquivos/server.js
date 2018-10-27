@@ -19,9 +19,13 @@ function output(type, msg) {
 }
 
 app.get("/login", (req, res) => {
-    let message = {string:"Recieved request for /login"};
-    output("info", message["string"]);
-    res.send(message);
+    let message = "Recieved request for " + "/login".bold;
+    output("info", message);
+});
+
+app.get("/main", (req, res) => {
+    let message = "Recieved request for " + "/main".bold;
+    output("info", message);
 });
 
 app.post("/login", (req, res) => {

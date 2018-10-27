@@ -1,19 +1,6 @@
 body {
-    overflow: hidden;
+    overflow-x: hidden;
     color: #0f0a0a;
-    background-image: url("https://images.unsplash.com/photo-1428677361686-f9d23be145c9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=33537d2c86cc6b211f35f1b474f631be&auto=format&fit=crop&w=750&q=80");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    /*
-    Colors)
-        Main: #f7f7f7
-        Secondary: #1d84b5
-        Typography: #0f0a0a;
-        Warning/error: #cc2936
-
-
-        #ddd92a
-    */
 }
 
 #main-page-wrapper {
@@ -23,6 +10,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url("https://images.unsplash.com/photo-1428677361686-f9d23be145c9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=33537d2c86cc6b211f35f1b474f631be&auto=format&fit=crop&w=750&q=80");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
 #main-page-content-container {

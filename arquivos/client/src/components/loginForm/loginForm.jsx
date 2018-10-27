@@ -1,10 +1,5 @@
 import React, {Component} from "react";
 import ServerReqBtn from "../serverReqBtn/serverReqBtn";
-import {
-    Route,
-    NavLink,
-    HashRouter
-} from "react-router-dom";
 import "./loginForm.css"
 
 class LoginForm extends Component {
