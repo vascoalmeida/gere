@@ -5,12 +5,12 @@ import {
     NavLink,
     Route
 } from "react-router-dom";
-import RequestEquipmentForm from "../requestEquipmentForm/requestEquipmentForm";
+import RequisitionPage from "../requisitionPage/requisitionPage";
 
 class MainPage extends Component {
     render() {
         return(
-            <div id="main-page">
+            <React.Fragment>
                 <div id="header-nav">
                     <img id="im-logo" src="http://www.imultimedia.org/wp-content/uploads/2015/09/logo_IM_incial_transparent.png" alt="Instituto Multimedia logo" />
                 </div>
@@ -19,25 +19,27 @@ class MainPage extends Component {
                         <React.Fragment>
                             <div id="menu-panel">
                                 <ul id="menu">
-                                    <li className="menu-item">
-                                        <NavLink to="/main/requisitar">Requisitar</NavLink>
-                                    </li>
-                                    <li className="menu-item">
-                                        <NavLink to="/material">Material</NavLink>
-                                    </li>
-                                    <li className="menu-item">
-                                        <NavLink to="/reservas">Reservas</NavLink>
-                                    </li>
+                                    <NavLink to="/main/requisitar" className="menu-item">
+                                        <label>Requisitar</label>
+                                        <img className="item-icon" src={window.location.origin + "/img/icon-book.png"} alt="book-icon" />
+                                    </NavLink>
+                                    <NavLink to="/main/material" className="menu-item">
+                                        <label>Material</label>
+                                        <img className="item-icon" src={window.location.origin + "/img/icon-camera.png"} alt="book-icon" />
+                                    </NavLink>
+                                    <NavLink to="/main/salas" className="menu-item">
+                                        <label>Salas</label>
+                                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
+                                    </NavLink>
                                 </ul>
                             </div>
                             <div id="main-content">
-                                <Route path="/main/requisitar" component={RequestEquipmentForm} />
-                                
+                                <Route path="/main/requisitar" component={RequisitionPage} />
                             </div>
                         </React.Fragment>
                     </HashRouter>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }

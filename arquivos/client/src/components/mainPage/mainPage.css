@@ -12,8 +12,9 @@
 
 #header-nav {
     width: 100vw;
-    background-color: #fafafa;
-    box-shadow: 0 -1rem 3rem #131d22;
+    background-color: #8AC926;
+    /*box-shadow: 0 -1rem 3rem #131d22;*/
+    /*border-bottom: 1px solid #dbdbdb;*/
     height: 9rem;
     padding: 1rem 0;
 }
@@ -29,65 +30,63 @@
 #menu-panel {
     width: 13%;
     min-width: 35rem;
-    background-color: #2f2f2f;
+    min-height: 100vh;
+    background-color: #3d3e42;
 }
 
 #menu {
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 13rem;
 }
 
 .menu-item {
-    margin: 10rem 0;
-    height: 10rem;
-    line-height: 10rem;
-    overflow: hidden;
-}
-
-.menu-item > a {
-    display: flex;
-    width: 100%;
+    padding: 2rem 0;
+    margin-bottom: 1rem;
     align-items: center;
-    font-size: 3.5rem;
-    font-family: "Oxygen";
+    display: flex;
+    justify-content: space-evenly;
+    cursor: pointer;
     text-decoration: none;
-    color: #f7f7f7;
-    padding-left: 3rem;
-    transition: all 200ms 50ms ease;
+    box-sizing: border-box;
+    transition:  background-color 30ms 40ms ease;
 }
 
-.menu-item > a:hover {
-    background-color: #3f3f3f;
+.menu-item:hover {
+    background-color: #53545a;
+}
+
+.menu-item > label {
+    margin-left: 2rem;
+    font-size: 3.4rem;
+    color: #dee0eb;
+    font-family: "Lato";
+    cursor: pointer;
+}
+
+.menu-item > .item-icon {
+    width: 5rem;
+    height: 5rem;
+    filter: invert(90%);
+    margin-right: 4rem;
+}
+
+.menu-item.active {
+    border-right: 1rem solid #8AC926;
+    background-color: #53545a;
+}
+
+.menu-item.active .item-icon {
+    margin-right: 3rem;
+    filter: invert(100%);
+}
+
+.menu-item.active label {
+    color: #ffffff;
 }
 
 #main-content {
     width: 100%;
-    overflow-y: auto;
-    overflow-x : hidden;
 }
-
-h1 {
-    font-size: 10rem;
-}
-
-/*::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-  
-::-webkit-scrollbar {
-    width: 1.8rem;
-    background-color: transparent;
-}
-  
-::-webkit-scrollbar-thumb {
-    border-radius: 1rem;
-    background-color: #0f0a0a;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: #4b4646;
-}
-
-::-webkit-scrollbar-thumb:active {
-    background-color: #252424;
-}*/

@@ -1,13 +1,18 @@
-#sumbit-btn {
+#submit-btn {
     width: 35rem;
     height: 10rem;
     margin: 10rem 0;
     border: 0;
-    background-color: #209fe9;
+    /*background-color: #209fe9;*/
+    background-color: #8AC926;
     color: #f0f0f0;
     font-family: "Open Sans";
     font-size: 3rem;
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 0.4rem;
+}
+
+#submit-btn:focus {
+    outline: none;
 }

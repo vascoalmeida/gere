@@ -1,0 +1,32 @@
+#form-header {
+    border-bottom: 1px solid #dbdbdb;
+    padding: 5rem;
+}
+
+#form-header > * {
+    display: inline-block;
+}
+
+#form-title {
+    font-size: 5rem;
+    font-family: "Lato";
+    color: #161616;
+}
+
+#form-options {
+    margin-left: 10rem;
+}
+
+.form-select {
+    font-size: 3rem;
+    font-family: "Source Sans Pro";
+    text-decoration: none;
+    margin-right: 5rem;
+    color: #8AC926;
+    padding: 0.7rem 3rem;
+}
+
+.form-select.active {
+    background-color: #8AC926;
+    color: #f0f0f0;
+}

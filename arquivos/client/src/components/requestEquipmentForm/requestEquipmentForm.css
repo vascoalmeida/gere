@@ -1,115 +1,53 @@
-.form-request {
-    margin: 10rem auto;
-}
-.form-request > * {
-    margin-left: 10rem;
-}
-
-.form-request > .title {
-    margin: 3rem 0 7rem 0;
+#request-equipment {
+    padding-left: 5rem;
+    margin-top: 7rem;
+    display: inline-block;
 }
 
-.form-request input {
-    border: 0;
-    outline: 0;
-    font-size: 4.4rem;
-    font-family: "Open Sans";
-    padding: 2rem 0;
-    border-bottom: 1px solid #2f2f2f;
-}
-
-.form-request > input[type="text"] {
-    width: 50%;
-    margin-bottom: 9rem;
-    display: block;
-}
-
-.form-request input[type="text"]::placeholder {
-    text-transform: capitalize;
-    background-color: transparent;
-    border: none;
-    margin-top: 5rem;
-    padding: 2rem 0 2rem 0;
-    color: #0f0f0f;
-    font-family: "Source Sans Pro";
-    font-size: 4rem;
-    letter-spacing: 0.3rem;
-    opacity: 0.4;
-}
-
-input:focus {
-    outline: 0;
-}
-
-.input-container input {
-    margin: 0 2rem;
-}
-
-.form-group .input-container {
-    margin-bottom: 2rem;
-}
-
-#materials-container {
-    margin-top: 10rem;
-    display: flex;
-}
-
-#add-material {
+#request-equipment > label {
+    font-weight: bold;
     display: inline-block;
     margin-bottom: 3rem;
 }
 
-#input-description {
-    margin: 0;
+.input-container {
+    margin-bottom: 3rem;
+}
+
+.input-container input{
+    margin: 0 2rem;
+    border: 0;
+    border-bottom: 1px solid #3d3e42;
+    font-family: "Lato";
+    text-align: center;
+    transform: translateY(-1.2rem);
+}
+
+.input-container input:focus {
+    outline: none;
+}
+
+#material-container {
+    margin-top: 10rem;
     width: 100%;
-    margin-bottom: 5rem;
 }
 
-#model-brand-input-container {
+#new-material {
+    border: 1px solid #dbdbdb;
+    background-color: #e9e9e9;
+    height: 12rem;
     display: flex;
-    justify-content: space-between;
-}
-
-#model-brand-input-container > * {
-    margin: 0;
-    width: 45%;
-}
-
-.plus-sign {
-    font-size: 9rem;
-    border: 0.5rem solid #0f0f0f;
-    border-radius: 50%;
+    align-items: center;
     cursor: pointer;
-    /*replace with icon*/
 }
 
-.number-input {
-    margin-top: 5rem;
-    width: 30rem;
+#new-material img {
+    height: 7rem;
+    margin: 0 5rem;
 }
 
-input[type="date"] {
-    width: 35rem;
-}
-
-input[type="time"] {
-    width: 25rem;
-}
-
-#form-container {
-    margin: 0 auto;
-    width: 90%;
-    display: flex;
-}
-
-#form-container > * {
-    flex-grow: 1;
-    border: 1px solid red;
-}
-
-#materials-list > div {
-    border: 1px solid green;
-    width: 100%;
-    font-family: "Open Sans";
-    font-size: 3rem;
+#new-material label {
+    font-size: 3.2rem;
+    font-family: "Lato";
+    text-transform: capitalize;
 }

@@ -24,6 +24,7 @@ input {
 }
 
 .text {
+	/*color: #3d3e42;*/
 	font-size: 3rem;
 	font-family: "Open Sans";
 }
