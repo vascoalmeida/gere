@@ -93,3 +93,9 @@ input:focus {
 	bottom: 8rem;
 	display: none;
 }
+
+label.cb-label {
+	display: inline !important;
+	font-size: 3rem !important;
+	margin-left: 1rem;
+}

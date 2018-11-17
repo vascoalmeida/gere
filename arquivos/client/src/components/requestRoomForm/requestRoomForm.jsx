@@ -41,6 +41,12 @@ class RequestRoomForm extends Component {
         this.handleChosenDay = this.handleChosenDay.bind(this);
         this.handleChosenTimeStart = this.handleChosenTimeStart.bind(this);
         this.handleChosenTimeEnd = this.handleChosenTimeEnd.bind(this);
+        this.closePopup = this.closePopup.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
+
+    handleFormSubmit() {
+        console.log(this.state);
     }
 
     handleRoomClick(index) {
@@ -49,6 +55,10 @@ class RequestRoomForm extends Component {
             chosen_room: clicked_room,
             blocked_button_class: ""
         });
+    }
+
+    closePopup() {
+        this.setState({popup_visible: false});
     }
 
     handleChosenDay(ev) {
@@ -75,42 +85,53 @@ class RequestRoomForm extends Component {
         return(
             <form id="request-room">
 
-                <div id="rm-popup-container">
-                    <div id="rm-popup">
+                {this.state.popup_visible ?
+                    <div id="rm-popup-container" >
+                        <div id="rm-popup">
                         
-                        <div className="popup-info">
-                            <label className="label-title">Período da requisição:</label>
-                            <span>Dia </span>
-                            <span>19/12/1876</span>
-                            <span>das</span>
-                            <span>10h30</span>
-                            <span>às</span>
-                            <span>11h20</span>
-                        </div>
+                            <div className="popup-info">
+                                <label className="label-title">Período da requisição:</label>
+                                <span>Dia </span>
+                                <span>19/12/1876</span>
+                                <span>das</span>
+                                <span>10h30</span>
+                                <span>às</span>
+                                <span>11h20</span>
+                            </div>
 
-                        <div className="popup-info">
-                            <input type="checkbox" required></input>
-                            <label>Declaro que me responsabilizo pelo bom uso e conservação de todo o material/equipamento presente na sala, bem como pela manutenção da limpeza do espaço.</label>
+                            <div className="popup-info">
+                                <label className="label-title">Sala requisitada:</label>
+                                <span>Sala 44</span>
+                            </div>
+
+                            <div className="popup-info">
+                                <input type="checkbox" required></input>
+                                <label className="cb-label">Declaro que me responsabilizo pelo bom uso e conservação de todo o material/equipamento presente na sala, bem como pela manutenção da limpeza do espaço.</label>
+                            </div>
+
+                            <button type="submit" className="form-button" onClick={this.handleFormSubmit}>Requisitar</button>
                         </div>
                     </div>
-                </div>
+                    
+                    : null
+                }
 
                 <div id="rm-dashboard">
                     <div className="rm-d-section">
                         <label className="label-title">Período da requisição</label>
                         <div>
                             <label>Data</label>
-                            <input className="input-date" type="date"></input>
+                            <input className="input-date" type="date" onChange={this.handleChosenDay}></input>
                         </div>
 
                         <div>
                             <label>Horas (início)</label>
-                            <input className="input-time" type="time"></input>
+                            <input className="input-time" type="time" onChange={this.handleChosenTimeStart}></input>
                         </div>
 
                         <div>
                             <label>Horas (fim)</label>
-                            <input className="input-time" type="time"></input>
+                            <input className="input-time" type="time" onChange={this.handleChosenTimeEnd}></input>
                         </div>
                     </div>
 

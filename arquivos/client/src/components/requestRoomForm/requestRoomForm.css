@@ -92,7 +92,8 @@
     background-color: white;
     border-radius: 1rem;
     width: 60%;
-    padding: 4rem;
+    padding: 7rem;
+    position: relative;
 }
 
 #rm-popup label {
@@ -103,4 +104,12 @@
     font-size: 3rem;
     font-family: "Varela Round";
     margin-right: 1rem;
+}
+
+.popup-info {
+    margin-bottom: 10rem;
+}
+
+#rm-popup .form-button {
+    margin: 0 auto;
 }
