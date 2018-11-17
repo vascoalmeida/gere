@@ -12,11 +12,11 @@ const msg_types = {
     "warning": "WARN".bgYellow.black
 }
 
-app.use(bodyParser.json());
-
 function output(type, msg) {
     console.log(msg_types[type] + " " + msg);
 }
+
+app.use(bodyParser.json());
 
 app.get("/login", (req, res) => {
     let message = "Recieved request for " + "/login".bold;
@@ -32,4 +32,4 @@ app.post("/login", (req, res) => {
     console.log(req.body);
 });
 
-app.listen(port, () => output("info", "Server running on port " + port));
+app.listen(port, () => output("info", "Server running on port " + (port.toString()).bold));

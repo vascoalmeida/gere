@@ -11,9 +11,7 @@ class MainPage extends Component {
     render() {
         return(
             <React.Fragment>
-                <div id="header-nav">
-                    <img id="im-logo" src="http://www.imultimedia.org/wp-content/uploads/2015/09/logo_IM_incial_transparent.png" alt="Instituto Multimedia logo" />
-                </div>
+                <div id="header-nav"></div>
                 <div id="panels-container">
                     <HashRouter>
                         <React.Fragment>

@@ -1,0 +1,106 @@
+#request-room {
+    width: 90%;
+    margin: 5rem auto 0 auto;
+}
+
+#rm-dashboard {
+    border: 0.2rem solid #a2c775;
+    border-radius: 1rem;
+    width: 100%;
+    margin-bottom: 12rem;
+    padding: 4rem 0;
+    display: flex;
+}
+
+.rm-d-section {
+    width: 33%;
+    padding: 5rem 7rem;
+}
+
+.room {
+    border: 0.2rem solid #91C651;
+    border-radius: 1rem;
+    padding: 8rem;
+    display: flex;
+    margin-bottom: 10rem;
+    cursor: pointer;
+}
+
+.room img {
+    width: 27%;
+    border-radius: 1rem;
+}
+
+.room-info {
+    padding-left: 5rem;
+    width: 100%;
+}
+
+.room-name {
+    font-size: 6rem;
+    margin-bottom: 6rem;
+    color: #394648;
+    font-family: "Pontano Sans";
+    font-weight: normal;
+}
+
+.room-description {
+    width: 80%;
+    text-align: justify;
+}
+
+.input-date, .input-time{
+    border: 1px solid #bdc0c0 !important;
+    display: block;
+    font-family: "Pontano Sans";
+    letter-spacing: 0.3rem;
+    text-align: center;
+    margin-top: 1rem;
+    width: 70%;
+    border-radius: 1rem;
+    max-width: 50rem;
+    height: 5rem;
+    margin-bottom: 5rem;
+}
+
+.label-title {
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 3rem;
+    margin-right: 1rem;
+}
+
+#request-room label {
+    font-size: 2.7rem;
+    font-family: "Open Sans";
+    color: #394648;
+}
+
+#rm-popup-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(36, 36, 36, 0.726);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#rm-popup {
+    background-color: white;
+    border-radius: 1rem;
+    width: 60%;
+    padding: 4rem;
+}
+
+#rm-popup label {
+    display: block;
+}
+
+#rm-popup span {
+    font-size: 3rem;
+    font-family: "Varela Round";
+    margin-right: 1rem;
+}

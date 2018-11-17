@@ -1,5 +1,5 @@
 #form-header {
-    border-bottom: 1px solid #dbdbdb;
+    border-bottom: 1px solid transparent;
     padding: 5rem;
 }
 
@@ -9,8 +9,8 @@
 
 #form-title {
     font-size: 5rem;
-    font-family: "Lato";
-    color: #161616;
+    font-family: "Pontano Sans";
+    color: #394648;
 }
 
 #form-options {
@@ -22,11 +22,12 @@
     font-family: "Source Sans Pro";
     text-decoration: none;
     margin-right: 5rem;
-    color: #8AC926;
-    padding: 0.7rem 3rem;
+    color: #91C651;
+    padding: 2rem 4rem;
 }
 
 .form-select.active {
-    background-color: #8AC926;
-    color: #f0f0f0;
+    background-color: #91C651;
+    color: #ffffff;
+    border-radius: 1rem;
 }

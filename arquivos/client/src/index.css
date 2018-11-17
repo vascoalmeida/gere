@@ -15,18 +15,23 @@ input {
 	user-select: none;
 }
 
+input:focus {
+	outline: none;
+}
+
 .title {
 	font-size: 7rem;
-	font-family: "Lato";
+	font-family: "Pontano Sans";
 	text-transform: none;
-	color: #0f0a0a;
+	color: #171A21;
 	text-align: center;
 }
 
 .text {
-	/*color: #3d3e42;*/
+	color: #212829;
 	font-size: 3rem;
-	font-family: "Open Sans";
+	font-family: "Varela Round";
+	line-height: 5rem;
 }
 
 .light-text {
@@ -39,4 +44,52 @@ input {
 
 #root {
 	width: 100vw;
+}
+
+.form-button {
+    width: 35rem;
+    height: 10rem;
+    border: 0;
+    /*background-color: #209fe9;*/
+    background-color: #91C651;
+    color: #ffffff;
+    font-family: "Open Sans";
+    font-size: 3rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	user-select: none;
+	text-align: center;
+	border-radius: 1rem;
+}
+
+.form-button:focus {
+    outline: none;
+}
+
+.locked-button {
+	background-color: #bdbdbd !important;
+	cursor: not-allowed !important;
+}
+
+.button-container {
+    display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.scroll-top {
+	width: 12rem;
+	height: 12rem;
+	background-color: #91C651;
+	border-radius: 1rem;
+	cursor: pointer;
+	position: fixed;
+	right: 8rem;
+	bottom: 8rem;
+	display: none;
 }
