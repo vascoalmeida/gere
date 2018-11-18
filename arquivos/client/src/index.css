@@ -99,3 +99,14 @@ label.cb-label {
 	font-size: 3rem !important;
 	margin-left: 1rem;
 }
+
+select {
+	background-color: white;
+	padding: 2rem 4rem;
+	font-family: "Varela Round";
+	border-radius: 1rem;
+}
+
+select:focus {
+	outline: 0;
+}

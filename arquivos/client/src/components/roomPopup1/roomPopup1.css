@@ -1,0 +1,8 @@
+#rm-popup {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rm-d-section {
+    width: 100%;
+}

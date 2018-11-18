@@ -1,82 +1,63 @@
 import React, {Component} from "react";
 import "./requestEquipmentForm.css";
 
-class MaterialSheet extends Component {
-
-    constructor() {
-        super();
-
-        this.state = {
-            title: "Material",
-            description: "",
-            brand: "",
-            model: "",
-            amount: "",
-            observations: ""
-        }
-
-        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    }
-
-    handleDescriptionChange(ev) {
-        this.setState({description: ev.target.value}, function() {
-
-            if(this.state.description.length === 0) {
-                this.setState({title: "Material"});
-            }
-    
-            else {
-                this.setState({title: this.state.description});
-            }
-        });
-    }
-
-    render() {
-        return(
-            <div id="mf-first" className="mf-section material-sheet">
-                <h1>{this.state.title}</h1>
-
-                <input type="text" placeholder="Descrição" value={this.state.description} onChange={this.handleDescriptionChange} required></input>
-                <input type="text" placeholder="Marca (opcional)"></input>
-                <input type="text" placeholder="Modelo (opcional)"></input>
-                <input type="number" min="1" placeholder="Quantidade" required></input>
-                <input type="text" placeholder="Observações (opcional)"></input>
-
-                <div className="remove-material-btn" onClick={this.props.removeMaterial} data-index={this.props.index}>Remover material</div>
-            </div>
-        );
-    }
-}
-
 class RequestEquipmentForm extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            material_sheets: []
+            material_list: [
+                {
+                    id: 0,
+                    name: "Câmera",
+                    img: "camera.jpg",
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae scelerisque ipsum, in gravida felis. Sed purus dui, tempus ac risus nec, vestibulum aliquet nisi. Sed pharetra magna id purus pretium, eu malesuada elit feugiat."
+                },
+                {
+                    id: 1,
+                    name: "Câmera",
+                    img: "camera.jpg",
+                    desc: "Ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae scelerisque ipsum, in gravida felis. Sed purus dui, tempus ac risus nec, vestibulum aliquet nisi. Sed pharetra magna id purus pretium, eu malesuada elit feugiat."
+                },
+                {
+                    id: 2,
+                    name: "Câmera",
+                    img: "camera.jpg",
+                    desc: "Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae scelerisque ipsum, in gravida felis. Sed purus dui, tempus ac risus nec, vestibulum aliquet nisi. Sed pharetra magna id purus pretium, eu malesuada elit feugiat."
+                },
+            ]
         }
 
         this.createNewMaterial = this.createNewMaterial.bind(this);
         this.removeMaterial = this.removeMaterial.bind(this);
+        this.handleFormSubmission = this.handleFormSubmission.bind(this);
+    }
+
+    handleFormSubmission() {
+        /*
+        fetch("/request-material", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                date: this.state.chosen_day,
+                time_start: this.state.chosen_time_start,
+                time_end: this.state.chosen_time_end,
+                room: this.state.chosen_room
+            })
+        })
+        */
+       console.log("a");
     }
     
     removeMaterial(ev) {
-        let material_index = ev.target.getAttribute("data-index");
-        let ms_arr = this.state.material_sheets;
-
-        ms_arr.splice(material_index, 1);
-        this.setState({material_sheets: ms_arr});
-
-        console.log(material_index);
+        console.log("material_index");
     }
 
     createNewMaterial() {
-        let ms_arr = this.state.material_sheets;
-
-        ms_arr.push(<MaterialSheet key={this.state.material_sheets.length} removeMaterial={this.removeMaterial} index={this.state.material_sheets.length} />);
-
-        this.setState({material_sheets: ms_arr});
+        console.log("a");
     }
 
 
@@ -117,7 +98,19 @@ class RequestEquipmentForm extends Component {
                 </div>
 
                 <div id="material-container">
-                    {this.state.material_sheets}
+                    {this.state.material_list.map(material => (
+
+                        <div className="material" key={material.id}>
+                            <img src={window.location.origin + "/img/" + material.img} alt={material.name} />
+
+                            <div className="material-info">
+                                <h1 className="material-name">{material.name}</h1>
+                                <div className="material-description text">{material.desc}</div>
+                            </div>
+                        </div>
+
+                    ))}
+
                 </div>
 
                 <div className="scroll-top"></div>

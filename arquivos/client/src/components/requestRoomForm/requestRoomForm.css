@@ -113,3 +113,8 @@
 #rm-popup .form-button {
     margin: 0 auto;
 }
+
+.room-info .form-button {
+    float: right;
+    margin-top: 5rem;
+}
