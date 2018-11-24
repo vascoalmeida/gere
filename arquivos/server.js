@@ -2,11 +2,12 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const colors = require("colors");
-const sequelize = require("sequelize");
+const Sequelize = require("sequelize");
+var models = require('./models');
 
 const app = express();
 const port = 8000;
-const seq_con = new sequelize("arquivos_db", "arquivos_user", "password", {
+const sequelize = new Sequelize("arquivos_db", "arquivos_user", "password", {
     host: "localhost",
     dialect: "postgres",
 });
@@ -24,7 +25,7 @@ function output(type, msg) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-seq_con.authenticate()
+sequelize.authenticate()
 .then(() => {
     output("success", "Successfully connected to DB");
 })
