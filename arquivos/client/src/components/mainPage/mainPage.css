@@ -100,3 +100,17 @@
 #main-content {
     width: 100%;
 }
+
+.faded-label {
+    font-size: 3rem;
+    font-family: "Pontano Sans";
+    color: #7f7f7f;
+}
+
+.section-title {
+    width: 100%;
+    font-size: 4.3rem;
+    font-family: "Pontano Sans";
+    color: #394648;
+    margin-bottom: 2rem;
+}

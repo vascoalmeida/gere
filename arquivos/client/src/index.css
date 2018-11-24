@@ -19,6 +19,11 @@ input:focus {
 	outline: none;
 }
 
+input[type="checkbox"] {
+	height: auto !important;
+	margin-bottom: 0 !important;
+}
+
 .title {
 	font-size: 7rem;
 	font-family: "Pontano Sans";
@@ -105,8 +110,26 @@ select {
 	padding: 2rem 4rem;
 	font-family: "Varela Round";
 	border-radius: 1rem;
+	display: block;
 }
 
 select:focus {
 	outline: 0;
+}
+
+.label-title {
+    font-weight: bold;
+    display: inline-block;
+	margin-bottom: 3rem;
+	font-family: "Open Sans";
+	color: #394648;
+}
+
+.close-icon {
+	width: 7rem;
+	height: 7rem;
+	position: absolute;
+	top: -3rem;
+	left: -3rem;
+	cursor: pointer;
 }

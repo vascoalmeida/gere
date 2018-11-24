@@ -72,6 +72,13 @@ class RequestRoomForm extends Component {
         });
     }
 
+    closePopup() {
+        this.setState({
+            popup1_visible: false,
+            popup2_visible: false,
+        });
+    }
+
     handleRoomClick(index) {
         let clicked_room = this.state.room_list[index].name;
         this.setState({
@@ -80,19 +87,15 @@ class RequestRoomForm extends Component {
         });
     }
 
-    closePopup() {
-        this.setState({popup_visible: false});
-    }
-
     render() {
         var active_popup;
 
         if(this.state.popup1_visible) {
-            active_popup = <RoomPopup1 blocked_button_class={this.state.blocked_button_class} room={this.state.chosen_room} action={this.recieveFromPopup1} />;
+            active_popup = <RoomPopup1 blocked_button_class={this.state.blocked_button_class} room={this.state.chosen_room} action={this.recieveFromPopup1} close_popup={this.closePopup} />;
         }
 
         else if(this.state.popup2_visible) {
-            active_popup = <RoomPopup2 room={this.state.chosen_room} date={this.state.chosen_day} time_start={this.state.chosen_time_start} time_end={this.state.chosen_time_end} />
+            active_popup = <RoomPopup2 room={this.state.chosen_room} date={this.state.chosen_day} time_start={this.state.chosen_time_start} time_end={this.state.chosen_time_end} close_popup={this.closePopup} />
         }
 
         else {
@@ -101,11 +104,11 @@ class RequestRoomForm extends Component {
 
         return(
             <form id="request-room" onSubmit={this.handleFormSubmit} >
-
                 {active_popup}
 
                 <div id="rm-dashboard">
                     <div className="rm-d-section">
+                        <label className="label-title">Filtros</label>
                         <select className="filter-search">
                             <option value="op1">Opt 1</option>
                             <option value="op2">Opt 2</option>

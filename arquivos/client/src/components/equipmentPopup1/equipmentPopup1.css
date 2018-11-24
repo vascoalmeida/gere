@@ -1,0 +1,8 @@
+#rm-popup-container {
+    z-index: 10;
+}
+
+#rm-popup {
+    font-size: 3rem;
+    position: relative;
+}

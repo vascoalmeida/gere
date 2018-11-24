@@ -6,3 +6,44 @@
 .rm-d-section {
     width: 100%;
 }
+
+#rm-popup-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(36, 36, 36, 0.726);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#rm-popup {
+    background-color: white;
+    border-radius: 1rem;
+    width: 60%;
+    padding: 7rem;
+    position: relative;
+}
+
+#rm-popup label {
+    display: block;
+    font-family: "Varela Round";
+    font-size: 2.7rem;
+    color: #394648;
+}
+
+#rm-popup span {
+    font-size: 3rem;
+    font-family: "Varela Round";
+    margin-right: 1rem;
+}
+
+.popup-info {
+    margin-bottom: 10rem;
+}
+
+#rm-popup .form-button {
+    margin: 0 auto;
+}

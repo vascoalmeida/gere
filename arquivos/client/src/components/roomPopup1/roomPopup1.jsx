@@ -54,6 +54,7 @@ class RoomPopup2 extends Component {
         return(
             <div id="rm-popup-container">
                 <div id="rm-popup">
+                    <img src={window.location.origin + "/img/icon-close.png"} alt="Close icon" className="close-icon" onClick={this.props.close_popup} />
                     <div className="rm-d-section">
                         <label className="label-title">Período da requisição</label>
                         <div>

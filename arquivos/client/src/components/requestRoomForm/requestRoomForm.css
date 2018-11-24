@@ -23,7 +23,6 @@
     padding: 8rem;
     display: flex;
     margin-bottom: 10rem;
-    cursor: pointer;
 }
 
 .room img {
@@ -117,4 +116,13 @@
 .room-info .form-button {
     float: right;
     margin-top: 5rem;
+}
+
+.mf-d-section.button-container {
+    position: relative;
+}
+
+.mf-d-section.button-container > .form-button {
+    right: 8rem;
+    position: absolute;
 }

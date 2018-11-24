@@ -1,0 +1,11 @@
+.popup-info {
+    color: #394648;
+}
+
+.popup-info > div {
+    margin-bottom: 1rem;
+}
+
+.material-overview span {
+    margin-right: 2rem;
+}

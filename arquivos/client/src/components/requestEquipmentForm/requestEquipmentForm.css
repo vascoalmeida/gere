@@ -157,12 +157,11 @@
     padding: 8rem;
     display: flex;
     margin-bottom: 10rem;
-    cursor: pointer;
 }
 
 .material img {
-    width: 27%;
-    height: 100%;
+    width: 60rem;
+    height: 40rem;
     border-radius: 1rem;
 }
 
@@ -182,4 +181,48 @@
 .material-description {
     width: 80%;
     text-align: justify;
+}
+
+#material-form .form-button {
+    float: right;
+    margin-top: 5rem;
+}
+
+#selected-material-section {
+    border-radius: 1rem;
+    width: 100%;
+    margin-bottom: 12rem;
+    padding: 4rem 0;
+}
+
+#selected-material-section .faded-label {
+    margin: 0 auto;
+    width: 20%;
+    display: block;
+    text-align: center;
+}
+
+.remove-button {
+    background-color: white;
+    color: #91C651;
+    border: 0.2rem solid #91C651;
+    transition: all 100ms ease;
+}
+
+.remove-button:hover {
+    background-color: #91C651;
+    color: white;
+}
+
+#selected-material-section .form-button {
+    margin: 0 auto !important;
+}
+
+.mf-d-section.button-container {
+    position: relative;
+}
+
+.mf-d-section.button-container > .form-button {
+    right: 8rem;
+    position: absolute;
 }
