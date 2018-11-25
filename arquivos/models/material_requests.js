@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-    var material_requisition = sequelize.define('material_requisition', {
+    var MaterialRequests = sequelize.define('MaterialRequests', {
         name: DataTypes.STRING,
         img: DataTypes.STRING,
         group_id: DataTypes.INTEGER,
+        quantity: DataTypes.INTEGER,
     });
 
-    return material_requisition;
+    return MaterialRequests;
 };

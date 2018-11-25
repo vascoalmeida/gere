@@ -3,11 +3,12 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const colors = require("colors");
 const Sequelize = require("sequelize");
-var models = require('./models');
+const models = require('./models');
+const db_cred = require("./db_credentials.json");
 
 const app = express();
 const port = 8000;
-const sequelize = new Sequelize("arquivos_db", "arquivos_user", "password", {
+const sequelize = new Sequelize(db_cred.database, db_cred.username, db_cred.password, {
     host: "localhost",
     dialect: "postgres",
 });
