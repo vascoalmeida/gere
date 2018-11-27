@@ -9,7 +9,7 @@ const db_cred = require("./db_credentials.json");
 const app = express();
 const port = 8000;
 const sequelize = new Sequelize(db_cred.database, db_cred.username, db_cred.password, {
-    host: "localhost",
+    host: db_cred.host,
     dialect: "postgres",
 });
 const msg_types = {

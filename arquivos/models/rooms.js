@@ -2,10 +2,24 @@
 
 module.exports = (sequelize, DataTypes) => {
     var Room = sequelize.define("Room", {
-        name: DataTypes.STRING,
-        img: DataTypes.STRING,
-        description: DataTypes.STRING,
-        type: DataTypes.STRING,
+        id: {
+            allowNull: false,
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        name: {
+            type: DataTypes.STRING,
+        },
+        img: {
+            type: DataTypes.STRING,
+        },
+        description: {
+            type: DataTypes.STRING,
+        },
+        purpose: {
+            type: DataTypes.STRING,
+        },
     });
 
     Room.associate = function(models) {
