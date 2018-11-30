@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-//import HomePage from "./components/homePage/homePage";
-import MainPage from "./components/mainPage/mainPage";
+import AppContainer from "./components/appContainer/appContainer";
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<MainPage />, document.getElementById('root'));
+ReactDOM.render(<AppContainer />, document.getElementById('root'));
 registerServiceWorker();

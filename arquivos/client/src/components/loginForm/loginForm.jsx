@@ -51,14 +51,13 @@ class LoginForm extends Component {
     render() {
         return (
             <form id="login-form" action="/login" onSubmit={this.handleSubmit}>
-                <div id="form-title">LOGIN</div>
-                <div className="input-container">
-                    <input type="text" placeholder="USERNAME" onChange={this.handleUserChange}></input>
-                </div>
-                <div className="input-container">
-                    <input type="password" placeholder="PASSWORD" onChange={this.handlePassChange}></input>
-                </div>
+                <div id="form-name">Login</div>
+
+                <input type="text" className="login-register-input" placeholder="Nome" required />
+                <input type="password" className="login-register-input" placeholder="Password" required />
+
                 <ServerReqBtn btn_text="Login" />
+                <div className="blue-text-link" onClick={this.props.changeForm}>Ainda não é membro?</div>
             </form>
         );
     }

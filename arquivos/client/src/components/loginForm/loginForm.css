@@ -1,0 +1,19 @@
+#login-form, #register-form {
+    width: 100%;
+}
+
+#form-name {
+    font-size: 8rem;
+    font-family: "Varela Round";
+    color: #394648;
+    text-align: center;
+    margin: 18rem 0 10rem 0;
+}
+
+.login-register-button {
+    margin-top: 30rem;
+}
+
+#login-form .form-button {
+    margin-top: 8rem;
+}

@@ -9,6 +9,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 			},
 			name: {
+				allowNull: false,
 				type: Sequelize.STRING,
 			},
 			password: {
@@ -19,15 +20,19 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.STRING,
 			},
-			year: {
-				type: Sequelize.STRING,
-			},
 			class: {
+				allowNull: false,
 				type: Sequelize.STRING,
 			},
 			status: {
 				allowNull: false,
 				type: Sequelize.STRING,
+			},
+			createdAt: {
+				type: Sequelize.DATE,
+			},
+			updatedAt: {
+				type: Sequelize.DATE,
 			},
 		});
 	},

@@ -44,6 +44,23 @@ app.get("/main", (req, res) => {
     output("info", message);
 });
 
+app.post("/register", (req, res) => {
+    let message = "Recieved request to create " + "User".bold;
+    output("info", message);
+
+    req.body.status = "pendent";
+
+    models.User.create(req.body)
+    .then(data => {
+        let message = "Successfully created new object " + "User".bold;
+        output("success", message);
+    })
+    .catch(err => {
+        output("error", "Failed to create " + "User".bold + ". More details below.");
+        console.log(err);
+    });
+});
+
 app.post("/request-room", (req, res) => {
     let message = "Recieved form submission from " + "room-form".bold;
     output("info", message);

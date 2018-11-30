@@ -24,6 +24,29 @@ input[type="checkbox"] {
 	margin-bottom: 0 !important;
 }
 
+::-webkit-input-placeholder { 
+	font-family: "Varela Round";
+	letter-spacing: 0.1rem;
+	
+}
+
+::-moz-placeholder {
+	font-family: "Varela Round";
+	letter-spacing: 0.1rem;
+	opacity: 1;
+}
+
+input.login-register-input, select.login-register-input {
+	height: 7rem !important;
+	border: 0.2rem solid #8ea4a7;
+	width: 40%;
+	min-width: 30rem;
+	margin: 0 auto 6rem auto;
+	display: block;
+	border-radius: 5rem;
+	padding: 0 5rem;
+}
+
 .title {
 	font-size: 7rem;
 	font-family: "Pontano Sans";
@@ -47,6 +70,22 @@ input[type="checkbox"] {
 	color: #0f0a0a;
 }
 
+.blue-text-link  {
+	font-size: 3rem;
+	font-family: "Varela Round";
+	color: #39A0ED;
+	cursor: pointer;
+	text-align: center;
+	margin: 2rem auto;
+	display: block;
+	width: 30%;
+	user-select: none;
+}
+
+.blue-text-link:hover {
+	border-bottom: 1px solid #39A0ED;
+}
+
 #root {
 	width: 100vw;
 }
@@ -63,12 +102,13 @@ input[type="checkbox"] {
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 0.3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	text-align: center;
+	line-height: 10rem;
 	user-select: none;
 	text-align: center;
 	border-radius: 1rem;
+	display: block;
+	margin: 0 auto;
 }
 
 .form-button:focus {
