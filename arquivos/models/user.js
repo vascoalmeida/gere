@@ -4,11 +4,11 @@ module.exports = (sequelize, DataTypes) => {
 	const User = sequelize.define('User', {
 		id: {
 			allowNull: false,
-			primaryKey: true,
 			autoIncrement: true,
 			type: DataTypes.INTEGER,
 		},
 		name: {
+			allowNull: false,
 			type: DataTypes.STRING,
 		},
 		password: {
@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 		},
 		email: {
+			allowNull: false,
+			primaryKey: true,
+			type: DataTypes.STRING,
+		},
+		passwordSalt: {
 			allowNull: false,
 			type: DataTypes.STRING,
 		},

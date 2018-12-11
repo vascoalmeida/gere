@@ -7,7 +7,10 @@
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {
+    "bcrypt": "^3.0.2",
+    "crypto": "^1.0.1",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "mysql": "^2.16.0",
     "pg": "^6.4.1",
     "react-router-dom": "^4.3.1",

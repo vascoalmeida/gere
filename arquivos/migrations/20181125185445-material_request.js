@@ -33,11 +33,11 @@ module.exports = {
                 },
 			},
 			user_id: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.STRING,
                 onDelete: 'CASCADE',
                 references: {
                     model: "Users",
-                    key: "id",
+                    key: "email",
                     as: "material_id",
                 },
 			},

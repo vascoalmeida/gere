@@ -9,7 +9,7 @@ class HomePage extends Component {
         super();
 
         this.state = {
-            login_visible: false,
+            login_visible: true,
         }
 
         this.showRegister = this.showRegister.bind(this);

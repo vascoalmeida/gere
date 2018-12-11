@@ -7,18 +7,18 @@ class LoginForm extends Component {
         super();
 
         this.state = {
-            username: "",
+            email: "",
             password: ""
         }
 
-        this.handleUserChange = this.handleUserChange.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePassChange = this.handlePassChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleUserChange(ev) {
+    handleEmailChange(ev) {
         this.setState({
-            username: ev.target.value
+            email: ev.target.value
         });
     }
 
@@ -28,7 +28,7 @@ class LoginForm extends Component {
         });
     }
 
-    handleSubmit(ev) {
+    handleSubmit() {
         fetch("/login", {
             headers: {
                 "Accept": "application/json",
@@ -36,28 +36,38 @@ class LoginForm extends Component {
             },
             method: "POST",
             body: JSON.stringify({
-                "username": this.state.username,
+                "email": this.state.email,
                 "password": this.state.password,
             }),
         })
-        .then(r => r.json())
-        .then(function(d) {
-            console.log(d);
-            return d.string;
+        .then((r) => {
+            if(r.status === 200) {
+                fetch("/main", {
+                    method: "GET",
+                })
+                .then(r => {
+                    window.location = "/#/main";
+                });
+            }
+            else {
+                alert("Email e/ou password errados");
+            }
         })
-        .then(s => console.log(s));
+        .catch(err => {
+            alert("Infelizmente ocorreu um erro, por favor tente mais tarde.");
+        })
     }
 
     render() {
         return (
-            <form id="login-form" action="/login" onSubmit={this.handleSubmit}>
+            <form id="login-form">
                 <div id="form-name">Login</div>
 
-                <input type="text" className="login-register-input" placeholder="Nome" required />
-                <input type="password" className="login-register-input" placeholder="Password" required />
+                <input type="email" className="login-register-input" placeholder="Email" onChange={this.handleEmailChange} required />
+                <input type="password" className="login-register-input" placeholder="Password" onChange={this.handlePassChange} required />
 
-                <ServerReqBtn btn_text="Login" />
-                <div className="blue-text-link" onClick={this.props.changeForm}>Ainda não é membro?</div>
+                <button className="form-button" type="button" onClick={this.handleSubmit}>Login</button>
+                <div className="blue-text-link" onClick={this.props.changeForm}>Ainda não és membro?</div>
             </form>
         );
     }

@@ -33,10 +33,10 @@ module.exports = {
                 },
             },
             user_id: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.STRING,
                 references: {
                     model: "Users",
-                    key: "id",
+                    key: "email",
                     as: "user_id",
                 },
             },

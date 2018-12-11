@@ -4,7 +4,7 @@ import "./serverReqBtn.css";
 class ServerReqButton extends Component {
     render() {
         return(
-            <button className="form-button" type="submit">{this.props.btn_text}</button>
+            <button className="form-button" type="button">{this.props.btn_text}</button>
         );
     }
 }
