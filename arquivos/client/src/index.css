@@ -47,6 +47,18 @@ input.login-register-input, select.login-register-input {
 	padding: 0 5rem;
 }
 
+input.form-input {
+	border: 0;
+	border-bottom: 0.2rem solid #bdbdbd;
+	padding: 1rem 0;
+	font-family: "Varela Round";
+}
+
+input.form-input:focus {
+	border-bottom: 0.2rem solid #394648;
+}
+
+
 .title {
 	font-size: 7rem;
 	font-family: "Pontano Sans";
@@ -90,11 +102,10 @@ input.login-register-input, select.login-register-input {
 	width: 100vw;
 }
 
-.form-button {
+.form-button, .file-btn {
     width: 35rem;
     height: 10rem;
     border: 0;
-    /*background-color: #209fe9;*/
     background-color: #91C651;
     color: #ffffff;
     font-family: "Open Sans";
@@ -111,7 +122,7 @@ input.login-register-input, select.login-register-input {
 	margin: 0 auto;
 }
 
-.form-button:focus {
+.form-button:focus, input, textarea {
     outline: none;
 }
 
@@ -172,4 +183,32 @@ select:focus {
 	top: -3rem;
 	left: -3rem;
 	cursor: pointer;
+}
+
+.faded-label {
+	text-align: center;
+	display: block;
+	margin-top: 5rem;
+}
+
+.close-red {
+	position: absolute;
+	max-width: 6rem;
+	top: 3rem;
+	right: 3rem;
+	cursor: pointer;
+}
+
+.white-btn {
+	border: 0.2rem solid #91C651;
+	background-color: white;
+	color: #91C651;
+	margin-right: 4rem;
+}
+
+.red-btn {
+	border: 0.2rem solid #E54B4B;
+	background-color: white;
+	color: #E54B4B;
+	margin-right: 4rem;
 }

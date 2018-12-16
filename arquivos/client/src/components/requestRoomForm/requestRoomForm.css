@@ -23,6 +23,7 @@
     padding: 8rem;
     display: flex;
     margin-bottom: 10rem;
+    position: relative;
 }
 
 .room img {

@@ -22,6 +22,12 @@ module.exports = (sequelize, DataTypes) => {
 		brand: {
 			type: DataTypes.STRING
 		},
+		createdAt: {
+			type: DataTypes.DATE,
+		},
+		updatedAt: {
+			type: DataTypes.DATE,
+		},
 	});
 
 	Material.associate = function(models) {

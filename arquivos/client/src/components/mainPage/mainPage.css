@@ -2,8 +2,6 @@
     display: none;
 }
 
-/* --------- */
-
 #main-page {
     display: flex;
     flex-direction: column;
@@ -15,15 +13,9 @@
     background-color: #91C651;
     height: 5rem;
     padding: 1rem 0;
-
-    /*
-        BEEE62
-        B0ED40
-        0CCA4A
-        63C132
-        7EEA44
-        91C651
-    */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 #im-logo {
@@ -113,4 +105,12 @@
     font-family: "Pontano Sans";
     color: #394648;
     margin-bottom: 2rem;
+}
+
+#logout-btn {
+    margin-right: 8rem;
+    font-size: 3rem;
+    font-family: "Varela Round";
+    color: white;
+    cursor: pointer;
 }

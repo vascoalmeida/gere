@@ -19,11 +19,18 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.TIME,
             },
-            stauts: {
+            status: {
                 allowNull: false,
-                type: Sequelize.TIME,
+                type: Sequelize.STRING,
             },
+            createdAt: {
+				type: Sequelize.DATE,
+			},
+			updatedAt: {
+				type: Sequelize.DATE,
+			},
             room_id: {
+                allowNull: false,
                 type: Sequelize.INTEGER,
                 onDelete: 'CASCADE',
                 references: {
@@ -33,6 +40,7 @@ module.exports = {
                 },
             },
             user_id: {
+                allowNull: false,
                 type: Sequelize.STRING,
                 references: {
                     model: "Users",

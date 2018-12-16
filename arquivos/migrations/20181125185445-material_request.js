@@ -23,6 +23,12 @@ module.exports = {
 			status: {
 				type: Sequelize.STRING
 			},
+			createdAt: {
+				type: Sequelize.DATE,
+			},
+			updatedAt: {
+				type: Sequelize.DATE,
+			},
 			material_id: {
 				type: Sequelize.INTEGER,
                 onDelete: 'CASCADE',

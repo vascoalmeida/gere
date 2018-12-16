@@ -16,9 +16,12 @@ module.exports = {
             description: {
                 type: Sequelize.STRING,
             },
-            purpose: {
-                type: Sequelize.STRING,
-            },
+            createdAt: {
+				type: Sequelize.DATE,
+			},
+			updatedAt: {
+				type: Sequelize.DATE,
+			},
         });
     },
 

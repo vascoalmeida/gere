@@ -17,9 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         description: {
             type: DataTypes.STRING,
         },
-        purpose: {
-            type: DataTypes.STRING,
-        },
+        createdAt: {
+			type: DataTypes.DATE,
+		},
+		updatedAt: {
+			type: DataTypes.DATE,
+		},
     });
 
     Room.associate = function(models) {

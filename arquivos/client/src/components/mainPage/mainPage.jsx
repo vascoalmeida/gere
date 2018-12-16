@@ -6,6 +6,8 @@ import {
     Route
 } from "react-router-dom";
 import RequisitionPage from "../requisitionPage/requisitionPage";
+import ManageRequestsPage from "../manageRequestsPage/manageRequestsPage";
+import ManageRoomsPage from "../manageRoomsPage/manageRoomsPage";
 
 class MainPage extends Component {
 
@@ -20,21 +22,21 @@ class MainPage extends Component {
             method: "GET",
         })
         .then(r => {
-            console.log(r);
             if(r.status === 401) {
                 window.location = "/#/home";
                 return;
             }
         })
-        .catch(err => console.log(err));
     }
 
     logout() {
+        /*
         fetch("/logout", {
             method: "GET",
         })
         .then(r => console.log(r))
         .catch(err => console.log(err));
+        */
     }
 
     render() {
@@ -64,11 +66,16 @@ class MainPage extends Component {
                                         <label>Gerir Requisições</label>
                                         <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
                                     </NavLink>
+                                    <NavLink to="/main/gerir-salas" className="menu-item">
+                                        <label>Gerir Salas</label>
+                                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
+                                    </NavLink>
                                 </ul>
                             </div>
                             <div id="main-content">
                                 <Route path="/main/requisitar" component={RequisitionPage} />
-                                <Route path="/main/gerir-requisicoes" component={RequisitionPage} />
+                                <Route path="/main/gerir-requisicoes" component={ManageRequestsPage} />
+                                <Route path="/main/gerir-salas" component={ManageRoomsPage} />
                             </div>
                         </React.Fragment>
                     </HashRouter>

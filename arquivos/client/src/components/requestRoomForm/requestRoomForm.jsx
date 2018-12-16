@@ -7,6 +7,13 @@ class RequestRoomForm extends Component {
 
     constructor() {
         super();
+
+        fetch("/get-rooms", {
+            method: "GET",
+        })
+        .then(r => {
+            console.log(r);
+        })
         
         this.state = {
             room_list: [
@@ -43,6 +50,7 @@ class RequestRoomForm extends Component {
         this.closePopup = this.closePopup.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.recieveFromPopup1 = this.recieveFromPopup1.bind(this);
+        this.removeRoom = this.removeRoom.bind(this);
     }
 
     handleFormSubmit() {
@@ -52,7 +60,7 @@ class RequestRoomForm extends Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                date: this.state.chosen_day,
+                day: this.state.chosen_day,
                 time_start: this.state.chosen_time_start,
                 time_end: this.state.chosen_time_end,
                 room: this.state.chosen_room
@@ -77,6 +85,10 @@ class RequestRoomForm extends Component {
             popup1_visible: false,
             popup2_visible: false,
         });
+    }
+
+    removeRoom(ev) {
+        console.log(ev);
     }
 
     handleRoomClick(index) {
@@ -131,6 +143,8 @@ class RequestRoomForm extends Component {
                                 <h1 className="room-name">{room.name}</h1>
                                 <div className="room-description text">{room.desc}</div>
                                 <div className="form-button" onClick={() => this.handleRoomClick(room.id)}>Requisitar</div>
+                                <div className="form-button white-btn">Editar</div>
+                                <div className="form-button red-btn">Remover</div>
                             </div>
                         </div>
                         

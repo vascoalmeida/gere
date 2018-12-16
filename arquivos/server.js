@@ -1,6 +1,7 @@
 const express = require("express");
+const multer = require("multer");
 const path = require("path");
-const bodyParser = require("body-parser");
+const body_parser = require("body-parser");
 const crypto = require("crypto");
 const colors = require("colors");
 const Sequelize = require("sequelize");
@@ -21,6 +22,15 @@ const msg_types = {
     "success": "SUCS".bgGreen.black,
     "warning": "WARN".bgYellow.black
 }
+const storage = multer.diskStorage({
+    destination: "./media/img/",
+    filename: function(req, file, callback) {
+        callback(null, Date.now() + "-" + file.fieldname + random_string(5) + path.extname(file.originalname));
+    }
+});
+const upload = multer({
+    storage: storage,
+}).single("uploaded_img");
 
 function output(type, msg) {
     console.log(msg_types[type] + " " + msg);
@@ -41,15 +51,14 @@ function hash_string(str, salt) {
 }
 
 function auth(req, res, next) {
-    console.log(req.session);
     if(req.session && req.session.user) {
         return next(req, res);   
     }
     return res.sendStatus(401);
 }
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(body_parser.urlencoded({ extended: true }));
+app.use(body_parser.json());
 app.use(session({
     secret: scr.secret,
     resave: true,
@@ -81,11 +90,11 @@ app.post("/login", (req, res) => {
         var salt = result[0].dataValues.passwordSalt;
 
         if(hash_string(req.body.password, salt).hashed_string === password) {
-            req.session.user = result[0].dataValues.email;
+            req.session.user = result[0].dataValues.id;
             res.writeHead(200, {"Content-Type": "application/json"});
             res.end();
         }
-
+        
         else {
             res.writeHead(401);
             res.end();
@@ -127,18 +136,94 @@ app.post("/register", (req, res) => {
     });
 });
 
-app.post("/request-room", auth, (req, res) => {
-    let message = "Recieved form submission from " + "room-form".bold;
-    output("info", message);
+app.get("/get-rooms", (req, res) => {
+    console.log("aaaa");
+    models.Room.findAll({
+        attributes: ["id", "name", "img", "description"],
+    })
+    .then(r => {
+        res.writeHead(200);
+        res.end(r);
+    })
+    .catch(err => {
+        res.writeHead(404);
+        res.end();
+    });
 });
 
-app.post("/request-material", auth, (req, res) => {
+app.post("/request-room", (req, res) => {
+    let message = "Recieved form submission from " + "room-form".bold;
+    output("info", message);
+
+    models.Room.findAll({
+        attributes: ["id"],
+        where: {
+            name: req.body.room,
+        },
+    })
+    .then(r => {
+        if(r.length === 0) {
+            res.writeHead(401);
+            res.end();
+            return;
+        }
+    })
+    /*
+    req.body.user_id = req.session.user;
+    req.body.status = "pendent";
+
+    console.log(req.body);
+
+    models.RoomRequest.create(req.body)
+    .then(data => {
+        let message = "Successfully created new object " + "room request".bold;
+        output("success", message);
+    })
+    .catch(err => {
+        output("error", "Failed to create new " + "room request".bold + ". More details below.");
+        console.log(err);
+    });*/
+});
+
+app.post("/request-material", (req, res) => {
     let message = "Recieved form submission from " + "material-form".bold;
     output("info", message);
 });
 
+app.post("/add-room", (req, res) => {
+    console.log("AAAAA");
+    
+    upload(req, res, (err) => {
+        if(err) {
+            res.writeHead(503, {"Content-Type": "application/json"});
+            res.end();
+            return;
+        }
+
+        var room_info = {
+            name: req.body.room_name,
+            description: req.body.room_desc,
+            img: req.file.path,
+        }
+        
+        models.Room.create(room_info)
+        .then(r => {
+            let msg = "Successfully created new object " + "Room".bold;
+            output("success", msg);
+        })
+        .catch(err => {
+            let msg = "Failed to create new object " + "Room".bold + ". Error output below:";
+            output("success", msg);
+            console.log(err);
+            return;
+        });
+
+        res.redirect("/#/main/gerir-salas/adicionar");
+        res.end();
+    });
+});
+
 app.get("/logout", auth, (req, res) => {
-    console.log("AAAAAAAAAAAAAAAA");
     req.session.destroy();
 });
 

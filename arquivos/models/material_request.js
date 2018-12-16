@@ -22,6 +22,12 @@ module.exports = (sequelize, DataTypes) => {
 		status: {
 			type: DataTypes.STRING
 		},
+		createdAt: {
+			type: DataTypes.DATE,
+		},
+		updatedAt: {
+			type: DataTypes.DATE,
+		},
 	});
 
 	RequestMaterial.associate = function(models) {

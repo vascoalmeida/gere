@@ -17,6 +17,15 @@ module.exports = (sequelize, DataTypes) => {
         time_end: {
             type: DataTypes.TIME,
         },
+        status: {
+            type: DataTypes.STRING,
+        },
+        createdAt: {
+			type: DataTypes.DATE,
+		},
+		updatedAt: {
+			type: DataTypes.DATE,
+		},
     });
 
     RoomRequest.associate = function(models) {

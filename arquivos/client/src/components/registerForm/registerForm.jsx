@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import ServerReqBtn from "../serverReqBtn/serverReqBtn";
 import "./registerForm.css";
 
 class RegisterForm extends Component {
@@ -53,7 +52,7 @@ class RegisterForm extends Component {
         console.log(ev.target.value);
     }
 
-    handleSubmit(ev) {
+    handleSubmit() {
         fetch("/register", {
             headers: {
                 "Accept": "application/json",
@@ -67,13 +66,11 @@ class RegisterForm extends Component {
                 "class": this.state.class,
             })
         })
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
     }
 
     render() {
         return (
-            <form id="register-form" action="/register" onSubmit={this.handleSubmit}>
+            <form id="register-form" action="/register">
                 <div id="form-name">Registar</div>
                     <input className="login-register-input" type="text" placeholder="Nome" onChange={this.handleUserChange}></input>
                     <input className="login-register-input" type="password" placeholder="Password" onChange={this.handlePass1Change}></input>
@@ -86,7 +83,7 @@ class RegisterForm extends Component {
                         <option value="3ºTM">3ºTM</option>
                         <option value="1ºAV">1ºAV</option>
                     </select>
-                <ServerReqBtn btn_text="Register" />
+                <button className="form-button" type="button" onClick={this.handleSubmit}>Registar</button>
                 <div className="blue-text-link" onClick={this.props.changeForm}>Já é membro?</div>
             </form>
         );
