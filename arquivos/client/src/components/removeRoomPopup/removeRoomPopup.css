@@ -1,6 +1,7 @@
 #rm-popup {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
 }
 
 #rm-popup-container {
@@ -18,6 +19,7 @@
 #rm-popup {
     background-color: white;
     border-radius: 1rem;
+    width: 60%;
     padding: 7rem;
     position: relative;
 }
@@ -41,4 +43,9 @@
 
 #rm-popup .form-button {
     margin: 0 auto;
+}
+
+.rm-d-section.button-container {
+    display: flex;
+    flex-direction: row;
 }

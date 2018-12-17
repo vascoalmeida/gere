@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import "./manageRoomsPage.css";
 import AddRoom from "../addRoom/addRoom";
-import RemoveRoom from "../removeRoom/removeRoom";
 
 class ManageRoomsPage extends Component {
     render() {
@@ -23,7 +22,7 @@ class ManageRoomsPage extends Component {
                     </div>
 
                     <Route path="/main/gerir-salas/adicionar" component={AddRoom} />
-                    <Route path="/main/gerir-salas/remover" component={RemoveRoom} />
+                    <Route path="/main/gerir-salas/remover" />
                     <Route path="/main/gerir-salas/editar" />
                 </React.Fragment>
             </HashRouter>

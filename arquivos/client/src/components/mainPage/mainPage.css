@@ -94,9 +94,9 @@
 }
 
 .faded-label {
-    font-size: 3rem;
-    font-family: "Pontano Sans";
-    color: #7f7f7f;
+    font-size: 3rem !important;
+    font-family: "Pontano Sans" !important;
+    color: #7f7f7f !important;
 }
 
 .section-title {

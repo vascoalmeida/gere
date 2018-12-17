@@ -137,18 +137,18 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/get-rooms", (req, res) => {
-    console.log("aaaa");
     models.Room.findAll({
-        attributes: ["id", "name", "img", "description"],
+        attributes: ["id", "img", "name", "description"],
     })
     .then(r => {
-        res.writeHead(200);
-        res.end(r);
+        if(r.length === 0) {
+            res.writeHead(401);
+            res.end();
+            return;
+        }
+
+        res.json(r);
     })
-    .catch(err => {
-        res.writeHead(404);
-        res.end();
-    });
 });
 
 app.post("/request-room", (req, res) => {
@@ -221,6 +221,26 @@ app.post("/add-room", (req, res) => {
         res.redirect("/#/main/gerir-salas/adicionar");
         res.end();
     });
+});
+
+app.post("/remove-room", (req, res) => {
+    var msg = "Recieved request to " + "delete".bold + " object " + "Room".bold;
+    output("info", msg);
+
+    models.Room.destroy({
+        where: {
+            id: req.body.id
+        }
+    })
+    .then(r =>{
+        msg = "Successfully " + "deleted".bold + " object " + "Room".bold;
+        output("success", msg);
+    })
+    .catch(err => {
+        msg = "Failed to " + "delete".bold + " object " + "Room".bold + ". More details below:";
+        output("error", msg);
+        console.log(err);
+    })
 });
 
 app.get("/logout", auth, (req, res) => {

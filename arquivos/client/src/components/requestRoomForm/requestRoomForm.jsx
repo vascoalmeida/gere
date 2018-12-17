@@ -2,42 +2,19 @@ import React, {Component} from "react";
 import "./requestRoomForm.css";
 import RoomPopup1 from "../roomPopup1/roomPopup1";
 import RoomPopup2 from "../roomPopup2/roomPopup2";
+import RemoveRoomPopup from "../removeRoomPopup/removeRoomPopup";
 
 class RequestRoomForm extends Component {
 
     constructor() {
         super();
 
-        fetch("/get-rooms", {
-            method: "GET",
-        })
-        .then(r => {
-            console.log(r);
-        })
         
         this.state = {
-            room_list: [
-                {
-                    id: 0,
-                    name: "Sala 44",
-                    img: "room.jpeg",
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae scelerisque ipsum, in gravida felis. Sed purus dui, tempus ac risus nec, vestibulum aliquet nisi. Sed pharetra magna id purus pretium, eu malesuada elit feugiat."
-                },
-                {
-                    id: 1,
-                    name: "Sala 43",
-                    img: "room.jpeg",
-                    desc: "Ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae scelerisque ipsum, in gravida felis. Sed purus dui, tempus ac risus nec, vestibulum aliquet nisi. Sed pharetra magna id purus pretium, eu malesuada elit feugiat."
-                },
-                {
-                    id: 2,
-                    name: "Laboratório 51",
-                    img: "room.jpeg",
-                    desc: "Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae scelerisque ipsum, in gravida felis. Sed purus dui, tempus ac risus nec, vestibulum aliquet nisi. Sed pharetra magna id purus pretium, eu malesuada elit feugiat."
-                },
-            ],
+            room_list: [],
             popup1_visible: false,
             popup2_visible: false,
+            remove_room_popup_visible: false,
             blocked_button_class: "locked-button",
             chosen_day: "",
             chosen_time_start: "",
@@ -50,7 +27,37 @@ class RequestRoomForm extends Component {
         this.closePopup = this.closePopup.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.recieveFromPopup1 = this.recieveFromPopup1.bind(this);
+        this.handleRemoveRoomClick = this.handleRemoveRoomClick.bind(this);
         this.removeRoom = this.removeRoom.bind(this);
+    }
+
+    componentDidMount() {
+        var room_list = [];
+        
+        fetch("/get-rooms", {
+            method: "GET",
+            headers: {
+                Accept: 'application/json',
+            },
+        })
+        .then(r => {
+            if(r.status === 200) {
+                
+                r.json().then(json =>{
+                    for(var i = 0; i < json.length; i++) {
+                        room_list.push(json[i]);
+                    }
+                });
+            }
+        })
+        .then(r => {
+            this.setState({
+                room_list: room_list,
+            });
+        })
+        .catch(err => {
+            alert("Ocorreu um erro, por favor tente mais tarde");
+        });
     }
 
     handleFormSubmit() {
@@ -84,11 +91,29 @@ class RequestRoomForm extends Component {
         this.setState({
             popup1_visible: false,
             popup2_visible: false,
+            remove_room_popup_visible: false,
         });
     }
 
-    removeRoom(ev) {
-        console.log(ev);
+    handleRemoveRoomClick(room_id) {
+        let clicked_room = this.state.room_list.filter(room => room.id === room_id);
+        console.log(clicked_room);
+        this.setState({
+            chosen_room: clicked_room,
+            remove_room_popup_visible: true,
+        });
+    }
+
+    removeRoom() {
+        var delete_room = {id: this.state.chosen_room[0].id};
+
+        fetch("/remove-room", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(delete_room)
+        })
     }
 
     handleRoomClick(index) {
@@ -108,6 +133,10 @@ class RequestRoomForm extends Component {
 
         else if(this.state.popup2_visible) {
             active_popup = <RoomPopup2 room={this.state.chosen_room} date={this.state.chosen_day} time_start={this.state.chosen_time_start} time_end={this.state.chosen_time_end} close_popup={this.closePopup} />
+        }
+
+        else if(this.state.remove_room_popup_visible) {
+            active_popup = <RemoveRoomPopup close_popup={this.closePopup} remove_room={this.removeRoom} />
         }
 
         else {
@@ -134,21 +163,28 @@ class RequestRoomForm extends Component {
                 </div>
 
                 <div id="room-list">
-                    {this.state.room_list.map(room => (
+                    {this.state.room_list.length !== 0 ?
+
+                    this.state.room_list.map(room => (
 
                         <div className="room" key={room.id} >
                             <img src={window.location.origin + "/img/" + room.img} alt={room.name} />
 
                             <div className="room-info">
                                 <h1 className="room-name">{room.name}</h1>
-                                <div className="room-description text">{room.desc}</div>
+                                <div className="room-description text">{room.description}</div>
                                 <div className="form-button" onClick={() => this.handleRoomClick(room.id)}>Requisitar</div>
                                 <div className="form-button white-btn">Editar</div>
-                                <div className="form-button red-btn">Remover</div>
+                                <div className="form-button red-btn" onClick={() => this.handleRemoveRoomClick(room.id)}>Remover</div>
                             </div>
                         </div>
-                        
-                    ))}
+                    ))
+
+                    :
+
+                    <label className="faded-label">De momento não há salas disponíveis</label>
+                    
+                    }
                 </div>
             </form>
         );
