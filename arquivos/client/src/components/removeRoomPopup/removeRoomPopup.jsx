@@ -7,7 +7,7 @@ class RemoveRoomPopup extends Component {
         return(
             <div id="rm-popup-container">
                 <div id="rm-popup">
-                    <span>De certeza que deseja eliminar esta sala?</span>
+                    <span>Tem a certeza de que deseja eliminar esta sala?</span>
 
                     <div className="rm-d-section button-container">
                         <div className="form-button" onClick={this.props.close_popup}>Não, voltar</div>

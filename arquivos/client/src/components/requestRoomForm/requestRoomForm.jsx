@@ -3,18 +3,19 @@ import "./requestRoomForm.css";
 import RoomPopup1 from "../roomPopup1/roomPopup1";
 import RoomPopup2 from "../roomPopup2/roomPopup2";
 import RemoveRoomPopup from "../removeRoomPopup/removeRoomPopup";
+import EditRoomPopup from "../editRoomPopup/editRoomPopup";
 
 class RequestRoomForm extends Component {
 
     constructor() {
         super();
-
         
         this.state = {
             room_list: [],
             popup1_visible: false,
             popup2_visible: false,
             remove_room_popup_visible: false,
+            edit_room_popup_visible: false,
             blocked_button_class: "locked-button",
             chosen_day: "",
             chosen_time_start: "",
@@ -43,7 +44,7 @@ class RequestRoomForm extends Component {
         .then(r => {
             if(r.status === 200) {
                 
-                r.json().then(json =>{
+                r.json().then(json => {
                     for(var i = 0; i < json.length; i++) {
                         room_list.push(json[i]);
                     }
@@ -64,17 +65,17 @@ class RequestRoomForm extends Component {
         fetch("/request-room", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 day: this.state.chosen_day,
                 time_start: this.state.chosen_time_start,
                 time_end: this.state.chosen_time_end,
-                room: this.state.chosen_room
+                room: this.state.chosen_room,
             })
         }).then((res) => {
             window.location.reload();
-        })
+        });
     }
 
     recieveFromPopup1(data) {
@@ -92,15 +93,25 @@ class RequestRoomForm extends Component {
             popup1_visible: false,
             popup2_visible: false,
             remove_room_popup_visible: false,
+            edit_room_popup_visible: false,
         });
     }
 
     handleRemoveRoomClick(room_id) {
         let clicked_room = this.state.room_list.filter(room => room.id === room_id);
-        console.log(clicked_room);
+
         this.setState({
             chosen_room: clicked_room,
             remove_room_popup_visible: true,
+        });
+    }
+
+    handleEditRoomClick(room_id) {
+        let clicked_room = this.state.room_list.filter(room => room.id === room_id)[0];
+
+        this.setState({
+            chosen_room: clicked_room,
+            edit_room_popup_visible: true,
         });
     }
 
@@ -117,7 +128,7 @@ class RequestRoomForm extends Component {
     }
 
     handleRoomClick(index) {
-        let clicked_room = this.state.room_list[index].name;
+        let clicked_room = this.state.room_list.filter(room => room.id === index)[0];
         this.setState({
             chosen_room: clicked_room,
             popup1_visible: true
@@ -137,6 +148,10 @@ class RequestRoomForm extends Component {
 
         else if(this.state.remove_room_popup_visible) {
             active_popup = <RemoveRoomPopup close_popup={this.closePopup} remove_room={this.removeRoom} />
+        }
+
+        else if(this.state.edit_room_popup_visible) {
+            active_popup = <EditRoomPopup close_popup={this.closePopup} room_img={this.state.chosen_room.img} room_name={this.state.chosen_room.name} room_description={this.state.chosen_room.description} />
         }
 
         else {
@@ -174,7 +189,7 @@ class RequestRoomForm extends Component {
                                 <h1 className="room-name">{room.name}</h1>
                                 <div className="room-description text">{room.description}</div>
                                 <div className="form-button" onClick={() => this.handleRoomClick(room.id)}>Requisitar</div>
-                                <div className="form-button white-btn">Editar</div>
+                                <div className="form-button white-btn" onClick={() => this.handleEditRoomClick(room.id)}>Editar</div>
                                 <div className="form-button red-btn" onClick={() => this.handleRemoveRoomClick(room.id)}>Remover</div>
                             </div>
                         </div>

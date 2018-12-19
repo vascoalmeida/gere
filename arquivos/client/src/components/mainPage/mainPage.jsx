@@ -54,14 +54,6 @@ class MainPage extends Component {
                                         <label>Requisitar</label>
                                         <img className="item-icon" src={window.location.origin + "/img/icon-book.png"} alt="book-icon" />
                                     </NavLink>
-                                    <NavLink to="/main/material" className="menu-item">
-                                        <label>Material</label>
-                                        <img className="item-icon" src={window.location.origin + "/img/icon-camera.png"} alt="book-icon" />
-                                    </NavLink>
-                                    <NavLink to="/main/salas" className="menu-item">
-                                        <label>Salas</label>
-                                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
-                                    </NavLink>
                                     <NavLink to="/main/gerir-requisicoes" className="menu-item">
                                         <label>Gerir Requisições</label>
                                         <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />

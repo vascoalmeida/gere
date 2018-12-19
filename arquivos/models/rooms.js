@@ -11,9 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING,
         },
-        img: {
-            type: DataTypes.STRING,
-        },
         description: {
             type: DataTypes.STRING,
         },
@@ -29,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
         Room.hasMany(models.RoomRequest, {
             foreignKey: "roomId",
             as: "roomRequests",
+        });
+        
+        Room.belongsTo(models.Image, {
+            foreignKey: "img_id",
         });
     }
 

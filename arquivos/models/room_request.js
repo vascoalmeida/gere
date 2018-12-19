@@ -31,12 +31,10 @@ module.exports = (sequelize, DataTypes) => {
     RoomRequest.associate = function(models) {
         RoomRequest.belongsTo(models.Room, {
             foreignKey: "room_id",
-            onDelete: 'CASCADE',
         });
 
         RoomRequest.belongsTo(models.User, {
             foreignKey: "user_id",
-            onDelete: "CASCADE",
         });
     }
     

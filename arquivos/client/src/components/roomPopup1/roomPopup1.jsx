@@ -75,7 +75,7 @@ class RoomPopup2 extends Component {
 
                     <div className="rm-d-section">
                         <label className="label-title">Sala escolhida:</label>
-                        <label>{this.props.room}</label>
+                        <label>{this.props.room.name}</label>
                     </div>
 
                     <div className="rm-d-section button-container">

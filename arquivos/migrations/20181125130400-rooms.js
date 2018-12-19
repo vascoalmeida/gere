@@ -16,6 +16,16 @@ module.exports = {
             description: {
                 type: Sequelize.STRING,
             },
+            img_id: {
+                allowNull: false,
+                type: Sequelize.INTEGER,
+                onDelete: 'CASCADE',
+                references: {
+                    model: "Images",
+                    key: "id",
+                    as: "img_id",
+                },
+            },
             createdAt: {
 				type: Sequelize.DATE,
 			},

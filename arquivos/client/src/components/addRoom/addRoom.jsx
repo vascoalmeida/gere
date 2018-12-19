@@ -30,11 +30,8 @@ class AddRoom extends Component {
             headers: {"Content-Type": "multipart/form-data"},
             body: form_data,
         })
-        .then(res => {
-            console.log(res);
-        })
         .catch(err => {
-            console.log(err);
+            alert("Ocorreu um erro, por favor tente mais tarde");
         });
     }
 

@@ -25,7 +25,7 @@ const msg_types = {
 const storage = multer.diskStorage({
     destination: "./media/img/",
     filename: function(req, file, callback) {
-        callback(null, Date.now() + "-" + file.fieldname + random_string(5) + path.extname(file.originalname));
+        callback(null, random_string(30) + path.extname(file.originalname));
     }
 });
 const upload = multer({
@@ -190,9 +190,16 @@ app.post("/request-material", (req, res) => {
     output("info", message);
 });
 
-app.post("/add-room", (req, res) => {
-    console.log("AAAAA");
-    
+app.post("/add-room", upload, (req, res) => {
+    let msg = "Received form submission to " + "create".bold + " new object " + "Room".bold;
+    output("info", msg);
+
+    var room_info = {
+        name: req.body.room_name,
+        description: req.body.room_desc,
+        img_id: "",
+    }
+
     upload(req, res, (err) => {
         if(err) {
             res.writeHead(503, {"Content-Type": "application/json"});
@@ -200,22 +207,31 @@ app.post("/add-room", (req, res) => {
             return;
         }
 
-        var room_info = {
-            name: req.body.room_name,
-            description: req.body.room_desc,
-            img: req.file.path,
-        }
-        
-        models.Room.create(room_info)
+        var img_name = req.file.filename;
+
+        models.Image.create({name: img_name})
         .then(r => {
-            let msg = "Successfully created new object " + "Room".bold;
-            output("success", msg);
+            room_info.img_id = r.dataValues.id;
+
+            models.Room.create(room_info)
+            .then(r => {
+                let msg = "Successfully created new object " + "Room".bold;
+                output("success", msg);
+            })
+            .catch(err => {
+                let msg = "Failed to create new object " + "Room".bold + ". Error output below:";
+                
+                output("error", msg);
+                console.log(err);
+                
+                msg = "Stored received image in " + "/media/img".bold + ", but Room was not saved in DB";
+                output("warning", msg);
+                
+                return;
+            });
         })
         .catch(err => {
-            let msg = "Failed to create new object " + "Room".bold + ". Error output below:";
-            output("success", msg);
-            console.log(err);
-            return;
+            console.log("ERR", err);
         });
 
         res.redirect("/#/main/gerir-salas/adicionar");
@@ -226,6 +242,7 @@ app.post("/add-room", (req, res) => {
 app.post("/remove-room", (req, res) => {
     var msg = "Recieved request to " + "delete".bold + " object " + "Room".bold;
     output("info", msg);
+    console.log(req.body)
 
     models.Room.destroy({
         where: {

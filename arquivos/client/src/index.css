@@ -51,7 +51,7 @@ input.form-input {
 	border: 0;
 	border-bottom: 0.2rem solid #bdbdbd;
 	padding: 1rem 0;
-	font-family: "Varela Round";
+	font-family: "Open Sans";
 }
 
 input.form-input:focus {
@@ -103,7 +103,7 @@ input.form-input:focus {
 }
 
 .form-button, .file-btn {
-    width: 35rem;
+    min-width: 25rem;
     height: 10rem;
     border: 0;
     background-color: #91C651;
@@ -120,6 +120,7 @@ input.form-input:focus {
 	border-radius: 1rem;
 	display: block;
 	margin: 0 auto;
+	padding: 0 5rem;
 }
 
 .form-button:focus, input, textarea {
