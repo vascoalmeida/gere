@@ -30,13 +30,12 @@ class MainPage extends Component {
     }
 
     logout() {
-        /*
-        fetch("/logout", {
+        fetch("/user/logout", {
             method: "GET",
         })
-        .then(r => console.log(r))
-        .catch(err => console.log(err));
-        */
+        .then(r => {
+            window.location.reload();
+        });
     }
 
     render() {

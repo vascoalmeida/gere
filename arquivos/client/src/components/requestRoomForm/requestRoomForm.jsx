@@ -35,13 +35,14 @@ class RequestRoomForm extends Component {
     componentDidMount() {
         var room_list = [];
         
-        fetch("/get-rooms", {
+        fetch("/room/list", {
             method: "GET",
             headers: {
                 Accept: 'application/json',
             },
         })
         .then(r => {
+            console.log(r);
             if(r.status === 200) {
                 
                 r.json().then(json => {
@@ -118,13 +119,21 @@ class RequestRoomForm extends Component {
     removeRoom() {
         var delete_room = {id: this.state.chosen_room[0].id};
 
-        fetch("/remove-room", {
-            method: "POST",
+        fetch("/room", {
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(delete_room)
         })
+        .then(r => {
+            this.setState({
+                remove_room_popup_visible: false,
+            });
+        })
+        .catch(err => {
+            alert("Ocorreu um erro, por favor tente mais tarde");
+        });
     }
 
     handleRoomClick(index) {

@@ -28,9 +28,8 @@ class LoginForm extends Component {
     }
 
     handleSubmit() {
-        fetch("/login", {
+        fetch("/user/login", {
             headers: {
-                "Accept": "application/json",
                 "Content-Type": "application/json",
             },
             method: "POST",
@@ -45,6 +44,7 @@ class LoginForm extends Component {
                     method: "GET",
                 })
                 .then(r => {
+                    console.log(r);
                     window.location = "/#/main";
                 });
             }

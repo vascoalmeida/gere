@@ -53,7 +53,7 @@ class RegisterForm extends Component {
     }
 
     handleSubmit() {
-        fetch("/register", {
+        fetch("/user/register", {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",

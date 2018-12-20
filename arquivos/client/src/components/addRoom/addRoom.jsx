@@ -25,7 +25,7 @@ class AddRoom extends Component {
         form_data.append("name", this.state.room_name);
         form_data.append("description", this.state.room_description);
 
-        fetch("/add-room", {
+        fetch("/room", {
             method: "POST",
             headers: {"Content-Type": "multipart/form-data"},
             body: form_data,
@@ -56,7 +56,7 @@ class AddRoom extends Component {
 
     render() {
         return(
-            <form id="add-room-container" action="/add-room" method="POST" encType="multipart/form-data">
+            <form id="add-room-container" action="/room" method="POST" encType="multipart/form-data">
                 <div className="add-room">
                     <div id="img-container">
                         <img src={window.location.origin + "/img/camera.jpg"} alt="Room" />
