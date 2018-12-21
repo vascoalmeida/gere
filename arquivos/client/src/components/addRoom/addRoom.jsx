@@ -3,14 +3,15 @@ import "./addRoom.css";
 
 class AddRoom extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            room_img: "",
-            room_name: "",
-            room_description: "",
+            room_img: this.props.room_img,
+            room_name: this.props.room_name,
+            room_description: this.props.room_description,
             visible_img: "",
+            room_edition_active: this.props.room_edition_active,
         }
 
         this.handleImgChange = this.handleImgChange.bind(this);
@@ -25,9 +26,12 @@ class AddRoom extends Component {
         form_data.append("name", this.state.room_name);
         form_data.append("description", this.state.room_description);
 
+        for (var pair of form_data.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
+
         fetch("/room", {
-            method: "POST",
-            headers: {"Content-Type": "multipart/form-data"},
+            method: this.props.method,
             body: form_data,
         })
         .catch(err => {
@@ -55,21 +59,38 @@ class AddRoom extends Component {
     }
 
     render() {
+        var buttons;
+
+        if(this.state.room_edition_active) {
+            buttons = (
+                <React.Fragment>
+                        <button className="form-button" type="submit" >Gravar alterações</button>
+                        <div className="form-button red-btn" onClick={this.props.close_popup} >Descartar alterações</div>
+                </React.Fragment>
+            );
+        }
+
+        else {
+            buttons = (<button className="form-button" type="button" onClick={this.handleSubmit}>Adicionar</button>);
+        }
+
         return(
-            <form id="add-room-container" action="/room" method="POST" encType="multipart/form-data">
+            <form id="add-room-container">
                 <div className="add-room">
                     <div id="img-container">
                         <img src={window.location.origin + "/img/camera.jpg"} alt="Room" />
                         <input type="file" name="uploaded_img" id="file" className="input-file" onChange={this.handleImgChange} />
-                        <label className="file-btn" htmlFor="file">Escolher imagem</label>
+                        <label className="file-btn white-btn" htmlFor="file">Escolher imagem</label>
                     </div>
                     <div id="room-info">
-                        <input id="room-name" type="text" name="room_name" className="form-input" placeholder="Nome da sala" required onChange={this.handleNameChange} />
-                        <input id="room-desc" type="text" name="room_desc" className="form-input" placeholder="Descrição" required onChange={this.handleDescriptionChange} />
+                        <input id="room-name" type="text" name="room_name" className="form-input" placeholder="Nome da sala" defaultValue={this.state.room_name} onChange={this.handleNameChange} required />
+                        <input id="room-desc" type="text" name="room_desc" className="form-input" placeholder="Descrição" defaultValue={this.state.room_description} onChange={this.handleDescriptionChange} required />
                     </div>
                 </div>
 
-                <button className="form-button" type="submit">Adicionar</button>
+                <div className="rm-d-section button-container">
+                    {buttons}
+                </div>
             </form>
         );
     }

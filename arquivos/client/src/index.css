@@ -104,7 +104,7 @@ input.form-input:focus {
 
 .form-button, .file-btn {
     min-width: 25rem;
-    height: 10rem;
+    min-height: 10rem;
     border: 0;
     background-color: #91C651;
     color: #ffffff;
@@ -203,7 +203,7 @@ select:focus {
 .white-btn {
 	border: 0.2rem solid #91C651;
 	background-color: white;
-	color: #91C651;
+	color: #91C651 !important;
 	margin-right: 4rem;
 }
 

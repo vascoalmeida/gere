@@ -1,0 +1,3 @@
+21/Dez)
+	-Arranjar a forma de enviar imagens para o servidor de forma a aceitar DataForm
+	

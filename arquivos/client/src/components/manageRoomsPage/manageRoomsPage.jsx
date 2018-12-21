@@ -21,7 +21,7 @@ class ManageRoomsPage extends Component {
                         </div>
                     </div>
 
-                    <Route path="/main/gerir-salas/adicionar" component={AddRoom} />
+                    <Route path="/main/gerir-salas/adicionar" render={() => <AddRoom method="POST" />} />
                     <Route path="/main/gerir-salas/remover" />
                     <Route path="/main/gerir-salas/editar" />
                 </React.Fragment>

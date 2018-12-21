@@ -3,7 +3,7 @@ import "./requestRoomForm.css";
 import RoomPopup1 from "../roomPopup1/roomPopup1";
 import RoomPopup2 from "../roomPopup2/roomPopup2";
 import RemoveRoomPopup from "../removeRoomPopup/removeRoomPopup";
-import EditRoomPopup from "../editRoomPopup/editRoomPopup";
+import AddRoom from "../addRoom/addRoom";
 
 class RequestRoomForm extends Component {
 
@@ -42,9 +42,8 @@ class RequestRoomForm extends Component {
             },
         })
         .then(r => {
-            console.log(r);
-            if(r.status === 200) {
-                
+            if(r.status === 200) {    
+
                 r.json().then(json => {
                     for(var i = 0; i < json.length; i++) {
                         room_list.push(json[i]);
@@ -160,7 +159,16 @@ class RequestRoomForm extends Component {
         }
 
         else if(this.state.edit_room_popup_visible) {
-            active_popup = <EditRoomPopup close_popup={this.closePopup} room_img={this.state.chosen_room.img} room_name={this.state.chosen_room.name} room_description={this.state.chosen_room.description} />
+            active_popup = (
+                <div id="rm-popup-container">
+                    <div id="rm-popup">
+                        <img src={window.location.origin + "/img/icon-close.png"} alt="Close icon" className="close-icon" onClick={this.closePopup} />
+                        <div className="rm-d-section">
+                            <AddRoom room_img={this.state.chosen_room.img} room_name={this.state.chosen_room.name} room_description={this.state.chosen_room.description} room_id={this.state.chosen_room.id} room_edition_active={true} method="PUT" />
+                        </div>
+                    </div>
+                </div>
+            );
         }
 
         else {
@@ -168,7 +176,7 @@ class RequestRoomForm extends Component {
         }
 
         return(
-            <form id="request-room" onSubmit={this.handleFormSubmit} >
+            <div id="request-room" onSubmit={this.handleFormSubmit} >
                 {active_popup}
 
                 <div id="rm-dashboard">
@@ -187,30 +195,30 @@ class RequestRoomForm extends Component {
                 </div>
 
                 <div id="room-list">
-                    {this.state.room_list.length !== 0 ?
+                    {
+                        this.state.room_list.length !== 0 ?
 
-                    this.state.room_list.map(room => (
+                        this.state.room_list.map(room => (
 
-                        <div className="room" key={room.id} >
-                            <img src={window.location.origin + "/img/" + room.img} alt={room.name} />
+                            <div className="room" key={room.id} >
+                                <img src={window.location.origin + "/img/" + room.img} alt={room.name} />
 
-                            <div className="room-info">
-                                <h1 className="room-name">{room.name}</h1>
-                                <div className="room-description text">{room.description}</div>
-                                <div className="form-button" onClick={() => this.handleRoomClick(room.id)}>Requisitar</div>
-                                <div className="form-button white-btn" onClick={() => this.handleEditRoomClick(room.id)}>Editar</div>
-                                <div className="form-button red-btn" onClick={() => this.handleRemoveRoomClick(room.id)}>Remover</div>
+                                <div className="room-info">
+                                    <h1 className="room-name">{room.name}</h1>
+                                    <div className="room-description text">{room.description}</div>
+                                    <div className="form-button" onClick={() => this.handleRoomClick(room.id)}>Requisitar</div>
+                                    <div className="form-button white-btn" onClick={() => this.handleEditRoomClick(room.id)}>Editar</div>
+                                    <div className="form-button red-btn" onClick={() => this.handleRemoveRoomClick(room.id)}>Remover</div>
+                                </div>
                             </div>
-                        </div>
-                    ))
+                        ))
 
-                    :
+                        :
 
-                    <label className="faded-label">De momento não há salas disponíveis</label>
-                    
+                        <label className="faded-label">De momento não há salas disponíveis</label>
                     }
                 </div>
-            </form>
+            </div>
         );
     }
 }

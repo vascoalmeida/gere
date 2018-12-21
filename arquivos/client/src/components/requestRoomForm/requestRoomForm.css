@@ -126,3 +126,19 @@
     right: 8rem;
     position: absolute;
 }
+
+#request-room #add-room-container {
+    width: 100% !important;
+    margin-top: 0 !important;
+}
+
+#request-room .add-room {
+    border: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#request-room .white-btn {
+    color: #91C651 !important;
+}

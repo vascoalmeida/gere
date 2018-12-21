@@ -8,7 +8,7 @@ const output_message = require("./middleware/output_message").output_message;
 const session_middleware = require("./middleware/session");
 
 const app = express();
-const port = 8000;
+const port = 8080;
 const sequelize = new Sequelize(db_cred.database, db_cred.username, db_cred.password, {
     host: db_cred.host,
     dialect: db_cred.dialect,

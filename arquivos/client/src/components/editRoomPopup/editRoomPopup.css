@@ -18,7 +18,14 @@
     display: block;
 }
 
-
 #room-info-img {
     display: flex;
+}
+
+#room-info-img > img {
+    border-radius: 1rem;
+}
+
+#room-info-img .white-btn {
+    float: left !important;
 }
