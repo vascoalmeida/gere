@@ -56,6 +56,21 @@ class RequestRoomForm extends Component {
                 room_list: room_list,
             });
         })
+        .then(r => {
+            for(var i = 0; i < room_list.length; i++) {
+                fetch("/room/list/img", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({id: room_list[i].id}),
+                })
+                .then(img => {
+                    console.log(img);
+                });
+            }
+
+        })
         .catch(err => {
             alert("Ocorreu um erro, por favor tente mais tarde");
         });
@@ -130,6 +145,9 @@ class RequestRoomForm extends Component {
                 remove_room_popup_visible: false,
             });
         })
+        .then(r => {
+            window.location.reload();
+        })
         .catch(err => {
             alert("Ocorreu um erro, por favor tente mais tarde");
         });
@@ -159,6 +177,7 @@ class RequestRoomForm extends Component {
         }
 
         else if(this.state.edit_room_popup_visible) {
+            console.log(this.state.chosen_room);
             active_popup = (
                 <div id="rm-popup-container">
                     <div id="rm-popup">

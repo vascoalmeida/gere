@@ -25,10 +25,7 @@ class AddRoom extends Component {
         form_data.append("image", this.state.room_img);
         form_data.append("name", this.state.room_name);
         form_data.append("description", this.state.room_description);
-
-        for (var pair of form_data.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
-        }
+        form_data.append("id", this.props.room_id);
 
         fetch("/room", {
             method: this.props.method,
@@ -64,7 +61,7 @@ class AddRoom extends Component {
         if(this.state.room_edition_active) {
             buttons = (
                 <React.Fragment>
-                        <button className="form-button" type="submit" >Gravar alterações</button>
+                        <button className="form-button" onClick={this.handleSubmit} >Gravar alterações</button>
                         <div className="form-button red-btn" onClick={this.props.close_popup} >Descartar alterações</div>
                 </React.Fragment>
             );

@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
 
         multer_configuration.upload(req, res, (err) => {
             if(err) {
-                res.writeHead(503, {"Content-Type": "application/json"});
+                res.writeHead(500);
                 res.end();
                 output_message("error", "Failed to upload image. More details below:")
                 console.log(err);
@@ -76,9 +76,39 @@ router.post("/", (req, res) => {
 });
 
 router.put("/", (req, res) => {
-    console.log("AAAAAAA");
-    console.log(req.body);
-    console.log(req.files);
+    // Edit existing room
+
+    new formidable.IncomingForm().parse(req, (err, fields, files) => {
+        if(err) {
+            let msg = "Failed to parse received " + "Edit Room ".bold + "data. More details below:";
+            output_message("error", msg);
+            console.log(err);
+            res.sendStatus(500);
+            res.end();
+            return;
+        }
+
+        models.Room.update({
+            name: fields.name,
+            description: fields.description,
+        }, {
+            where: {
+                id: fields.id,
+            },
+        })
+        .then(r => {
+            console.log(r);
+            res.sendStatus(200);
+            res.end();
+        })
+        .catch(err => {
+            let msg = "Failed to " + "update Room".bold + " object. More details below:";
+            output_message("error", msg);
+            console.log(err);
+            res.sendStatus(500);
+            res.end();
+        });
+    });
 });
 
 router.delete("/", (req, res) => {
@@ -125,6 +155,30 @@ router.get("/list", (req, res) => {
     .catch(err => {
         console.log(err);
     });
+});
+
+router.post("/list/img", (req, res) => {
+    // Get room images
+    
+    var room_id = req.body;
+    
+    models.Image.findAll({
+        attributes: ["name"],
+        where: {
+            id: room_id.id,
+        },
+    })
+    .then(r => {
+        //res.sendFile(__dirname + "/../media/img/" + r[0].dataValues.name);
+    })
+    .catch(err => {
+        output_message("error", "Failed to fetch image from DB. More details below:");
+        console.log(err);
+        res.sendStatus(404);
+        res.end();
+    });
+
+    res.end();
 });
 
 router.post("/request", (req, res) => {
