@@ -30,6 +30,7 @@ class AddRoom extends Component {
         fetch("/room", {
             method: this.props.method,
             body: form_data,
+            credentials: 'include',
         })
         .catch(err => {
             alert("Ocorreu um erro, por favor tente mais tarde");

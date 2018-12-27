@@ -4,6 +4,7 @@ import RoomPopup1 from "../roomPopup1/roomPopup1";
 import RoomPopup2 from "../roomPopup2/roomPopup2";
 import RemoveRoomPopup from "../removeRoomPopup/removeRoomPopup";
 import AddRoom from "../addRoom/addRoom";
+import RoomItem from "../roomItem/roomItem";
 
 class RequestRoomForm extends Component {
 
@@ -43,11 +44,8 @@ class RequestRoomForm extends Component {
         })
         .then(r => {
             if(r.status === 200) {    
-
-                r.json().then(json => {
-                    for(var i = 0; i < json.length; i++) {
-                        room_list.push(json[i]);
-                    }
+                r.json().then(res => {
+                    room_list = res.slice();
                 });
             }
         })
@@ -55,21 +53,6 @@ class RequestRoomForm extends Component {
             this.setState({
                 room_list: room_list,
             });
-        })
-        .then(r => {
-            for(var i = 0; i < room_list.length; i++) {
-                fetch("/room/list/img", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({id: room_list[i].id}),
-                })
-                .then(img => {
-                    console.log(img);
-                });
-            }
-
         })
         .catch(err => {
             alert("Ocorreu um erro, por favor tente mais tarde");
@@ -197,7 +180,7 @@ class RequestRoomForm extends Component {
         return(
             <div id="request-room" onSubmit={this.handleFormSubmit} >
                 {active_popup}
-
+                <img src={this.state.oof} />
                 <div id="rm-dashboard">
                     <div className="rm-d-section">
                         <label className="label-title">Filtros</label>
@@ -218,18 +201,7 @@ class RequestRoomForm extends Component {
                         this.state.room_list.length !== 0 ?
 
                         this.state.room_list.map(room => (
-
-                            <div className="room" key={room.id} >
-                                <img src={window.location.origin + "/img/" + room.img} alt={room.name} />
-
-                                <div className="room-info">
-                                    <h1 className="room-name">{room.name}</h1>
-                                    <div className="room-description text">{room.description}</div>
-                                    <div className="form-button" onClick={() => this.handleRoomClick(room.id)}>Requisitar</div>
-                                    <div className="form-button white-btn" onClick={() => this.handleEditRoomClick(room.id)}>Editar</div>
-                                    <div className="form-button red-btn" onClick={() => this.handleRemoveRoomClick(room.id)}>Remover</div>
-                                </div>
-                            </div>
+                            <RoomItem key={room} room_id={room} />
                         ))
 
                         :

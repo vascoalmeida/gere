@@ -99,12 +99,11 @@ router.put("/", (req, res) => {
         .then(r => {
             console.log(r);
             res.sendStatus(200);
-            res.end();
         })
         .catch(err => {
             let msg = "Failed to " + "update Room".bold + " object. More details below:";
             output_message("error", msg);
-            console.log(err);
+            console.error(err);
             res.sendStatus(500);
             res.end();
         });
@@ -141,7 +140,7 @@ router.get("/list", (req, res) => {
     //Get list of rooms
 
     models.Room.findAll({
-        attributes: ["id", "img", "name", "description"],
+        attributes: ["id"],
     })
     .then(r => {
         if(r.length === 0) {
@@ -149,27 +148,31 @@ router.get("/list", (req, res) => {
             res.end();
             return;
         }
-
-        res.json(r);
+        var room_id = [];
+        
+        r.map(room => { room_id.push(room.dataValues.id) });
+        console.log(room_id);
+        
+        res.json(room_id);
     })
     .catch(err => {
         console.log(err);
     });
 });
 
-router.post("/list/img", (req, res) => {
+router.get("/img/:room_id", (req, res) => {
     // Get room images
     
-    var room_id = req.body;
+    var room_id = req.params.room_id;
     
     models.Image.findAll({
         attributes: ["name"],
         where: {
-            id: room_id.id,
+            id: room_id,
         },
     })
     .then(r => {
-        //res.sendFile(__dirname + "/../media/img/" + r[0].dataValues.name);
+        res.sendFile(r[0].dataValues.name, {"root": __dirname + "/../media/img/"});
     })
     .catch(err => {
         output_message("error", "Failed to fetch image from DB. More details below:");
@@ -177,8 +180,30 @@ router.post("/list/img", (req, res) => {
         res.sendStatus(404);
         res.end();
     });
+});
 
-    res.end();
+router.get("/info/:room_id", (req, res) => {
+    // Get room info
+
+    var room_id = req.params.room_id;
+
+    models.Room.findAll({
+        attributes: ["name", "description"],
+        where: {
+            id: room_id,
+        },
+    })
+    .then(r => {
+        res.setHeader("Content-Type", "application/json")
+        res.end(JSON.stringify(r[0].dataValues));
+    })
+    .catch(err => {
+        let msg = "Failed to fetch " + "Room".bold + " info from DB. More details below:";
+        output_message("error", msg);
+        console.log(err);
+        res.sendStatus(404);
+        res.end();
+    });
 });
 
 router.post("/request", (req, res) => {
