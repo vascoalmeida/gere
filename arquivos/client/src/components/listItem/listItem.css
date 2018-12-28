@@ -1,0 +1,37 @@
+.list-item {
+    border: 0.2rem solid #91C651;
+    border-radius: 1rem;
+    padding: 8rem;
+    display: flex;
+    margin-bottom: 10rem;
+}
+
+.list-item img {
+    width: 60rem;
+    height: 40rem;
+    border-radius: 1rem;
+}
+
+.item-info {
+    padding-left: 5rem;
+    width: 100%;
+}
+
+.item-name {
+    font-size: 6rem;
+    margin-bottom: 6rem;
+    color: #394648;
+    font-family: "Pontano Sans";
+    font-weight: normal;
+}
+
+.item-description {
+    width: 80%;
+    text-align: justify;
+}
+
+.list-item .form-button {
+    width: 35rem;
+    float: right;
+    margin-top: 5rem;
+}

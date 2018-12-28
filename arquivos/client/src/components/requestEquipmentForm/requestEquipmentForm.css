@@ -151,38 +151,6 @@
     background-color: #394648;
 }
 
-.material {
-    border: 0.2rem solid #91C651;
-    border-radius: 1rem;
-    padding: 8rem;
-    display: flex;
-    margin-bottom: 10rem;
-}
-
-.material img {
-    width: 60rem;
-    height: 40rem;
-    border-radius: 1rem;
-}
-
-.material-info {
-    padding-left: 5rem;
-    width: 100%;
-}
-
-.material-name {
-    font-size: 6rem;
-    margin-bottom: 6rem;
-    color: #394648;
-    font-family: "Pontano Sans";
-    font-weight: normal;
-}
-
-.material-description {
-    width: 80%;
-    text-align: justify;
-}
-
 #material-form .form-button {
     float: right;
     margin-top: 5rem;

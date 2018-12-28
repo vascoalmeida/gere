@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import "./requestRoomForm.css";
-import RoomPopup1 from "../roomPopup1/roomPopup1";
-import RoomPopup2 from "../roomPopup2/roomPopup2";
-import RemoveRoomPopup from "../removeRoomPopup/removeRoomPopup";
+import RoomPopup1 from "../popups/roomPopup1/roomPopup1";
+import RoomPopup2 from "../popups/roomPopup2/roomPopup2";
+import RemoveRoomPopup from "../popups/removeRoomPopup/removeRoomPopup";
 import AddRoom from "../addRoom/addRoom";
-import RoomItem from "../roomItem/roomItem";
+import ListItem from "../listItem/listItem";
 
 class RequestRoomForm extends Component {
 
@@ -48,6 +48,9 @@ class RequestRoomForm extends Component {
                     room_list = res.slice();
                 });
             }
+            else if(r.status === 401) {
+                window.location = "/#/home";
+            }
         })
         .then(r => {
             this.setState({
@@ -60,7 +63,7 @@ class RequestRoomForm extends Component {
     }
 
     handleFormSubmit() {
-        fetch("/request-room", {
+        fetch("/room/request", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -69,10 +72,15 @@ class RequestRoomForm extends Component {
                 day: this.state.chosen_day,
                 time_start: this.state.chosen_time_start,
                 time_end: this.state.chosen_time_end,
-                room: this.state.chosen_room,
-            })
-        }).then((res) => {
+                room_id: this.state.chosen_room,
+            }),
+        })
+        .then((res) => {
             window.location.reload();
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Ocorreu um erro, por favor tente mais tarde");
         });
     }
 
@@ -96,21 +104,21 @@ class RequestRoomForm extends Component {
     }
 
     handleRemoveRoomClick(room_id) {
-        let clicked_room = this.state.room_list.filter(room => room.id === room_id);
+        /*let clicked_room = this.state.room_list.filter(room => room === room_id);
 
         this.setState({
             chosen_room: clicked_room,
             remove_room_popup_visible: true,
-        });
+        });*/
     }
 
     handleEditRoomClick(room_id) {
-        let clicked_room = this.state.room_list.filter(room => room.id === room_id)[0];
+        /*let clicked_room = this.state.room_list.filter(room => room === room_id)[0];
 
         this.setState({
             chosen_room: clicked_room,
             edit_room_popup_visible: true,
-        });
+        });*/
     }
 
     removeRoom() {
@@ -137,7 +145,8 @@ class RequestRoomForm extends Component {
     }
 
     handleRoomClick(index) {
-        let clicked_room = this.state.room_list.filter(room => room.id === index)[0];
+        let clicked_room = this.state.room_list.filter(room => room === index)[0];
+
         this.setState({
             chosen_room: clicked_room,
             popup1_visible: true
@@ -152,7 +161,7 @@ class RequestRoomForm extends Component {
         }
 
         else if(this.state.popup2_visible) {
-            active_popup = <RoomPopup2 room={this.state.chosen_room} date={this.state.chosen_day} time_start={this.state.chosen_time_start} time_end={this.state.chosen_time_end} close_popup={this.closePopup} />
+            active_popup = <RoomPopup2 room={this.state.chosen_room} date={this.state.chosen_day} time_start={this.state.chosen_time_start} time_end={this.state.chosen_time_end}  close_popup={this.closePopup} />
         }
 
         else if(this.state.remove_room_popup_visible) {
@@ -178,9 +187,9 @@ class RequestRoomForm extends Component {
         }
 
         return(
-            <div id="request-room" onSubmit={this.handleFormSubmit} >
+            <form id="request-room" onSubmit={this.handleFormSubmit} >
                 {active_popup}
-                <img src={this.state.oof} />
+
                 <div id="rm-dashboard">
                     <div className="rm-d-section">
                         <label className="label-title">Filtros</label>
@@ -200,8 +209,8 @@ class RequestRoomForm extends Component {
                     {
                         this.state.room_list.length !== 0 ?
 
-                        this.state.room_list.map(room => (
-                            <RoomItem key={room} room_id={room} />
+                        this.state.room_list.map(id => (
+                            <ListItem key={id} object_type="room" object_id={id} order_room={this.handleRoomClick} />
                         ))
 
                         :
@@ -209,7 +218,7 @@ class RequestRoomForm extends Component {
                         <label className="faded-label">De momento não há salas disponíveis</label>
                     }
                 </div>
-            </div>
+            </form>
         );
     }
 }

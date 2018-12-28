@@ -44,7 +44,6 @@ class LoginForm extends Component {
                     method: "GET",
                 })
                 .then(r => {
-                    console.log(r);
                     window.location = "/#/main";
                 });
             }
@@ -54,7 +53,7 @@ class LoginForm extends Component {
         })
         .catch(err => {
             alert("Infelizmente ocorreu um erro, por favor tente mais tarde.");
-        })
+        });
     }
 
     render() {

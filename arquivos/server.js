@@ -4,6 +4,7 @@ const Sequelize = require("sequelize");
 const db_cred = require("./db_credentials.json");
 const room = require("./controllers/room");
 const user = require("./controllers/user");
+const equipment = require("./controllers/equipment");
 const output_message = require("./middleware/output_message").output_message;
 const session_middleware = require("./middleware/session");
 
@@ -17,6 +18,7 @@ const sequelize = new Sequelize(db_cred.database, db_cred.username, db_cred.pass
 app.use(body_parser.urlencoded({ extended: true }));
 app.use(body_parser.json());
 app.use(session_middleware);
+app.use("/equipment", equipment);
 app.use("/room", room);
 app.use("/user", user);
 

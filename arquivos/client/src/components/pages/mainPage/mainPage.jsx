@@ -8,6 +8,7 @@ import {
 import RequisitionPage from "../requisitionPage/requisitionPage";
 import ManageRequestsPage from "../manageRequestsPage/manageRequestsPage";
 import ManageRoomsPage from "../manageRoomsPage/manageRoomsPage";
+import ManageEquipmentPage from "../manageEquipmentPage/manageEquipmentPage";
 
 class MainPage extends Component {
 
@@ -53,20 +54,25 @@ class MainPage extends Component {
                                         <label>Requisitar</label>
                                         <img className="item-icon" src={window.location.origin + "/img/icon-book.png"} alt="book-icon" />
                                     </NavLink>
-                                    <NavLink to="/main/gerir-requisicoes" className="menu-item">
+                                    <NavLink to="/main/gerir/requisicoes" className="menu-item">
                                         <label>Gerir Requisições</label>
                                         <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
                                     </NavLink>
-                                    <NavLink to="/main/gerir-salas" className="menu-item">
+                                    <NavLink to="/main/gerir/salas" className="menu-item">
                                         <label>Gerir Salas</label>
+                                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
+                                    </NavLink>
+                                    <NavLink to="/main/gerir/equipamento" className="menu-item">
+                                        <label>Gerir Equipamento</label>
                                         <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
                                     </NavLink>
                                 </ul>
                             </div>
                             <div id="main-content">
                                 <Route path="/main/requisitar" component={RequisitionPage} />
-                                <Route path="/main/gerir-requisicoes" component={ManageRequestsPage} />
-                                <Route path="/main/gerir-salas" component={ManageRoomsPage} />
+                                <Route path="/main/gerir/requisicoes" component={ManageRequestsPage} />
+                                <Route path="/main/gerir/salas" component={ManageRoomsPage} />
+                                <Route path="/main/gerir/equipamento" component={ManageEquipmentPage} />
                             </div>
                         </React.Fragment>
                     </HashRouter>

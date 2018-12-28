@@ -3,8 +3,8 @@ import {
     HashRouter,
     Route
 } from "react-router-dom";
-import HomePage from "../homePage/homePage";
-import MainPage from "../mainPage/mainPage";
+import HomePage from "../pages/homePage/homePage";
+import MainPage from "../pages/mainPage/mainPage";
 
 class AppContainer extends Component {
 

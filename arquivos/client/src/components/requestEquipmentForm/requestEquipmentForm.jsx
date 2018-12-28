@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import "./requestEquipmentForm.css";
-import EquipmentPopup1 from "../equipmentPopup1/equipmentPopup1";
-import EquipmentPopup2 from "../equipmentPopup2/equipmentPopup2";
+import EquipmentPopup1 from "../popups/equipmentPopup1/equipmentPopup1";
+import EquipmentPopup2 from "../popups/equipmentPopup2/equipmentPopup2";
+import ListItem from "../listItem/listItem";
 
 class RequestEquipmentForm extends Component {
 
@@ -176,17 +177,7 @@ class RequestEquipmentForm extends Component {
                             
                             this.state.chosen_material.map(material => (
                                 <React.Fragment key={material.id}>
-                                    <div className="material" key={material.id} >
-                                        <img src={window.location.origin + "/img/" + material.img} alt={material.name} />
-
-                                        <div className="material-info">
-                                            <h1 className="material-name">{material.name}</h1>
-                                            <div className="material-description text">{material.desc}</div>
-                                            <input type="number" min="1" placeholder="Quantidade" onChange={this.handleQuantityChange}></input>
-                                            <div className="form-button remove-button" onClick={() => this.removeMaterial(material.id)}>Remover</div>
-                                        </div>
-                                    </div>
-                                    <div id="request-btn" className="form-button" onClick={this.handleNextClick}>Requisitar</div>
+                                    <ListItem name={material.name} description={material.desc} />
                                 </React.Fragment>
                             ))
 
@@ -205,15 +196,9 @@ class RequestEquipmentForm extends Component {
                         
                         this.state.material_list.map(material => (
 
-                            <div className="material" key={material.id}>
-                                <img src={window.location.origin + "/img/" + material.img} alt={material.name} />
-
-                                <div className="material-info">
-                                    <h1 className="material-name">{material.name}</h1>
-                                    <div className="material-description text">{material.desc}</div>
-                                    <div className="form-button" onClick={() => this.addMaterial(material.id)}>Adicionar</div>
-                                </div>
-                            </div>
+                            <React.Fragment key={material.id}>
+                                <ListItem object_type="equipment" object_id={material.id} name={material.name} description={material.desc} />
+                            </React.Fragment>
 
                         ))
                         

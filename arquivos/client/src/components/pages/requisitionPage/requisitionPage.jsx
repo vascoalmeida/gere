@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {HashRouter, NavLink, Route} from "react-router-dom";
-import RequestRoomForm from "../requestRoomForm/requestRoomForm";
-import RequestEquipmentForm from "../requestEquipmentForm/requestEquipmentForm";
+import RequestRoomForm from "../../requestRoomForm/requestRoomForm";
+import RequestEquipmentForm from "../../requestEquipmentForm/requestEquipmentForm";
 import "./requisitionPage.css";
 
 class RequisitionPage extends Component {

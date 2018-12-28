@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import LoginForm from "../loginForm/loginForm";
-import RegisterForm from "../registerForm/registerForm";
+import LoginForm from "../../loginForm/loginForm";
+import RegisterForm from "../../registerForm/registerForm";
 import "./homePage.css";
 
 class HomePage extends Component {

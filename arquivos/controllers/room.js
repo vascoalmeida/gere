@@ -72,7 +72,6 @@ router.post("/", (req, res) => {
             res.end();
         });
     });
-
 });
 
 router.put("/", (req, res) => {
@@ -212,7 +211,9 @@ router.post("/request", (req, res) => {
     let message = "Recieved form submission from " + "room-form".bold;
     output_message("info", message);
 
-    models.Room.findAll({
+    console.log(req.body);
+
+    /*models.Room.findAll({
         attributes: ["id"],
         where: {
             name: req.body.room,
@@ -220,7 +221,7 @@ router.post("/request", (req, res) => {
     })
     .then(r => {
         if(r.length === 0) {
-            res.writeHead(401);
+            res.writeHead(404);
             res.end();
             return;
         }
@@ -237,7 +238,7 @@ router.post("/request", (req, res) => {
     .catch(err => {
         output_message("error", "Failed to create new " + "room request".bold + ". More details below.");
         console.log(err);
-    });
+    });*/
 });
 
 module.exports = router;

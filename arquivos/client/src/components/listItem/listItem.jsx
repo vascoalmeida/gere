@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-class RoomItem extends Component {
+class ListItem extends Component {
 
     constructor() {
         super();
@@ -10,12 +10,19 @@ class RoomItem extends Component {
             description: "",
             image: "",
         }
+
+        this.orderRoom = this.orderRoom.bind(this);
+    }
+
+    componentWillMount() {
+        import("./listItem.css");
     }
 
     componentDidMount() {
-        var room_id = this.props.room_id;
+        var image_request = "/" + this.props.object_type + "/img/" + this.props.object_id;
+        var data_request = "/" + this.props.object_type + "/info/" + this.props.object_id;
 
-        fetch("/room/img/" + room_id, {
+        fetch(image_request, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -25,7 +32,7 @@ class RoomItem extends Component {
             return img.blob();
         })
         .then(img_blob => {
-            const file_reader = new FileReader();
+            var file_reader = new FileReader();
             file_reader.readAsDataURL(img_blob);
 
             file_reader.onload = () => {
@@ -40,7 +47,7 @@ class RoomItem extends Component {
             console.error(err);
         });
 
-        fetch("/room/info/" + room_id, {
+        fetch(data_request, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -55,26 +62,31 @@ class RoomItem extends Component {
                     description: data.description,
                 });
             });
+
+            //console.log(res.text());
         })
         .catch(err => {
-            console.error(err)
-            alert("Ocorreu um erro ao carregar as salas, por favor tente mais tarde.");
+            alert("Ocorreu um erro ao carregar informação, por favor tente mais tarde.");
         });
+    }
+
+    orderRoom() {
+        this.props.order_room(this.props.room_id);
     }
 
     render() {
         return(
-            <div className="room">
-                <img src={this.state.image} alt={this.props.name} />
+            <div className="list-item">
+                <img src={this.state.image} alt={this.props.name} alt={this.state.name} />
 
-                <div className="room-info">
-                    <h1 className="room-name">{this.state.name}</h1>
-                    <div className="room-description text">{this.state.description}</div>
-                    <div className="form-button" onClick={() => this.handleRoomClick(this.props.id)}>Requisitar</div>
+                <div className="item-info">
+                    <h1 className="item-name">{this.state.name}</h1>
+                    <div className="item-description text">{this.state.description}</div>
+                    <div className="form-button" onClick={this.orderRoom}>Requisitar</div>
                 </div>
             </div>
-        )
+        );
     }
 }
 
-export default RoomItem;
+export default ListItem;
