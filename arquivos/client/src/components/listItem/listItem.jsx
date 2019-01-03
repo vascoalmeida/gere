@@ -1,42 +1,30 @@
 import React, {Component} from "react";
+import RemoveListItem from "../popups/removeListItem/removeListItem";
 
 var css_loaded = false;
 var buttons_available;
 
 class ListItem extends Component {
-
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
+        
         this.state = {
             name: "",
             description: "",
             image: "",
         }
-
+        console.log(this.props);
+        
         this.orderRoom = this.orderRoom.bind(this);
+        this.showRemovePopup = this.showRemovePopup.bind(this);
+        this.closePopups = this.closePopups.bind(this);
+        this.deleteObject = this.deleteObject.bind(this);
     }
-
+    
     componentWillMount() {
         if(!css_loaded) {
             css_loaded = true;
             import("./listItem.css");
-        }
-
-        if(this.props.manageable) {
-            buttons_available = (
-                <React.Fragment>
-                    <div className="form-button white-btn">Editar</div>
-                    <div className="form-button red-btn">Remover</div>
-                </React.Fragment>
-            );
-        }
-        else {
-            buttons_available = (
-                <React.Fragment>
-                    <div className="form-button">Requisitar</div>
-                </React.Fragment>
-            );
         }
     }
 
@@ -66,7 +54,7 @@ class ListItem extends Component {
             }
         })
         .catch(err => {
-            console.error(err);
+            alert("Ocorreu um erro ao carregar informação, por vafor tente mais tarde");
         });
 
         fetch(data_request, {
@@ -77,18 +65,51 @@ class ListItem extends Component {
             },
         })
         .then(res => {
-            /*res.json()
+            res.json()
             .then(data => {
                 this.setState({
                     name: data.name,
                     description: data.description,
                 });
-            });*/
-
-            //console.log(res.text());
+            })
+            .catch(err => {
+                //alert("Ocorreu um erro ao carregar os equipamentos, por favor tente mais tarde");
+                console.log(err);
+            });
         })
         .catch(err => {
             alert("Ocorreu um erro ao carregar informação, por favor tente mais tarde.");
+        });
+    }
+
+    showRemovePopup() {
+        this.setState({
+            remove_popup_visibility: true,
+        });
+    }
+
+    closePopups() {
+        this.setState({
+            remove_popup_visibility: false,
+        });
+    }
+
+    deleteObject() {
+        var remove_request = "/" + this.props.object_type + "/" + this.props.object_id;
+
+        fetch(remove_request, {
+            method: "DELETE",
+        })
+        .then(r => {
+            this.setState({
+                remove_room_popup_visible: false,
+            });
+        })
+        .then(r => {
+            //window.location.reload();
+        })
+        .catch(err => {
+            alert("Ocorreu um erro, por favor tente mais tarde");
         });
     }
 
@@ -97,16 +118,45 @@ class ListItem extends Component {
     }
 
     render() {
-        return(
-            <div className="list-item">
-                <img src={this.state.image} alt={this.props.name} alt={this.state.name} />
+        var active_popup;
 
-                <div className="item-info">
-                    <h1 className="item-name">{this.state.name}</h1>
-                    <div className="item-description text">{this.state.description}</div>
-                    {buttons_available}
+        if(this.props.manageable) {
+            buttons_available = (
+                <React.Fragment>
+                    <div className="form-button white-btn">Editar</div>
+                    <div className="form-button red-btn" onClick={this.showRemovePopup}>Remover</div>
+                </React.Fragment>
+            );
+        }
+
+        else {
+            buttons_available = (
+                <React.Fragment>
+                    <div className="form-button">Requisitar</div>
+                </React.Fragment>
+            );
+        }
+
+        if(this.state.remove_popup_visibility) {
+            var popup_question = "Tem a certeza de que deseja eliminar a entrada escolhida?";
+            active_popup = (
+                <RemoveListItem confirmation={popup_question} object_id={this.props.object_id} close_popup={this.closePopups} delete={this.deleteObject} />
+            )
+        }
+
+        return(
+            <React.Fragment>
+                {active_popup}
+                <div className="list-item">
+                    <img src={this.state.image} alt={this.props.name} alt={this.state.name} />
+
+                    <div className="item-info">
+                        <h1 className="item-name">{this.state.name}</h1>
+                        <div className="item-description text">{this.state.description}</div>
+                        {buttons_available}
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }

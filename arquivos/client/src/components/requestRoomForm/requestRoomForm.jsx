@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import "./requestRoomForm.css";
 import RoomPopup1 from "../popups/roomPopup1/roomPopup1";
 import RoomPopup2 from "../popups/roomPopup2/roomPopup2";
-import RemoveRoomPopup from "../popups/removeRoomPopup/removeRoomPopup";
+import RemoveListItem from "../popups/removeListItem/removeListItem";
 import AddRoom from "../addRoom/addRoom";
 import ListItem from "../listItem/listItem";
 
@@ -165,7 +165,8 @@ class RequestRoomForm extends Component {
         }
 
         else if(this.state.remove_room_popup_visible) {
-            active_popup = <RemoveRoomPopup close_popup={this.closePopup} remove_room={this.removeRoom} />
+            var confirmation_sentence = "Tem a certeza de que deseja eliminar esta sala?";
+            active_popup = <RemoveListItem close_popup={this.closePopup} remove_room={this.removeRoom} />
         }
 
         else if(this.state.edit_room_popup_visible) {

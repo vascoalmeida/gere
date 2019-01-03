@@ -10,6 +10,7 @@ class ManageEquipmentPage extends Component {
         super();
 
         this.state = {
+            equipment_list: [],
             edit_equipment_visible: false,
         }
 
@@ -31,8 +32,16 @@ class ManageEquipmentPage extends Component {
                 "Accept": "application/json",
             },
         })
-        .then(r => {
-            console.log(r);
+        .then(res => {
+            res.json()
+            .then(r => {
+                this.setState({
+                    equipment_list: r,
+                });
+            })
+            .catch(err => {
+                alert("Ocorreu um erro a carregar os equipamentos, por favor tente mais tarde");
+            });
         })
         .catch(err => {
             console.log(err);
@@ -92,7 +101,17 @@ class ManageEquipmentPage extends Component {
                     </div>
 
                     <div id="material-container">
-                        <ListItem manageable={true} />
+                        {
+                            this.state.equipment_list.length !== 0 ?
+
+                            this.state.equipment_list.map(id => (
+                                <ListItem key={id} object_type="equipment" object_id={id} manageable={true} />
+                            ))
+
+                            :
+
+                            <label className="faded-label">Não existe nenhum equipamento</label>
+                        }
                     </div>
                 </form>
             </React.Fragment>

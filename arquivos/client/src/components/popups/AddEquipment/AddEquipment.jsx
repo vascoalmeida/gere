@@ -41,7 +41,7 @@ class AddEquipment extends Component {
 
         if(this.props.edit_active) {
             req_method = "PUT";
-        }
+        } 
         else {
             req_method = "POST";
         }
@@ -59,7 +59,7 @@ class AddEquipment extends Component {
             credentials: "include",
         })
         .then(r => {
-            alert("Equipamento criado com sucesso");
+            window.location.reload();
         })
         .catch(err => {
             console.error(err);
