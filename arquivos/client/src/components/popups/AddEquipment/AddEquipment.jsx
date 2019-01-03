@@ -38,13 +38,18 @@ class AddEquipment extends Component {
         }
         
         var req_method;
+        var req_url;
 
         if(this.props.edit_active) {
             req_method = "PUT";
+            req_url = "/equipment/" + this.props.id;
         } 
         else {
             req_method = "POST";
+            req_url = "/equipment"
         }
+
+        console.log(req_url);
 
         var form_data = new FormData();
         form_data.append("name", this.state.name);
@@ -53,13 +58,13 @@ class AddEquipment extends Component {
         form_data.append("model", this.state.model);
         form_data.append("image", this.state.img);
 
-        fetch("/equipment", {
+        fetch(req_url, {
             method: req_method,
             body: form_data,
             credentials: "include",
         })
         .then(r => {
-            window.location.reload();
+            //window.location.reload();
         })
         .catch(err => {
             console.error(err);
@@ -106,16 +111,16 @@ class AddEquipment extends Component {
                     <img src={window.location.origin + "/img/icon-close.png"} alt="Close icon" className="close-icon" onClick={this.props.close_popup} />
 
                     <div className="popup-section ps1">
-                        <input className="form-input" type="text" placeholder="Nome do equipamento" onChange={this.handleNameChange} required />
-                        <input className="form-input" type="text" placeholder="Descrição" onChange={this.handleDescriptionChange} required />
-                        <input className="form-input" type="text" placeholder="Marca (opcional)" onChange={this.handleBrandChange} />
-                        <input className="form-input" type="text" placeholder="Modelo (opcional)" onChange={this.handleModelChange} />
+                        <input className="form-input" type="text" value={this.state.name} placeholder="Nome do equipamento" onChange={this.handleNameChange} required />
+                        <input className="form-input" type="text" value={this.state.description} placeholder="Descrição" onChange={this.handleDescriptionChange} required />
+                        <input className="form-input" type="text" value={this.state.brand} placeholder="Marca (opcional)" onChange={this.handleBrandChange} />
+                        <input className="form-input" type="text" value={this.state.model} placeholder="Modelo (opcional)" onChange={this.handleModelChange} />
                         <div className="form-button" onClick={this.handleSubmit}>Criar equipamento</div>
                     </div>
 
                     <div className="popup-section ps2">
                         <input type="file" name="uploaded_img" id="file" className="input-file" onChange={this.handleImgChange} required />
-                        <img id="equipment-img" src={this.state.img_src} />
+                        <img id="equipment-img" src={this.state.img_src} alt="Equipamento" />
                         <label id="" className="form-button white-btn" htmlFor="file">Escolher imagem</label>
                     </div>
                 </div>

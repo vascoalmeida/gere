@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import RemoveListItem from "../popups/removeListItem/removeListItem";
+import AddEquipment from "../popups/AddEquipment/AddEquipment";
 
 var css_loaded = false;
 var buttons_available;
@@ -7,16 +8,18 @@ var buttons_available;
 class ListItem extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             name: "",
             description: "",
             image: "",
+            remove_popup_visibility: false,
+            edit_popup_visibility: false,
         }
-        console.log(this.props);
         
         this.orderRoom = this.orderRoom.bind(this);
         this.showRemovePopup = this.showRemovePopup.bind(this);
+        this.showEditPopup = this.showEditPopup.bind(this);
         this.closePopups = this.closePopups.bind(this);
         this.deleteObject = this.deleteObject.bind(this);
     }
@@ -88,9 +91,16 @@ class ListItem extends Component {
         });
     }
 
+    showEditPopup() {
+        this.setState({
+            edit_popup_visibility: true,
+        })
+    }
+
     closePopups() {
         this.setState({
             remove_popup_visibility: false,
+            edit_popup_visibility: false,
         });
     }
 
@@ -123,7 +133,7 @@ class ListItem extends Component {
         if(this.props.manageable) {
             buttons_available = (
                 <React.Fragment>
-                    <div className="form-button white-btn">Editar</div>
+                    <div className="form-button white-btn" onClick={this.showEditPopup}>Editar</div>
                     <div className="form-button red-btn" onClick={this.showRemovePopup}>Remover</div>
                 </React.Fragment>
             );
@@ -139,9 +149,12 @@ class ListItem extends Component {
 
         if(this.state.remove_popup_visibility) {
             var popup_question = "Tem a certeza de que deseja eliminar a entrada escolhida?";
-            active_popup = (
-                <RemoveListItem confirmation={popup_question} object_id={this.props.object_id} close_popup={this.closePopups} delete={this.deleteObject} />
-            )
+
+            active_popup = <RemoveListItem confirmation={popup_question} object_id={this.props.object_id} close_popup={this.closePopups} delete={this.deleteObject} />
+        }
+
+        else if(this.state.edit_popup_visibility) {
+            active_popup = <AddEquipment edit_active={true} id={this.props.object_id} name={this.state.name} description={this.state.description} brand={this.state.brand} model={this.state.model} close_popup={this.closePopups}/>
         }
 
         return(
