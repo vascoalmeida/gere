@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 
+var css_loaded = false;
+var buttons_available;
+
 class ListItem extends Component {
 
     constructor() {
@@ -15,7 +18,26 @@ class ListItem extends Component {
     }
 
     componentWillMount() {
-        import("./listItem.css");
+        if(!css_loaded) {
+            css_loaded = true;
+            import("./listItem.css");
+        }
+
+        if(this.props.manageable) {
+            buttons_available = (
+                <React.Fragment>
+                    <div className="form-button white-btn">Editar</div>
+                    <div className="form-button red-btn">Remover</div>
+                </React.Fragment>
+            );
+        }
+        else {
+            buttons_available = (
+                <React.Fragment>
+                    <div className="form-button">Requisitar</div>
+                </React.Fragment>
+            );
+        }
     }
 
     componentDidMount() {
@@ -55,13 +77,13 @@ class ListItem extends Component {
             },
         })
         .then(res => {
-            res.json()
+            /*res.json()
             .then(data => {
                 this.setState({
                     name: data.name,
                     description: data.description,
                 });
-            });
+            });*/
 
             //console.log(res.text());
         })
@@ -82,7 +104,7 @@ class ListItem extends Component {
                 <div className="item-info">
                     <h1 className="item-name">{this.state.name}</h1>
                     <div className="item-description text">{this.state.description}</div>
-                    <div className="form-button" onClick={this.orderRoom}>Requisitar</div>
+                    {buttons_available}
                 </div>
             </div>
         );

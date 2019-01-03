@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import "./requestEquipmentForm.css";
 import EquipmentPopup1 from "../popups/equipmentPopup1/equipmentPopup1";
 import EquipmentPopup2 from "../popups/equipmentPopup2/equipmentPopup2";
 import ListItem from "../listItem/listItem";
+
+var css_loaded = false;
 
 class RequestEquipmentForm extends Component {
 
@@ -50,6 +51,13 @@ class RequestEquipmentForm extends Component {
         this.removeMaterial = this.removeMaterial.bind(this);
         this.recieveFromPopup1 = this.recieveFromPopup1.bind(this);
         this.closePopup = this.closePopup.bind(this);
+    }
+
+    componentWillMount() {
+        if(!css_loaded) {
+            css_loaded = true;
+            import("./requestEquipmentForm.css");
+        }
     }
 
     handleFormSubmission() {

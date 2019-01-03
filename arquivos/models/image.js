@@ -19,7 +19,12 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: "img_id",
 			as: "img_room",
 		});
+
+		Image.hasMany(models.Material, {
+			foreignKey: "img_id",
+			as: "img_material",
+		});
 	};
-	
+
 	return Image;
 };

@@ -3,7 +3,8 @@ import "./mainPage.css";
 import {
     HashRouter,
     NavLink,
-    Route
+    Route,
+    Redirect
 } from "react-router-dom";
 import RequisitionPage from "../requisitionPage/requisitionPage";
 import ManageRequestsPage from "../manageRequestsPage/manageRequestsPage";
@@ -24,7 +25,8 @@ class MainPage extends Component {
         })
         .then(r => {
             if(r.status === 401) {
-                window.location = "/#/home";
+                alert(r.status);
+                //window.location = "/#/home";
                 return;
             }
         })
@@ -35,7 +37,7 @@ class MainPage extends Component {
             method: "GET",
         })
         .then(r => {
-            window.location.reload();
+            //window.location.reload();
         });
     }
 
@@ -69,6 +71,8 @@ class MainPage extends Component {
                                 </ul>
                             </div>
                             <div id="main-content">
+                                <Redirect to="/main/requisitar/sala" />
+
                                 <Route path="/main/requisitar" component={RequisitionPage} />
                                 <Route path="/main/gerir/requisicoes" component={ManageRequestsPage} />
                                 <Route path="/main/gerir/salas" component={ManageRoomsPage} />

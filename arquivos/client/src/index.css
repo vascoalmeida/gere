@@ -48,10 +48,12 @@ input.login-register-input, select.login-register-input {
 }
 
 input.form-input {
+	display: block;
 	border: 0;
 	border-bottom: 0.2rem solid #bdbdbd;
 	padding: 1rem 0;
 	font-family: "Open Sans";
+	margin-bottom: 5rem;
 }
 
 input.form-input:focus {
@@ -212,4 +214,49 @@ select:focus {
 	background-color: white;
 	color: #E54B4B;
 	margin-right: 4rem;
+}
+
+/* Popup style: */
+
+.popup-container {
+	width: 100vw;
+    height: 100vh;
+    background-color: rgba(36, 36, 36, 0.726);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.popup-content {
+	display: flex;
+	justify-content: space-between;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 7rem;
+	position: relative;
+	width: 65%;
+}
+
+.popup-content label {
+    display: block;
+    font-family: "Varela Round";
+    font-size: 2.7rem;
+    color: #394648;
+}
+
+.popup-content span {
+    font-size: 3rem;
+    font-family: "Varela Round";
+    margin-right: 1rem;
+}
+
+.popup-info {
+    margin-bottom: 10rem;
+}
+
+.popup-content .form-button {
+    margin: 0 auto;
 }

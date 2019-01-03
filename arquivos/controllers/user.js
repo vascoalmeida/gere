@@ -75,7 +75,7 @@ router.post("/register", (req, res) => {
 
 router.get("/logout", (req, res) => {
     // Logout current user
-    
+
     req.session.destroy();
     res.end();
 });

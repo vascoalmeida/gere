@@ -1,0 +1,13 @@
+#manage-equipment {
+    width: 90%;
+    margin: 0 auto;
+    padding: 4rem;
+}
+
+.label-title {
+    font-size: 2.7rem;
+}
+
+#material-container {
+    width: 100%;
+}

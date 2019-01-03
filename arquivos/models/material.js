@@ -8,12 +8,15 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING
 		},
 		name: {
+			allowNull: false,
 			type: DataTypes.STRING
 		},
 		img: {
+			allowNull: false,
 			type: DataTypes.STRING
 		},
 		description: {
+			allowNull: false,
 			type: DataTypes.STRING
 		},
 		model: {
@@ -31,7 +34,9 @@ module.exports = (sequelize, DataTypes) => {
 	});
 
 	Material.associate = function(models) {
-		// associations can be defined here
+		Material.belongsTo(models.Image, {
+			foreignKey: "img_id",
+		});
 	};
 	
 	return Material;

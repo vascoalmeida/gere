@@ -1,0 +1,21 @@
+.popup-content input[type="text"] {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 8rem;
+}
+
+#equipment-img {
+    width: 80rem;
+    height: 50rem;
+    margin: 0 auto;
+    margin-bottom: 4rem;
+    border-radius: 1rem;
+}
+
+.ps1 {
+    width: 50%;
+}
+
+.ps1 .form-input:nth-child(4) {
+    margin-bottom: 7.3rem;
+}

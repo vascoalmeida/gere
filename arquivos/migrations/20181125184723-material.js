@@ -9,12 +9,15 @@ module.exports = {
 				type: Sequelize.INTEGER
 			},
 			name: {
+				allowNull: false,
 				type: Sequelize.STRING
 			},
 			img: {
+				allowNull: false,
 				type: Sequelize.STRING
 			},
 			description: {
+				allowNull: false,
 				type: Sequelize.STRING
 			},
 			model: {
@@ -22,6 +25,16 @@ module.exports = {
 			},
 			brand: {
 				type: Sequelize.STRING
+			},
+			img_id: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+				onDelete: "CASCADE",
+				references: {
+					model: "Images",
+					key: "id",
+					as: "img_id",
+				},
 			},
 			createdAt: {
 				type: Sequelize.DATE,

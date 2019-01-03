@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {HashRouter, NavLink, Route} from "react-router-dom";
+import {HashRouter, NavLink, Route, Redirect} from "react-router-dom";
 import RequestRoomForm from "../../requestRoomForm/requestRoomForm";
 import RequestEquipmentForm from "../../requestEquipmentForm/requestEquipmentForm";
 import "./requisitionPage.css";
@@ -17,6 +17,7 @@ class RequisitionPage extends Component {
                         </div>
                     </div>
 
+                    <Redirect to="/main/requisitar/sala" />
                     <Route path="/main/requisitar/sala" component={RequestRoomForm} />
                     <Route path="/main/requisitar/material" component={RequestEquipmentForm} />
                 </React.Fragment>

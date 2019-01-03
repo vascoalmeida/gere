@@ -40,7 +40,7 @@ router.post("/", (req, res) => {
                 console.log(err);
                 return;
             }
-            
+
             models.Image.create({name: img_name})
             .then(r => {
                 room_info.img_id = r.dataValues.id;
@@ -143,7 +143,7 @@ router.get("/list", (req, res) => {
     })
     .then(r => {
         if(r.length === 0) {
-            res.writeHead(401);
+            res.writeHead(404);
             res.end();
             return;
         }
@@ -161,7 +161,7 @@ router.get("/list", (req, res) => {
 
 router.get("/img/:room_id", (req, res) => {
     // Get room images
-    
+
     var room_id = req.params.room_id;
     
     models.Image.findAll({

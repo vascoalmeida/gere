@@ -40,12 +40,7 @@ class LoginForm extends Component {
         })
         .then((r) => {
             if(r.status === 200) {
-                fetch("/main", {
-                    method: "GET",
-                })
-                .then(r => {
-                    window.location = "/#/main";
-                });
+                window.location = "/#/main";
             }
             else {
                 alert("Email e/ou password errados");
