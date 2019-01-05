@@ -3,7 +3,7 @@ import "./requestRoomForm.css";
 import RoomPopup1 from "../popups/roomPopup1/roomPopup1";
 import RoomPopup2 from "../popups/roomPopup2/roomPopup2";
 import RemoveListItem from "../popups/removeListItem/removeListItem";
-import AddRoom from "../addRoom/addRoom";
+import AddRoom from "../popups/addRoom/addRoom";
 import ListItem from "../listItem/listItem";
 
 class RequestRoomForm extends Component {
@@ -44,8 +44,12 @@ class RequestRoomForm extends Component {
         })
         .then(r => {
             if(r.status === 200) {    
-                r.json().then(res => {
+                r.json()
+                .then(res => {
                     room_list = res.slice();
+                })
+                .catch(err => {
+                    console.log(err);
                 });
             }
             else if(r.status === 401) {
@@ -145,7 +149,7 @@ class RequestRoomForm extends Component {
     }
 
     handleRoomClick(index) {
-        let clicked_room = this.state.room_list.filter(room => room === index)[0];
+        let clicked_room = this.state.room_list.filter(room => room === index);
 
         this.setState({
             chosen_room: clicked_room,
@@ -211,7 +215,7 @@ class RequestRoomForm extends Component {
                         this.state.room_list.length !== 0 ?
 
                         this.state.room_list.map(id => (
-                            <ListItem key={id} object_type="room" object_id={id} order_room={this.handleRoomClick} />
+                            <ListItem key={id} object_type="room" object_id={id} order_room={() => this.handleRoomClick(id)} />
                         ))
 
                         :

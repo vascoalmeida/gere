@@ -12,8 +12,7 @@ class AddEquipment extends Component {
             desc: this.props.description,
             brand: this.props.brand,
             model: this.props.model,
-            img: this.props.img_id,
-            img_src: window.origin + "/img/img_placeholder.jpg",
+            img_src: this.props.img || window.origin + "/img/img_placeholder.jpg",
         }
 
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -22,6 +21,8 @@ class AddEquipment extends Component {
         this.handleModelChange = this.handleModelChange.bind(this);
         this.handleImgChange = this.handleImgChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        console.log("PROPS", this.props);
     }
 
     componentWillMount() {
@@ -49,8 +50,6 @@ class AddEquipment extends Component {
             req_url = "/equipment"
         }
 
-        console.log(req_url);
-
         var form_data = new FormData();
         form_data.append("name", this.state.name);
         form_data.append("description", this.state.desc);
@@ -64,7 +63,7 @@ class AddEquipment extends Component {
             credentials: "include",
         })
         .then(r => {
-            //window.location.reload();
+            window.location.reload();
         })
         .catch(err => {
             console.error(err);
@@ -112,7 +111,7 @@ class AddEquipment extends Component {
 
                     <div className="popup-section ps1">
                         <input className="form-input" type="text" value={this.state.name} placeholder="Nome do equipamento" onChange={this.handleNameChange} required />
-                        <input className="form-input" type="text" value={this.state.description} placeholder="Descrição" onChange={this.handleDescriptionChange} required />
+                        <input className="form-input" type="text" value={this.state.desc} placeholder="Descrição" onChange={this.handleDescriptionChange} required />
                         <input className="form-input" type="text" value={this.state.brand} placeholder="Marca (opcional)" onChange={this.handleBrandChange} />
                         <input className="form-input" type="text" value={this.state.model} placeholder="Modelo (opcional)" onChange={this.handleModelChange} />
                         <div className="form-button" onClick={this.handleSubmit}>Criar equipamento</div>

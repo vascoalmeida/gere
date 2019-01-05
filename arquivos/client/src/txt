@@ -1,0 +1,250 @@
+   24  cd .wine/drttps://github.com/doitsujin/dxvk.git
+  285  npm install discord.io github:woor/discord.io#gateway_v6 winston --save
+  389  git status
+  390  git add *
+  391  git commit -m "Added horizontal scroll on projects page"
+  543  git init
+  544  git add *
+  545  git commit -m "Fused react frontend with node server (express)"
+  547  git init
+  548  git add .
+  549  git status
+  550  git reset -- arquivos/node_modules
+  551  git reset -- arquivos/client/node_modules
+  552  git status
+  553  git remote add origin https://vascoalmeida@bitbucket.org/vascoalmeida/arquivos.git
+  554  git remote -v
+  555  git log
+  556  git commit -m "First commit. Fused react frontend with node (express) backend"
+  557  git log
+  558  git puch -u origin master
+  559  git push -u origin master
+  652  git status
+  653  git add *
+  654  git commit -m "Fixed bug in mobile view of the website. Removed index page"
+  655  git log
+  656  git remote -v
+  657  git push origin master
+  658  git status
+  659  git add *
+  660  git commit -m "Corrected a several irregularities on mobile view. Optimized for tv display."
+  661  git push origin master
+  662  git add *
+  663  git status
+  664  git commit -m "Fixed a bug in which the 'read more' button in projects page would disappear in mobile view."
+  665  git remote .v
+  666  git remote -v
+  667  git push origin master
+  672  git log
+  711  git status
+  712  git add server.js 
+  713  git status
+  714  git commit -m "Added functionality that records requests for a page into a mysql db"
+  715  git status
+  716  git remote -v
+  717  git push origin master
+  719  git log
+  720  git status
+  721  git add *
+  722  git commit -m "Switched from a MySQL db to an SQLite db."
+  723  git remote .v
+  724  git remote -v
+  725  git push origin master
+  754  git add * 
+  755  git commit -m "Added strict mode"
+  756  git push origin master
+  767  git log
+  768  git reset --hard 43a8d60845049a53fd5d714fa8013c56bf79a104
+  769  git log
+  790  git add *
+  793  git status
+  794  git add *
+  795  git status
+  796  git log
+  797  git commit -m "Added security measures and error handling to connections to database"
+  798  git remote -v
+  799  git push origin master
+  800  git push origin master --force
+  811  git pull origin master
+  812  git pull origin master 
+  813  git log
+  814  git checkout master 
+  816  git remote remove origin 
+  817  git remote add origin git@bitbucket.org:vascoalmeida/portfolio.git
+  836  git pull origin master
+  837  git pull origin master 
+  838  git push origin master 
+  844  git push origin master 
+  975  git init
+  976  git push https://github.com/Roilan/react-server-boilerplate.git
+  977  git pull https://github.com/Roilan/react-server-boilerplate.git
+ 1159  git log
+ 1160  git status
+ 1161  git add *
+ 1162  git status
+ 1163  git remove ./node_modules/
+ 1164  git reset ./node_modules/
+ 1165  git status
+ 1166  git commit -m "Created homepage with login and register forms"
+ 1167  git log
+ 1168  git remote -v
+ 1169  git push origin master
+ 1178  git log
+ 1180  git log
+ 1196  git status
+ 1197  git add *
+ 1198  git status
+ 1200  git status
+ 1201  git add * 
+ 1202  git staut
+ 1206  git status
+ 1207  git add *
+ 1208  git status
+ 1212  git reset node_modules/
+ 1215  git reset node_modules/
+ 1216  git status
+ 1217  git commit -m "Added main page and."
+ 1218  git log
+ 1219  git commit --amend 10fdb155e40551259eba44ea1e21e0c7a7865757
+ 1220  git commit --amend
+ 1221  git log
+ 1679  mkdir git_test
+ 1680  cd git_test/
+ 1682  git add remote https://vascoalmeida@bitbucket.org/vascoalmeida/arquivos.git
+ 1683  git remote add origin https://vascoalmeida@bitbucket.org/vascoalmeida/arquivos.git
+ 1684  git init
+ 1685  git remote add origin https://vascoalmeida@bitbucket.org/vascoalmeida/arquivos.git
+ 1686  git remote -v
+ 1687  git pull origin master
+ 1695  cd Documents/exp/git_test/
+ 1697  git pull origin master
+ 1709  git log
+ 1732  git status
+ 1734  git init
+ 1735  git status
+ 1742  git add package.json 
+ 1743  git add package-lock.json 
+ 1744  git add public/
+ 1745  git add README.md 
+ 1746  git add src/
+ 1749  git add package.json 
+ 1750  git add package-lock.json 
+ 1751  git add server.js 
+ 1753  git status
+ 1754  git remote -v
+ 1755  git log
+ 1756  git commit -m "Finished 'Request Material' form. Added functionality to add new material to list of items. Created 'Request Room' form"
+ 1757  git log
+ 1758  git push origin master
+ 1759  git log
+ 1761  git log
+ 1763  touch .gitignore
+ 1764  echo "/arquivos/node_modules" >> .gitignore 
+ 1765  echo "/arquivos/client/node_modules" >> .gitignore 
+ 1766  cat .gitignore 
+ 1767  git status
+ 1768  git add *
+ 1769  git status
+ 1770  git commit -m "Finished 'Request Room' page"
+ 1771  git remote .v
+ 1772  git remote -v
+ 1773  git push origin amster
+ 1774  git push origin master
+ 1776  git loh
+ 1777  git log
+ 1778  git status
+ 1779  git add *
+ 1780  git status
+ 1781  git commit -m "Changed 'Request form' to include 2 popups instead of only 1"
+ 1782  git push origin master
+ 1783  git log
+ 1796  touch .gitignore
+ 1797  echo "**/node_modules" >> .gitignore 
+ 1892  git status
+ 1893  git remote -v
+ 1894  git push origin master
+ 1895  git stauts
+ 1896  git status
+ 1914  git status
+ 1915  git add *
+ 1916  git commit -m "Redesigner login and register forms. Added option to register a new user"
+ 1917  git push origin master
+ 1918  git log
+ 1971  git status
+ 1972  git log
+ 1974  git log
+ 1977  git status
+ 1979  git status
+ 1980  git add * 
+ 1981  git commit -m "Added new table 'Images' for images received from client"
+ 1982  git push origin master
+ 1996  sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+ 2024  git status
+ 2025  git add *
+ 2026  git status
+ 2027  git commit -m "Changed backend Express structure. Added controllers and middlewares"
+ 2028  git push origin master
+ 2047  git status
+ 2048  git add *
+ 2049  git commit -m "Fixed bug on 'Create room' where creation of a new object would have empty fields"
+ 2050  git log
+ 2051  git status
+ 2052  git push origin master
+ 2058  git log
+ 2079  git log
+ 2080  git status
+ 2081  git add * 
+ 2082  git status
+ 2083  git commit -m "Added option to edit room (Admin only)"
+ 2084  git remote -v
+ 2085  git push origin master
+ 2092  git status
+ 2093  git add *
+ 2094  git status
+ 2095  git commit -m "Created new component for rooms (RoomItem). Each RoomItem component fetches its own data and image"
+ 2097  git log
+ 2110  git log
+ 2137  git status
+ 2138  git add *
+ 2139  git status
+ 2141  git status
+ 2142  git add *
+ 2143  git status
+ 2144  git commit -m "Changed React components folder structure. Fixed logout option"
+ 2145  git log
+ 2146  git remote -v
+ 2147  git push origin master
+ 2156  git log
+ 2193  git status
+ 2194  git diff
+ 2195  git blame arquivos/client/src/components/listItem/listItem.jsx
+ 2196  git diff
+ 2220  touch .gitignore
+ 2221  git status
+ 2222  git log
+ 2223  git add *
+ 2224  git status
+ 2225  git commit -m "Added option to create new equipment"
+ 2226  git push origin master
+ 2234  git status
+ 2235  git add *
+ 2236  git commit -m "Added option to delete equipment"
+ 2237  git push origin master
+ 2238  git log
+ 2240  git status
+ 2241  git add *
+ 2242  git commit -m "Added option to edit existing equipment"
+ 2243  git push origin master
+ 2245  git log
+ 2247  history | grep "git"
+ 2248  history | grep "git" | grep -v "add|commit|push"
+ 2249  history | grep "git" | grep -v "add"
+ 2250  history | grep "git" | grep -v -e "add|commit"
+ 2251  history | grep "git" | grep -ve "add"
+ 2252  history | grep "git" | grep -ve "(add)|(commit)"
+ 2253  history | grep "git" | less
+   24  cd .wine/drttps://github.com/doitsujin/dxvk.git
+  285  npm install discord.io github:woor/discord.io#gateway_v6 winston --save
+  389  git status
+  390  git add *
+  391  git commit -m "Added horizontal scroll on projects page"

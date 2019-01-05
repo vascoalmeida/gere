@@ -32,45 +32,46 @@ router.post("/", (req, res) => {
         room_info["description"] = fields.description;
         img_name = files["image"].path.slice(files["image"].path.indexOf("_")+1);
 
-        multer_configuration.upload(req, res, (err) => {
-            if(err) {
-                res.writeHead(500);
-                res.end();
-                output_message("error", "Failed to upload image. More details below:")
-                console.log(err);
-                return;
-            }
+    });
 
-            models.Image.create({name: img_name})
+    multer_configuration.upload(req, res, (err) => {
+        if(err) {
+            res.writeHead(500);
+            res.end();
+            output_message("error", "Failed to upload image. More details below:")
+            console.log(err);
+            return;
+        }
+
+        models.Image.create({name: img_name})
+        .then(r => {
+            room_info.img_id = r.dataValues.id;
+            
+            models.Room.create(room_info)
             .then(r => {
-                room_info.img_id = r.dataValues.id;
-                
-                models.Room.create(room_info)
-                .then(r => {
-                    let msg = "Successfully created new object " + "Room".bold;
-                    output_message("success", msg);
-                })
-                .catch(err => {
-                    let msg = "Failed to create new object " + "Room".bold + ". Error output below:";
-                    
-                    output_message("error", msg);
-                    console.log(err);
-                    
-                    msg = "Stored received image in " + "/media/img".bold + ", but Room was not saved in DB";
-                    output_message("warning", msg);
-                    
-                    return;
-                });
+                let msg = "Successfully created new object " + "Room".bold;
+                output_message("success", msg);
             })
             .catch(err => {
-                let msg = "Failed to create new object " + "Image".bold + ". Error output below:";
+                let msg = "Failed to create new object " + "Room".bold + ". Error output below:";
+                
                 output_message("error", msg);
                 console.log(err);
+                
+                msg = "Stored received image in " + "/media/img".bold + ", but Room was not saved in DB";
+                output_message("warning", msg);
+                
+                return;
             });
-            
-            res.redirect("/#/main/gerir-salas/adicionar");
-            res.end();
+        })
+        .catch(err => {
+            let msg = "Failed to create new object " + "Image".bold + ". Error output below:";
+            output_message("error", msg);
+            console.log(err);
         });
+        
+        res.redirect("/#/main/gerir-salas/adicionar");
+        res.end();
     });
 });
 
@@ -143,19 +144,20 @@ router.get("/list", (req, res) => {
     })
     .then(r => {
         if(r.length === 0) {
-            res.writeHead(404);
             res.end();
             return;
         }
         var room_id = [];
         
         r.map(room => { room_id.push(room.dataValues.id) });
-        console.log(room_id);
-        
         res.json(room_id);
     })
     .catch(err => {
+        let msg = "Failed to get list of " + "Room".bold + " objects. Error output below:";
+        output_message("error", msg);
         console.log(err);
+        res.sendStatus(500);
+        res.end();
     });
 });
 
@@ -193,7 +195,7 @@ router.get("/info/:room_id", (req, res) => {
         },
     })
     .then(r => {
-        res.setHeader("Content-Type", "application/json")
+        res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(r[0].dataValues));
     })
     .catch(err => {

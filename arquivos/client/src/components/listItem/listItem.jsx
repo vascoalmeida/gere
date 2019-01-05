@@ -12,7 +12,9 @@ class ListItem extends Component {
         this.state = {
             name: "",
             description: "",
-            image: "",
+            image: window.origin + "/img/img_placeholder.jpg",
+            brand: "",
+            model: "",
             remove_popup_visibility: false,
             edit_popup_visibility: false,
         }
@@ -51,9 +53,9 @@ class ListItem extends Component {
             file_reader.onload = () => {
                 var base_64_data = file_reader.result;
                 
-                this.setState({
+                /*this.setState({
                     image: base_64_data,
-                });
+                });*/
             }
         })
         .catch(err => {
@@ -142,7 +144,7 @@ class ListItem extends Component {
         else {
             buttons_available = (
                 <React.Fragment>
-                    <div className="form-button">Requisitar</div>
+                    <div className="form-button" onClick={this.props.order_room}>Requisitar</div>
                 </React.Fragment>
             );
         }
@@ -155,6 +157,8 @@ class ListItem extends Component {
 
         else if(this.state.edit_popup_visibility) {
             active_popup = <AddEquipment edit_active={true} id={this.props.object_id} name={this.state.name} description={this.state.description} brand={this.state.brand} model={this.state.model} close_popup={this.closePopups}/>
+
+            console.log(this.state);
         }
 
         return(

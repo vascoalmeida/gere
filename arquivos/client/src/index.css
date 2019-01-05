@@ -175,8 +175,9 @@ select:focus {
     font-weight: bold;
     display: inline-block;
 	margin-bottom: 3rem;
-	font-family: "Open Sans";
-	color: #394648;
+	font-size: 2.7rem;
+    font-family: "Open Sans";
+    color: #394648;
 }
 
 .close-icon {

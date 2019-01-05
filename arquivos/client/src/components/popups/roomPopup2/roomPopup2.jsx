@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "./roomPopup2.css";
 
-class RoomPopup1 extends Component {
+class RoomPopup2 extends Component {
     render() {
         return(
             <div id="rm-popup-container" >
@@ -34,4 +34,4 @@ class RoomPopup1 extends Component {
     }
 }
 
-export default RoomPopup1;
+export default RoomPopup2;

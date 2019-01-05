@@ -19,3 +19,7 @@
 .ps1 .form-input:nth-child(4) {
     margin-bottom: 7.3rem;
 }
+
+#file {
+    display: none;
+}

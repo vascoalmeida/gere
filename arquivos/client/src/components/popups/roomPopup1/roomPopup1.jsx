@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "./roomPopup1.css";
 
-class RoomPopup2 extends Component {
+class RoomPopup1 extends Component {
 
     constructor(props) {
         super(props);
@@ -19,6 +19,8 @@ class RoomPopup2 extends Component {
         this.handleChosenTimeStart = this.handleChosenTimeStart.bind(this);
         this.handleChosenTimeEnd = this.handleChosenTimeEnd.bind(this);
         this.allowContinue = this.allowContinue.bind(this);
+
+        console.log(this.props);
     }
 
     handleBtnClick() {
@@ -75,7 +77,7 @@ class RoomPopup2 extends Component {
 
                     <div className="rm-d-section">
                         <label className="label-title">Sala escolhida:</label>
-                        <label>{this.props.room.name}</label>
+                        <label>{this.props.room}</label>
                     </div>
 
                     <div className="rm-d-section button-container">
@@ -87,4 +89,4 @@ class RoomPopup2 extends Component {
     }
 }
 
-export default RoomPopup2;
+export default RoomPopup1;

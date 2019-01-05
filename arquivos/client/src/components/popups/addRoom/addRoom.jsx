@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import "./addRoom.css";
+
+var css_loaded = false;
 
 class AddRoom extends Component {
 
@@ -10,7 +11,7 @@ class AddRoom extends Component {
             room_img: this.props.room_img,
             room_name: this.props.room_name,
             room_description: this.props.room_description,
-            visible_img: "",
+            visible_img: this.props.img || window.origin + "/img/img_placeholder.jpg",
             room_edition_active: this.props.room_edition_active,
         }
 
@@ -20,19 +21,27 @@ class AddRoom extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        if(!css_loaded) {
+            css_loaded = true;
+            import("./addRoom.css");
+        }
+    }
+
     handleSubmit() {
         var form_data = new FormData();
         form_data.append("image", this.state.room_img);
         form_data.append("name", this.state.room_name);
         form_data.append("description", this.state.room_description);
         form_data.append("id", this.props.room_id);
-
+        
         fetch("/room", {
             method: this.props.method,
             body: form_data,
             credentials: 'include',
         })
         .catch(err => {
+            console.log(err);
             alert("Ocorreu um erro, por favor tente mais tarde");
         });
     }
@@ -73,23 +82,23 @@ class AddRoom extends Component {
         }
 
         return(
-            <form id="add-room-container">
-                <div className="add-room">
-                    <div id="img-container">
-                        <img src={window.location.origin + "/img/camera.jpg"} alt="Room" />
-                        <input type="file" name="uploaded_img" id="file" className="input-file" onChange={this.handleImgChange} />
-                        <label className="file-btn white-btn" htmlFor="file">Escolher imagem</label>
-                    </div>
-                    <div id="room-info">
-                        <input id="room-name" type="text" name="room_name" className="form-input" placeholder="Nome da sala" defaultValue={this.state.room_name} onChange={this.handleNameChange} required />
-                        <input id="room-desc" type="text" name="room_desc" className="form-input" placeholder="Descrição" defaultValue={this.state.room_description} onChange={this.handleDescriptionChange} required />
-                    </div>
-                </div>
+            <div className="popup-container">
+                <div className="popup-content">
+                    <img src={window.location.origin + "/img/icon-close.png"} alt="Close icon" className="close-icon" onClick={this.props.close_popup} />
 
-                <div className="rm-d-section button-container">
-                    {buttons}
+                    <div className="popup-section ps1">
+                        <input className="form-input" type="text" value={this.state.name} placeholder="Nome da sala" onChange={this.handleNameChange} required />
+                        <input className="form-input" type="text" value={this.state.description} placeholder="Descrição" onChange={this.handleDescriptionChange} required />
+                        <div id="create-room-btn" className="form-button" onClick={this.handleSubmit}>Criar sala</div>
+                    </div>
+
+                    <div className="popup-section ps2">
+                        <input type="file" name="uploaded_img" id="file" className="input-file" onChange={this.handleImgChange} required />
+                        <img id="equipment-img" src={this.state.visible_img} alt="Equipamento" />
+                        <label id="chose-img-btn" className="form-button white-btn" htmlFor="file">Escolher imagem</label>
+                    </div>
                 </div>
-            </form>
+            </div>
         );
     }
 }
