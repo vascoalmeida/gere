@@ -11,29 +11,7 @@ class RequestEquipmentForm extends Component {
         super(props);
 
         this.state = {
-            material_list: [
-                {
-                    id: 0,
-                    name: "Câmera",
-                    img: "camera.jpg",
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae scelerisque ipsum, in gravida felis. Sed purus dui, tempus ac risus nec, vestibulum aliquet nisi. Sed pharetra magna id purus pretium, eu malesuada elit feugiat.",
-                    quantity: 1,
-                },
-                {
-                    id: 1,
-                    name: "Câmera",
-                    img: "camera.jpg",
-                    desc: "Ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae scelerisque ipsum, in gravida felis. Sed purus dui, tempus ac risus nec, vestibulum aliquet nisi. Sed pharetra magna id purus pretium, eu malesuada elit feugiat.",
-                    quantity: 1,
-                },
-                {
-                    id: 2,
-                    name: "Câmera",
-                    img: "camera.jpg",
-                    desc: "Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae scelerisque ipsum, in gravida felis. Sed purus dui, tempus ac risus nec, vestibulum aliquet nisi. Sed pharetra magna id purus pretium, eu malesuada elit feugiat.",
-                    quantity: 1,
-                },
-            ],
+            equipment_list: [],
             chosen_material: [],
             button_blocked_class: "locked-button",
             popup1_visible: false,
@@ -58,6 +36,39 @@ class RequestEquipmentForm extends Component {
             css_loaded = true;
             import("./requestEquipmentForm.css");
         }
+    }
+
+    componentDidMount() {
+        var equipment_list = [];
+
+        fetch("/equipment/list", {
+            method: "GET",
+            headers: {
+                Accept: 'application/json',
+            },
+        })
+        .then(r => {
+            if(r.status === 200) {    
+                r.json()
+                .then(res => {
+                    equipment_list = res.slice();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            }
+            else if(r.status === 401) {
+                window.location = "/#/home";
+            }
+        })
+        .then(r => {
+            this.setState({
+                equipment_list: equipment_list,
+            });
+        })
+        .catch(err => {
+            alert("Ocorreu um erro, por favor tente mais tarde");
+        });
     }
 
     handleFormSubmission() {
@@ -175,7 +186,7 @@ class RequestEquipmentForm extends Component {
                     </div>
                 </div>
 
-                <div className="section-title">Materiais escolhidos</div>
+                <div className="section-title">Equipamento escolhido</div>
 
                 <div id="selected-material-section">
                     
@@ -185,27 +196,27 @@ class RequestEquipmentForm extends Component {
                             
                             this.state.chosen_material.map(material => (
                                 <React.Fragment key={material.id}>
-                                    <ListItem name={material.name} description={material.desc} />
+                                    <ListItem key={material.id} object_type="equipment" object_id={material.id} />
                                 </React.Fragment>
                             ))
 
                             :
                             
-                            <label className="faded-label">Sem materiais</label>
+                            <label className="faded-label">Sem equipamento</label>
                         }
                     </div>
 
                 </div>
 
-                <div className="section-title">Lista de materiais</div> 
+                <div className="section-title">Equipamento disponível</div> 
                 <div id="material-container">
                     {
-                        this.state.material_list.length !== 0 ?
+                        this.state.equipment_list.length !== 0 ?
                         
-                        this.state.material_list.map(material => (
+                        this.state.equipment_list.map(material => (
 
-                            <React.Fragment key={material.id}>
-                                <ListItem object_type="equipment" object_id={material.id} name={material.name} description={material.desc} />
+                            <React.Fragment key={material}>
+                                <ListItem object_type="equipment" object_id={material} />
                             </React.Fragment>
 
                         ))

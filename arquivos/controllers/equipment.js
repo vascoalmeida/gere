@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
             let msg = "Error parsing received data to create new " + "Equipment".bold + " object. More details below:"
             output_message("error", msg);
             console.log(err);
-
+            
             res.sendStatus(400);
             res.end()
             return;
@@ -52,22 +52,22 @@ router.post("/", (req, res) => {
             console.log(err);
             return;
         }
-
+        
         multer_configuration.upload(req, res, (err) => {
             if(err) {
                 let msg = "Failed to upload " + "image".bold + ". More details below:"
                 output_message("error", msg);
                 console.log(err);
-
+                
                 res.sendStatus(400);
                 res.end();
                 return;
             }
-
+            
             models.Image.create({name: img_name})
             .then(r => {
                 equipment_info["img_id"] = r.dataValues.id;
-
+                
                 models.Material.create(equipment_info)
                 .then(r => {
                     let msg = "Successfully created new object " + "Equipment".bold;
@@ -88,9 +88,35 @@ router.post("/", (req, res) => {
                 output_message("error", msg);
                 console.log(err);
             });
-
+            
             res.end();
         });
+    });
+});
+
+router.get("/list", (req, res) => {
+    // Get list of equipment
+
+    models.Material.findAll({
+        attributes: ["id"],
+    })
+    .then(r => {
+        if(r.length === 0) {
+            res.end();
+            return;
+        }
+
+        var equipment_id = [];
+        r.map(eq => { equipment_id.push(eq.dataValues.id) });
+        
+        res.json(equipment_id);
+    })
+    .catch(err => {
+        let msg = "Failed to get list of " + "Room".bold + " objects. Error output below:";
+        output_message("error", msg);
+        console.log(err);
+        res.sendStatus(500);
+        res.end();
     });
 });
 
@@ -158,31 +184,6 @@ router.delete("/:equipment_id", (req, res) => {
     });
 });
 
-router.get("/list", (req, res) => {
-    // Get list of equipment
-
-    models.Material.findAll({
-        attributes: ["id"],
-    })
-    .then(r => {
-        if(r.length === 0) {
-            res.end();
-            return;
-        }
-
-        var equipment_id = [];
-        r.map(eq => { equipment_id.push(eq.dataValues.id) });
-        
-        res.json(equipment_id);
-    })
-    .catch(err => {
-        let msg = "Failed to get list of " + "Room".bold + " objects. Error output below:";
-        output_message("error", msg);
-        console.log(err);
-        res.sendStatus(500);
-        res.end();
-    });
-});
 
 router.get("/info/:equipment_id", (req, res) => {
     // Get equipment info 

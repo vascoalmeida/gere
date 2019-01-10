@@ -11,10 +11,10 @@ class ManageRequests extends Component {
             <HashRouter>
                 <React.Fragment>
                     <div id="form-header">
-                        <div id="form-title">Requisitar</div>
+                        <div id="form-title"></div>
                         <div id="form-options">
-                            <NavLink className="form-select" to="/main/gerir_requisicoes/salas">Sala</NavLink>
-                            <NavLink className="form-select" to="/main/gerir_requisicoes/materiais" >Material</NavLink>
+                            {/*<NavLink className="form-select" to="/main/gerir_requisicoes/salas">Sala</NavLink>
+                            <NavLink className="form-select" to="/main/gerir_requisicoes/materiais" >Material</NavLink>*/}
                         </div>
                     </div>
 

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import RemoveListItem from "../popups/removeListItem/removeListItem";
 import AddEquipment from "../popups/AddEquipment/AddEquipment";
+import AddRoom from "../popups/addRoom/addRoom";
 
 var css_loaded = false;
 var buttons_available;
@@ -36,7 +37,7 @@ class ListItem extends Component {
     componentDidMount() {
         var image_request = "/" + this.props.object_type + "/img/" + this.props.object_id;
         var data_request = "/" + this.props.object_type + "/info/" + this.props.object_id;
-
+        console.log(data_request);
         fetch(image_request, {
             method: "GET",
             headers: {
@@ -156,9 +157,14 @@ class ListItem extends Component {
         }
 
         else if(this.state.edit_popup_visibility) {
-            active_popup = <AddEquipment edit_active={true} id={this.props.object_id} name={this.state.name} description={this.state.description} brand={this.state.brand} model={this.state.model} close_popup={this.closePopups}/>
 
-            console.log(this.state);
+            if(this.props.object_type === "equipment") {
+                active_popup = <AddEquipment edit_active={true} id={this.props.object_id} name={this.state.name} description={this.state.description} brand={this.state.brand} model={this.state.model} close_popup={this.closePopups}/>
+            }
+
+            else if(this.props.object_type === "room") {
+                active_popup = <AddRoom edit_active={true} id={this.props.object_id} name={this.state.name} description={this.state.description} close_popup={this.closePopups} room_edition_active={true} />
+            }
         }
 
         return(

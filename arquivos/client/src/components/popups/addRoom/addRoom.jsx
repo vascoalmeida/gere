@@ -8,9 +8,9 @@ class AddRoom extends Component {
         super(props);
 
         this.state = {
-            room_img: this.props.room_img,
-            room_name: this.props.room_name,
-            room_description: this.props.room_description,
+            room_img: this.props.img,
+            room_name: this.props.name,
+            room_description: this.props.description,
             visible_img: this.props.img || window.origin + "/img/img_placeholder.jpg",
             room_edition_active: this.props.room_edition_active,
         }
@@ -19,6 +19,8 @@ class AddRoom extends Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        console.log(this.props, this.state);
     }
 
     componentDidMount() {
@@ -66,29 +68,14 @@ class AddRoom extends Component {
     }
 
     render() {
-        var buttons;
-
-        if(this.state.room_edition_active) {
-            buttons = (
-                <React.Fragment>
-                        <button className="form-button" onClick={this.handleSubmit} >Gravar alterações</button>
-                        <div className="form-button red-btn" onClick={this.props.close_popup} >Descartar alterações</div>
-                </React.Fragment>
-            );
-        }
-
-        else {
-            buttons = (<button className="form-button" type="button" onClick={this.handleSubmit}>Adicionar</button>);
-        }
-
         return(
             <div className="popup-container">
                 <div className="popup-content">
                     <img src={window.location.origin + "/img/icon-close.png"} alt="Close icon" className="close-icon" onClick={this.props.close_popup} />
 
                     <div className="popup-section ps1">
-                        <input className="form-input" type="text" value={this.state.name} placeholder="Nome da sala" onChange={this.handleNameChange} required />
-                        <input className="form-input" type="text" value={this.state.description} placeholder="Descrição" onChange={this.handleDescriptionChange} required />
+                        <input className="form-input" type="text" value={this.state.room_name} placeholder="Nome da sala" onChange={this.handleNameChange} required />
+                        <input className="form-input" type="text" value={this.state.room_description} placeholder="Descrição" onChange={this.handleDescriptionChange} required />
                         <div id="create-room-btn" className="form-button" onClick={this.handleSubmit}>Criar sala</div>
                     </div>
 

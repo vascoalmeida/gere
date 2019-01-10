@@ -76,7 +76,7 @@ class RequestRoomForm extends Component {
                 day: this.state.chosen_day,
                 time_start: this.state.chosen_time_start,
                 time_end: this.state.chosen_time_end,
-                room_id: this.state.chosen_room,
+                room_id: this.state.chosen_room[0],
             }),
         })
         .then((res) => {

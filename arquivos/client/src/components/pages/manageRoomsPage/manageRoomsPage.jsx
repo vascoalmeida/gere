@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import AddRoom from "../../popups/addRoom/addRoom";
+import ListItem from "../../listItem/listItem";
 
 var css_loaded = false;
 
@@ -32,7 +33,15 @@ class ManageRoomsPage extends Component {
             },
         })
         .then(r => {
-            console.log(r);
+            r.json()
+            .then(res => {
+                this.setState({
+                    room_list: res,
+                });
+            })
+            .catch(err => {
+                console.error(err);
+            });
         })
         .catch(err => {
             console.log(err);
@@ -84,8 +93,22 @@ class ManageRoomsPage extends Component {
                     </div>
 
                     <div className="db-section button-container">
-                        <div className="form-button" onClick={this.showAddRoomPopup}>Adicionar sala</div>
+                        <div className="form-button" onClick={this.showAddRoomPopup}>Criar sala</div>
                     </div>
+                </div>
+
+                <div id="room-container">
+                    {
+                        this.state.room_list.length !== 0 ?
+                        
+                        this.state.room_list.map(id => (
+                            <ListItem key={id} object_type="room" object_id={id} manageable={true} />
+                        ))
+
+                        :
+
+                        <label className="faded-label">Ainda não existem salas</label>
+                    }
                 </div>
 
                 {active_popup}

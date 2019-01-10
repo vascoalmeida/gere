@@ -31,48 +31,46 @@ router.post("/", (req, res) => {
         room_info["name"] = fields.name;
         room_info["description"] = fields.description;
         img_name = files["image"].path.slice(files["image"].path.indexOf("_")+1);
-
-    });
-
-    multer_configuration.upload(req, res, (err) => {
-        if(err) {
-            res.writeHead(500);
-            res.end();
-            output_message("error", "Failed to upload image. More details below:")
-            console.log(err);
-            return;
-        }
-
-        models.Image.create({name: img_name})
-        .then(r => {
-            room_info.img_id = r.dataValues.id;
+        
+        multer_configuration.upload(req, res, (err) => {
+            if(err) {
+                res.end();
+                output_message("error", "Failed to upload image. More details below:")
+                console.log(err);
+                return;
+            }
             
-            models.Room.create(room_info)
+            models.Image.create({name: img_name})
             .then(r => {
-                let msg = "Successfully created new object " + "Room".bold;
-                output_message("success", msg);
+                room_info.img_id = r.dataValues.id;
+                models.Room.create(room_info)
+                .then(r => {
+                    let msg = "Successfully created new object " + "Room".bold;
+                    output_message("success", msg);
+                })
+                .catch(err => {
+                    let msg = "Failed to create new object " + "Room".bold + ". Error output below:";
+                    
+                    output_message("error", msg);
+                    console.log(err);
+                    
+                    msg = "Stored received image in " + "/media/img".bold + ", but Room was not saved in DB";
+                    output_message("warning", msg);
+                    
+                    return;
+                });
             })
             .catch(err => {
-                let msg = "Failed to create new object " + "Room".bold + ". Error output below:";
-                
+                let msg = "Failed to create new object " + "Image".bold + ". Error output below:";
                 output_message("error", msg);
                 console.log(err);
-                
-                msg = "Stored received image in " + "/media/img".bold + ", but Room was not saved in DB";
-                output_message("warning", msg);
-                
-                return;
             });
-        })
-        .catch(err => {
-            let msg = "Failed to create new object " + "Image".bold + ". Error output below:";
-            output_message("error", msg);
-            console.log(err);
+            
+            res.redirect("/#/main/gerir-salas/adicionar");
+            res.end();
         });
-        
-        res.redirect("/#/main/gerir-salas/adicionar");
-        res.end();
     });
+
 });
 
 router.put("/", (req, res) => {
@@ -97,8 +95,11 @@ router.put("/", (req, res) => {
             },
         })
         .then(r => {
+            let msg = "Successfuly updated object " + "Room".bold;
+            output_message("success", msg);
             console.log(r);
             res.sendStatus(200);
+            res.end();
         })
         .catch(err => {
             let msg = "Failed to " + "update Room".bold + " object. More details below:";
@@ -213,34 +214,30 @@ router.post("/request", (req, res) => {
     let message = "Recieved form submission from " + "room-form".bold;
     output_message("info", message);
 
-    console.log(req.body);
-
-    /*models.Room.findAll({
+    models.Room.findAll({
         attributes: ["id"],
         where: {
-            name: req.body.room,
+            id: req.body.room_id,
         },
     })
     .then(r => {
         if(r.length === 0) {
-            res.writeHead(404);
             res.end();
             return;
         }
-    })
+        req.body.user_id = req.session.user;
+        req.body.status = "pendent";
     
-    req.body.user_id = req.session.user;
-    req.body.status = "pendent";
-
-    models.RoomRequest.create(req.body)
-    .then(data => {
-        let message = "Successfully created new object " + "room request".bold;
-        output_message("success", message);
-    })
-    .catch(err => {
-        output_message("error", "Failed to create new " + "room request".bold + ". More details below.");
-        console.log(err);
-    });*/
+        models.RoomRequest.create(req.body)
+        .then(data => {
+            let message = "Successfully created new object " + "room request".bold;
+            output_message("success", message);
+        })
+        .catch(err => {
+            output_message("error", "Failed to create new " + "room request".bold + ". More details below.");
+            console.log(err);
+        });
+    });
 });
 
 module.exports = router;

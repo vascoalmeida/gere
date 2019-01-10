@@ -28,7 +28,7 @@ router.post("/login", (req, res) => {
         var salt = result[0].dataValues.passwordSalt;
 
         if(crypto_functions.hash_string(req.body.password, salt).hashed_string === password) {
-            req.session.user = result[0].dataValues.id;
+            req.session.user = result[0].dataValues.email;
             res.writeHead(200, {"Content-Type": "application/json"});
             res.end();
         }

@@ -37,7 +37,7 @@ class MainPage extends Component {
             method: "GET",
         })
         .then(r => {
-            //window.location.reload();
+            window.location.reload();
         });
     }
 
@@ -56,10 +56,6 @@ class MainPage extends Component {
                                         <label>Requisitar</label>
                                         <img className="item-icon" src={window.location.origin + "/img/icon-book.png"} alt="book-icon" />
                                     </NavLink>
-                                    <NavLink to="/main/gerir/requisicoes" className="menu-item">
-                                        <label>Gerir Requisições</label>
-                                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
-                                    </NavLink>
                                     <NavLink to="/main/gerir/salas" className="menu-item">
                                         <label>Gerir Salas</label>
                                         <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
@@ -68,15 +64,19 @@ class MainPage extends Component {
                                         <label>Gerir Equipamento</label>
                                         <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
                                     </NavLink>
+                                    <NavLink to="/main/gerir/requisicoes" className="menu-item">
+                                        <label>Gerir Requisições</label>
+                                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
+                                    </NavLink>
                                 </ul>
                             </div>
                             <div id="main-content">
                                 <Redirect to="/main/requisitar/sala" />
 
                                 <Route path="/main/requisitar" component={RequisitionPage} />
-                                <Route path="/main/gerir/requisicoes" component={ManageRequestsPage} />
                                 <Route path="/main/gerir/salas" component={ManageRoomsPage} />
                                 <Route path="/main/gerir/equipamento" component={ManageEquipmentPage} />
+                                <Route path="/main/gerir/requisicoes" component={ManageRequestsPage} />
                             </div>
                         </React.Fragment>
                     </HashRouter>

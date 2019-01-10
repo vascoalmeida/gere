@@ -104,6 +104,15 @@ class AddEquipment extends Component {
 
 
     render() {
+        var btn_msg;
+
+        if(this.props.edit_active) {
+            btn_msg = "Gravar alterações";
+        }
+        else {
+            btn_msg = "Criar equipamento";
+        }
+
         return(
             <div className="popup-container">
                 <div className="popup-content">
@@ -114,7 +123,7 @@ class AddEquipment extends Component {
                         <input className="form-input" type="text" value={this.state.desc} placeholder="Descrição" onChange={this.handleDescriptionChange} required />
                         <input className="form-input" type="text" value={this.state.brand} placeholder="Marca (opcional)" onChange={this.handleBrandChange} />
                         <input className="form-input" type="text" value={this.state.model} placeholder="Modelo (opcional)" onChange={this.handleModelChange} />
-                        <div className="form-button" onClick={this.handleSubmit}>Criar equipamento</div>
+                        <div className="form-button" onClick={this.handleSubmit}>{btn_msg}</div>
                     </div>
 
                     <div className="popup-section ps2">
