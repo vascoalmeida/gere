@@ -37,7 +37,7 @@ class ListItem extends Component {
     componentDidMount() {
         var image_request = "/" + this.props.object_type + "/img/" + this.props.object_id;
         var data_request = "/" + this.props.object_type + "/info/" + this.props.object_id;
-        console.log(data_request);
+
         fetch(image_request, {
             method: "GET",
             headers: {

@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import RequisitionPage from "../requisitionPage/requisitionPage";
 import ManageRequestsPage from "../manageRequestsPage/manageRequestsPage";
+import ManageRoomRequests from "../manageRoomRequests/manageRoomRequests";
 import ManageRoomsPage from "../manageRoomsPage/manageRoomsPage";
 import ManageEquipmentPage from "../manageEquipmentPage/manageEquipmentPage";
 
@@ -17,19 +18,6 @@ class MainPage extends Component {
         super();
 
         this.logout = this.logout.bind(this);
-    }
-
-    componentWillMount() {
-        fetch("/main", {
-            method: "GET",
-        })
-        .then(r => {
-            if(r.status === 401) {
-                alert(r.status);
-                //window.location = "/#/home";
-                return;
-            }
-        })
     }
 
     logout() {

@@ -174,7 +174,6 @@ class RequestRoomForm extends Component {
         }
 
         else if(this.state.edit_room_popup_visible) {
-            console.log(this.state.chosen_room);
             active_popup = (
                 <div id="rm-popup-container">
                     <div id="rm-popup">

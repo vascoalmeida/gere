@@ -1,0 +1,12 @@
+#manage-room-requests {
+    width: 90%;
+    margin: 0 auto;
+}
+
+#rm-dashboard {
+    border: 0.2rem solid #a2c775;
+    border-radius: 1rem;
+    width: 100%;
+    margin: 8rem 0;
+    padding: 4rem 0;
+}
