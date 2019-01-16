@@ -76,6 +76,14 @@ input.form-input:focus {
 	line-height: 5rem;
 }
 
+.text-green {
+	color: #91C651;
+}
+
+.text-red {
+	color: #E54B4B;
+}
+
 .light-text {
 	color: white;
 }

@@ -242,7 +242,7 @@ router.post("/request", (req, res) => {
             return;
         }
         req.body.user_id = req.session.user;
-        req.body.status = "pendent";
+        req.body.status = "Pendente";
     
         models.RoomRequest.create(req.body)
         .then(data => {
@@ -328,6 +328,35 @@ router.get("/request/info/:request_id", (req, res) => {
         output_message("error", msg);
         console.error(err);
         res.sendStatus(500);
+        res.end();
+    });
+});
+
+router.put("/request/:request_id", (req, res) => {
+    var request_id = req.params.request_id;
+
+    new formidable.IncomingForm().parse(req, (err, fields, files) => {
+        if(err) {
+            let msg = "Failed to parse received info. More details below:";
+            output_message("error", msg);
+            console.log(err);
+            res.end();
+            return;
+        }
+
+        models.RoomRequest.update({
+            status: fields.status,
+        }, {
+            where: {
+                id: request_id
+            },
+        })
+        .catch(err => {
+            let msg = "Error updating " + "Room Request".bold + " status. More details below:";
+            output_message("error", msg);
+            console.log(err);
+        });
+
         res.end();
     });
 });

@@ -1,0 +1,18 @@
+#confirm-action .popup-content {
+    flex-direction: column;
+}
+
+#confirm-action .btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 5rem;
+}
+
+#confirm-action .form-button {
+    margin: 0;
+}
+
+#confirm-action .text {
+    text-align: center;
+}

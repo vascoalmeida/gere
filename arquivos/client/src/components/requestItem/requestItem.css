@@ -5,12 +5,32 @@
     margin-bottom: 5rem;
 }
 
+#request-item .label-title {
+    margin-bottom: 0;
+}
+
 .request-item-section:first-child {
     display: flex;
+    flex-direction: row;
 }
 
 .request-item-section:first-child > * {
     flex-grow: 1;
+}
+
+.ri-section:first-child {
+    width: 20rem;
+}
+
+.ri-section.btn-container {
+    display: flex;
+}
+
+.ri-section.btn-container > .form-button {
+    margin: 0;
+    margin-right: 5rem;
+    margin-top: 5rem;
+    width: 35rem !important;
 }
 
 h1.item-name {

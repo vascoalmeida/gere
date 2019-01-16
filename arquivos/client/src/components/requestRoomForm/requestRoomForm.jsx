@@ -170,7 +170,7 @@ class RequestRoomForm extends Component {
 
         else if(this.state.remove_room_popup_visible) {
             var confirmation_sentence = "Tem a certeza de que deseja eliminar esta sala?";
-            active_popup = <RemoveListItem close_popup={this.closePopup} remove_room={this.removeRoom} />
+            active_popup = <RemoveListItem confirmation={confirmation_sentence} close_popup={this.closePopup} remove_room={this.removeRoom} />
         }
 
         else if(this.state.edit_room_popup_visible) {

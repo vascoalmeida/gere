@@ -52,7 +52,7 @@ class ListItem extends Component {
             file_reader.readAsDataURL(img_blob);
 
             file_reader.onload = () => {
-                var base_64_data = file_reader.result;
+                //var base_64_data = file_reader.result;
                 
                 /*this.setState({
                     image: base_64_data,
@@ -171,7 +171,7 @@ class ListItem extends Component {
             <React.Fragment>
                 {active_popup}
                 <div className="list-item">
-                    <img src={this.state.image} alt={this.props.name} alt={this.state.name} />
+                    <img src={this.state.image} alt={this.state.name} />
 
                     <div className="item-info">
                         <h1 className="item-name">{this.state.name}</h1>
