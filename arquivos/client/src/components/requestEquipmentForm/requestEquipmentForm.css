@@ -182,3 +182,13 @@
     right: 8rem;
     position: absolute;
 }
+
+#material-form .form-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#material-container .list-item {
+    width: 100%;
+}

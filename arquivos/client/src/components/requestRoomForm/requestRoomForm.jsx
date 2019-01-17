@@ -214,7 +214,7 @@ class RequestRoomForm extends Component {
                         this.state.room_list.length !== 0 ?
 
                         this.state.room_list.map(id => (
-                            <ListItem key={id} object_type="room" object_id={id} order_room={() => this.handleRoomClick(id)} />
+                            <ListItem key={id} object_type="room" object_id={id} order_object={() => this.handleRoomClick(id)} />
                         ))
 
                         :

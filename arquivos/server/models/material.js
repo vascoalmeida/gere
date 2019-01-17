@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
 		Material.belongsTo(models.Image, {
 			foreignKey: "img_id",
 		});
+
+		Material.hasMany(models.RequestMaterial, {
+			foreignKey: "material_id",
+		});
 	};
 	
 	return Material;

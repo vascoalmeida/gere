@@ -111,7 +111,7 @@ router.put("/", (req, res) => {
     });
 });
 
-router.delete("/", (req, res) => {
+router.delete("/:room_id", (req, res) => {
     // Delete existing room
 
     var msg = "Recieved request to " + "delete".bold + " object " + "Room".bold;
@@ -119,7 +119,7 @@ router.delete("/", (req, res) => {
 
     models.Room.destroy({
         where: {
-            id: req.body.id
+            id: req.params.room_id
         }
     })
     .then(r =>{
@@ -227,7 +227,7 @@ router.get("/request/list", (req, res) => {
 router.post("/request", (req, res) => {
     // Create new room request
 
-    let message = "Recieved form submission from " + "room-form".bold;
+    let message = "Recieved form submission to request " + "Room".bold;
     output_message("info", message);
 
     models.Room.findAll({
@@ -333,6 +333,8 @@ router.get("/request/info/:request_id", (req, res) => {
 });
 
 router.put("/request/:request_id", (req, res) => {
+    // Change room request status
+
     var request_id = req.params.request_id;
 
     new formidable.IncomingForm().parse(req, (err, fields, files) => {

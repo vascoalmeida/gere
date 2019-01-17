@@ -142,10 +142,18 @@ class ListItem extends Component {
             );
         }
 
+        else if(this.props.selected) {
+            buttons_available = (
+                <React.Fragment>
+                    <div className="form-button red-btn" onClick={this.props.remove_equipment}>Remover</div>
+                </React.Fragment>
+            )
+        }
+
         else {
             buttons_available = (
                 <React.Fragment>
-                    <div className="form-button" onClick={this.props.order_room}>Requisitar</div>
+                    <div className="form-button" onClick={this.props.order_object}>Requisitar</div>
                 </React.Fragment>
             );
         }

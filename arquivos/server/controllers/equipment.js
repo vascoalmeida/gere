@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
 
         
         var equipment_info = {};
-        
+
         try {
             var img = files["image"];
             var img_ext = img.name.slice(img.name.lastIndexOf(".") + 1, );
@@ -207,6 +207,55 @@ router.get("/info/:equipment_id", (req, res) => {
         res.sendStatus(404);
         res.end();
     });
+});
+
+router.post("/request", (req, res) => {
+    // Create new Equipment Request
+    
+    let message = "Recieved form submission to request " + "Equipment".bold;
+    output_message("info", message);
+
+    req.body.requested_equipment.map(eq_id => {
+        var req_body = {};
+        Object.assign(req_body, req.body);
+
+        models.Material.findAll({
+            attributes: ["id"],
+            where: {
+                id: eq_id
+            }
+        })
+        .then(r => {
+            if(r[0].dataValues.length === 0) {
+                res.sendStatus(404);
+                return;
+            }
+
+            req_body.material_id = eq_id;
+            req_body.user_id = req.session.user;
+            req_body.status = "Pendente";
+
+            console.log(req_body);
+
+            models.RequestMaterial.create(req_body)
+            .then(r => {
+                let message = "Successfully created new object " + "equipment request".bold;
+                output_message("success", message);
+            })
+            .catch(err => {
+                output_message("error", "Failed to create new " + "equipment request".bold + ". More details below.");
+                console.log(err);
+            });
+        })
+        .catch(err => {
+            let msg = "Error while retrieving info from database. More details below:";
+            output_message("error", msg);
+            console.log(err);
+            return;
+        });
+    });
+    
+    res.end();
 });
 
 module.exports = router;

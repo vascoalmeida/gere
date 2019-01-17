@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import EquipmentPopup1 from "../popups/equipmentPopup1/equipmentPopup1";
 import EquipmentPopup2 from "../popups/equipmentPopup2/equipmentPopup2";
 import ListItem from "../listItem/listItem";
-
-var css_loaded = false;
+import "./requestEquipmentForm.css";
 
 class RequestEquipmentForm extends Component {
 
@@ -12,7 +11,7 @@ class RequestEquipmentForm extends Component {
 
         this.state = {
             equipment_list: [],
-            chosen_material: [],
+            chosen_equipment: [],
             button_blocked_class: "locked-button",
             popup1_visible: false,
             popup2_visible: false,
@@ -29,13 +28,6 @@ class RequestEquipmentForm extends Component {
         this.removeMaterial = this.removeMaterial.bind(this);
         this.recieveFromPopup1 = this.recieveFromPopup1.bind(this);
         this.closePopup = this.closePopup.bind(this);
-    }
-
-    componentWillMount() {
-        if(!css_loaded) {
-            css_loaded = true;
-            import("./requestEquipmentForm.css");
-        }
     }
 
     componentDidMount() {
@@ -72,14 +64,18 @@ class RequestEquipmentForm extends Component {
     }
 
     handleFormSubmission() {
-        fetch("/request-material", {
+        fetch("/equipment/request", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                requested_material: this.state.chosen_material
-            })
+                requested_equipment: this.state.chosen_equipment,
+                day_start: this.state.leave_date,
+                day_end: this.state.delivery_date,
+                time_start: this.state.leave_time,
+                time_end: this.state.delivery_time,
+            }),
         })
         .catch((err) => console.log(err));
     }
@@ -99,54 +95,58 @@ class RequestEquipmentForm extends Component {
         this.setState({
             popup1_visible: false,
             popup2_visible: false,
-        })
+        });
     }
 
     handleQuantityChange(ev, index) {
-        this.setState({quantity: ev.target.value});
+        this.setState({
+            quantity: ev.target.value
+        });
     }
 
     handleNextClick(ev) {
-        this.setState({popup1_visible: true});
+        this.setState({
+            popup1_visible: true
+        });
     }
     
     removeMaterial(index) {
-        var s_chosen_material = this.state.chosen_material;
-        var s_material_list = this.state.material_list;
+        var s_chosen_equipment = this.state.chosen_equipment;
+        var s_equipment_list = this.state.equipment_list;
 
-        for(var i = 0; i < s_chosen_material.length; i++) {
+        for(var i = 0; i < s_chosen_equipment.length; i++) {
             
-            if(s_chosen_material[i].id === index) {
-                var add_mat = s_chosen_material[i];
-                s_chosen_material.splice(i, 1);
+            if(s_chosen_equipment[i].id === index) {
+                var add_mat = s_chosen_equipment[i];
+                s_chosen_equipment.splice(i, 1);
             }
         }
 
-        s_material_list.push(add_mat);
+        s_equipment_list.push(add_mat);
 
         this.setState({
-            chosen_material: s_chosen_material,
-            material_list: s_material_list,
+            chosen_equipment: s_chosen_equipment,
+            equipment_list: s_equipment_list,
         });
     }
 
     addMaterial(index) {
-        var s_chosen_material = this.state.chosen_material;
-        var s_material_list = this.state.material_list;
+        var s_chosen_equipment = this.state.chosen_equipment;
+        var s_equipment_list = this.state.equipment_list;
     
-        for(var i = 0; i < s_material_list.length; i++) {
+        for(var i = 0; i < s_equipment_list.length; i++) {
             
-            if(s_material_list[i].id === index) {
-                var add_mat = s_material_list[i];
-                s_material_list.splice(i, 1);
+            if(s_equipment_list[i] === index) {
+                var add_mat = s_equipment_list[i];
+                s_equipment_list.splice(i, 1);
             }
         }
 
-        s_chosen_material.push(add_mat);
+        s_chosen_equipment.push(add_mat);
 
         this.setState({
-            chosen_material: s_chosen_material,
-            material_list: s_material_list,
+            chosen_equipment: s_chosen_equipment,
+            equipment_list: s_equipment_list,
             button_blocked_class: ""
         });
     }
@@ -159,7 +159,7 @@ class RequestEquipmentForm extends Component {
         }
 
         else if(this.state.popup2_visible) {
-            active_popup = <EquipmentPopup2 leave_date={this.state.leave_date} leave_time={this.state.leave_time} delivery_date={this.state.delivery_date} delivery_time={this.state.delivery_time} material={this.state.chosen_material} close_popup={this.closePopup} />
+            active_popup = <EquipmentPopup2 leave_date={this.state.leave_date} leave_time={this.state.leave_time} delivery_date={this.state.delivery_date} delivery_time={this.state.delivery_time} equipment={this.state.chosen_equipment} close_popup={this.closePopup} />
         }
 
         else {
@@ -168,7 +168,6 @@ class RequestEquipmentForm extends Component {
 
         return(
             <form id="material-form" onSubmit={this.handleFormSubmission}>
-
                 {active_popup}
 
                 <div id="mf-dashboard">
@@ -192,13 +191,19 @@ class RequestEquipmentForm extends Component {
                     
                     <div id="selected-material-container">
                         {
-                            this.state.chosen_material.length !== 0 ?
+                            this.state.chosen_equipment.length !== 0 ?
                             
-                            this.state.chosen_material.map(material => (
-                                <React.Fragment key={material.id}>
-                                    <ListItem key={material.id} object_type="equipment" object_id={material.id} />
-                                </React.Fragment>
-                            ))
+                            <React.Fragment>
+                            {
+                                this.state.chosen_equipment.map(equipment => (
+                                    <ListItem key={equipment} object_type="equipment" object_id={equipment} selected={true} />
+                                ))
+                            }
+
+                                <div className="form-btn-container">
+                                    <div className="form-button" onClick={this.handleNextClick}>Requisitar</div>
+                                </div>
+                            </React.Fragment>
 
                             :
                             
@@ -213,10 +218,10 @@ class RequestEquipmentForm extends Component {
                     {
                         this.state.equipment_list.length !== 0 ?
                         
-                        this.state.equipment_list.map(material => (
+                        this.state.equipment_list.map(equipment => (
 
-                            <React.Fragment key={material}>
-                                <ListItem object_type="equipment" object_id={material} />
+                            <React.Fragment key={equipment}>
+                                <ListItem object_type="equipment" object_id={equipment} order_object={() => this.addMaterial(equipment)} />
                             </React.Fragment>
 
                         ))

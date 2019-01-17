@@ -3,6 +3,7 @@ import "./equipmentPopup2.css";
 
 class EquipmentPopup2 extends Component {
     render() {
+        console.log(this.props);
         return (
             <div id="rm-popup-container" >
                 <div id="rm-popup" className="rm-popup2">
@@ -27,7 +28,7 @@ class EquipmentPopup2 extends Component {
 
                     <div className="popup-info">
                         <label className="label-title">Material requisitado:</label>
-                        {this.props.material.map(mat => {
+                        {this.props.equipment.map(mat => {
                             return(
                                 <div className="material-overview" key={mat.id}>
                                     <span>{mat.name}</span>
