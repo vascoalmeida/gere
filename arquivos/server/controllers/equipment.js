@@ -258,4 +258,129 @@ router.post("/request", (req, res) => {
     res.end();
 });
 
+router.get("/request/list", (req, res) => {
+    // Get id list of equipment requests
+    
+    models.RequestMaterial.findAll({
+        attributes: ["id"],
+    })
+    .then(r => {
+        if(r.length === 0) {
+            res.end();
+            return;
+        }
+
+        res.json(r.map(request => request.dataValues.id));
+    });
+})
+
+router.get("/request/info/:request_id", (req, res) => {
+    // Get equipment requets info
+
+    var request_id = req.params.request_id;
+
+    models.RequestMaterial.findAll({
+        attributes: ["day_start", "day_end", "time_start", "time_end", "status", "material_id", "user_id"],
+        where: {
+            id: request_id,
+        },
+    })
+    .then(equipment_request => {
+        if(equipment_request.length === 0) {
+            res.sendStatus(404);
+            res.end();
+            return;
+        }
+
+        var material_id = equipment_request[0].dataValues.material_id;
+        var user_id = equipment_request[0].dataValues.user_id;
+        var equipment_user_data = {};
+
+        equipment_user_data["request"] = equipment_request[0].dataValues;
+
+        models.Material.findAll({
+            attributes: ["name", "description"],
+            where: {
+                id: material_id,
+            },
+        })
+        .then(equipment => {
+            if(equipment.length === 0) {
+                res.sendStatus(404);
+                res.end();
+                return;
+            }
+            
+            equipment_user_data["equipment"] = equipment[0].dataValues;
+
+            models.User.findAll({
+                attributes: ["name", "class"],
+                where: {
+                    email: user_id,
+                },
+            })
+            .then(user => {
+                if(user.length === 0) {
+                    res.sendStatus(404);
+                    res.end();
+                    return;
+                }
+                
+                equipment_user_data["user"] = user[0].dataValues;
+                res.json(equipment_user_data);
+            })
+            .catch(err => {
+                console.error(err);
+                res.sendStatus(500);
+                res.end();
+            });
+        })
+        .catch(err => {
+            console.error(err);
+            res.sendStatus(500);
+            res.end();
+        });
+    })
+    .catch(err => {
+        let msg = "Failed to get " + "Equipment Request".bold + " data from DB. More details below:";
+        output_message("error", msg);
+        console.error(err);
+        res.sendStatus(500);
+        res.end();
+    });
+});
+
+router.put("/request/:request_id", (req, res) => {
+    // Change equipment request status
+    
+    var request_id = req.params.request_id;
+    console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+    new formidable.IncomingForm().parse(req, (err, fields, files) => {
+        if(err) {
+            let msg = "Failed to parse received info. More details below:";
+            output_message("error", msg);
+            console.log(err);
+            res.end();
+            return;
+        }
+
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", fields);
+
+        models.RequestMaterial.update({
+            status: fields.status,
+        }, {
+            where: {
+                id: request_id
+            },
+        })
+        .catch(err => {
+            let msg = "Error updating " + "Equipment Request".bold + " status. More details below:";
+            output_message("error", msg);
+            console.log(err);
+        });
+
+        res.end();
+    });
+});
+
 module.exports = router;

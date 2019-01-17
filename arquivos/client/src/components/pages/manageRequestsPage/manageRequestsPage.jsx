@@ -6,6 +6,7 @@ import {
     Redirect
 } from "react-router-dom";
 import ManageRoomRequests from "../manageRoomRequests/manageRoomRequests";
+import ManageEquipmentRequests from "../manageEquipmentRequests/manageEquipmentRequests";
 
 class ManageRequests extends Component {
     render() {
@@ -22,7 +23,7 @@ class ManageRequests extends Component {
 
                     <Redirect to="/main/gerir/requisicoes/salas" />
                     <Route path="/main/gerir/requisicoes/salas" component={ManageRoomRequests} />
-                    <Route path="/main/gerir/requisicoes/materiais" />
+                    <Route path="/main/gerir/requisicoes/equipamentos" component={ManageEquipmentRequests} />
                 </React.Fragment>
             </HashRouter>
         );

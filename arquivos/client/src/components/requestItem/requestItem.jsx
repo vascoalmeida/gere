@@ -29,7 +29,6 @@ class RequestItem extends Component {
     }
 
     componentDidMount() {
-
         fetch("/" + this.props.object_type + "/request/info/" + this.props.object_id, {
             method: "GET",
             headers: {
@@ -39,20 +38,40 @@ class RequestItem extends Component {
         .then(r => {
             r.json()
             .then(res => {
-                res.request.day = res.request.day.slice(0, res.request.day.indexOf("T"));
-                res.request.time_start = res.request.time_start.slice(0, res.request.time_start.lastIndexOf(":"));
-                res.request.time_end = res.request.time_end.slice(0, res.request.time_end.lastIndexOf(":"));
+                if(this.props.object_type === "room") {
+                    res.request.day = res.request.day.slice(0, res.request.day.indexOf("T"));
+                    res.request.time_start = res.request.time_start.slice(0, res.request.time_start.lastIndexOf(":"));
+                    res.request.time_end = res.request.time_end.slice(0, res.request.time_end.lastIndexOf(":"));
 
-                this.setState({
-                    name: res.room.name,
-                    day_start: res.request.day_start || res.request.day,
-                    day_end: res.request.day_end || "",
-                    time_start: res.request.time_start,
-                    time_end: res.request.time_end,
-                    status: res.request.status,
-                    user: res.user.name,
-                    user_class: res.user.class,
-                });
+                    this.setState({
+                        name: res.room.name,
+                        day_start: res.request.day,
+                        day_end: res.request.day_end || "",
+                        time_start: res.request.time_start,
+                        time_end: res.request.time_end,
+                        status: res.request.status,
+                        user: res.user.name,
+                        user_class: res.user.class,
+                    });
+                }
+
+                else {
+                    res.request.day_start = res.request.day_start.slice(0, res.request.day_start.indexOf("T"));
+                    res.request.day_end = res.request.day_end.slice(0, res.request.day_end.indexOf("T"));
+                    res.request.time_start = res.request.time_start.slice(0, res.request.time_start.lastIndexOf(":"));
+                    res.request.time_end = res.request.time_end.slice(0, res.request.time_end.lastIndexOf(":"));
+
+                    this.setState({
+                        name: res.equipment.name,
+                        day_start: res.request.day_start,
+                        day_end: res.request.day_end,
+                        time_start: res.request.time_start,
+                        time_end: res.request.time_end,
+                        status: res.request.status,
+                        user: res.user.name,
+                        user_class: res.user.class,
+                    });
+                }
             })
             .catch(err => {
                 console.error(err);
@@ -86,7 +105,7 @@ class RequestItem extends Component {
         var form_data = new FormData();
         form_data.append("status", "Aceite");
 
-        fetch("/room/request/" + this.props.object_id, {
+        fetch("/"+ this.props.object_type +"/request/" + this.props.object_id, {
             method: "PUT",
             body: form_data,
         })
@@ -102,7 +121,7 @@ class RequestItem extends Component {
         var form_data = new FormData();
         form_data.append("status", "Recusado");
 
-        fetch("/room/request/" + this.props.object_id, {
+        fetch("/"+ this.props.object_type +"/request/" + this.props.object_id, {
             method: "PUT",
             body: form_data,
         })
