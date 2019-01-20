@@ -108,6 +108,10 @@ input.form-input:focus {
 	border-bottom: 1px solid #39A0ED;
 }
 
+.hidden {
+	display: none !important;
+}
+
 #root {
 	width: 100vw;
 }

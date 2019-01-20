@@ -53,7 +53,7 @@ class RegisterForm extends Component {
     }
 
     handleSubmit() {
-        fetch("/user/register", {
+        fetch("/user/activate", {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
@@ -66,6 +66,7 @@ class RegisterForm extends Component {
                 "class": this.state.class,
             })
         })
+        .then(r => console.log(r));
     }
 
     render() {

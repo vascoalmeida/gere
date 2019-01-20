@@ -1,0 +1,20 @@
+#add-user {
+    margin-top: 5rem;
+}
+
+#add-user .au-section{
+    /*border: 0.2rem solid #91C651;*/
+    padding: 5rem;
+    border-radius: 2rem;
+}
+
+#add-user .section-title {
+    font-weight: normal;
+    background-color: #ffffff;
+}
+
+#add-user .form-button {
+    margin-top: 5rem;
+    margin-right: 5rem;
+    display: inline-block;
+}

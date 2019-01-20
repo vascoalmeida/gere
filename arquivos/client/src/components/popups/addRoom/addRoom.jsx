@@ -1,6 +1,5 @@
 import React, {Component} from "react";
-
-var css_loaded = false;
+import "./addRoom.css";
 
 class AddRoom extends Component {
 
@@ -19,15 +18,6 @@ class AddRoom extends Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
-        console.log(this.props, this.state);
-    }
-
-    componentDidMount() {
-        if(!css_loaded) {
-            css_loaded = true;
-            import("./addRoom.css");
-        }
     }
 
     handleSubmit() {
@@ -69,7 +59,7 @@ class AddRoom extends Component {
 
     render() {
         return(
-            <div className="popup-container">
+            <div className="popup-container" id="add-room">
                 <div className="popup-content">
                     <img src={window.location.origin + "/img/icon-close.png"} alt="Close icon" className="close-icon" onClick={this.props.close_popup} />
 
@@ -80,8 +70,8 @@ class AddRoom extends Component {
                     </div>
 
                     <div className="popup-section ps2">
-                        <input type="file" name="uploaded_img" id="file" className="input-file" onChange={this.handleImgChange} required />
                         <img id="equipment-img" src={this.state.visible_img} alt="Equipamento" />
+                        <input type="file" name="uploaded_img" id="file" className="input-file" onChange={this.handleImgChange} required />
                         <label id="chose-img-btn" className="form-button white-btn" htmlFor="file">Escolher imagem</label>
                     </div>
                 </div>

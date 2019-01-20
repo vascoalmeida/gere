@@ -8,11 +8,9 @@ module.exports = {
 				type: Sequelize.INTEGER,
 			},
 			name: {
-				allowNull: false,
 				type: Sequelize.STRING,
 			},
 			password: {
-				allowNull: false,
 				type: Sequelize.STRING,
 			},
 			email: {
@@ -21,11 +19,9 @@ module.exports = {
 				type: Sequelize.STRING,
 			},
 			passwordSalt: {
-				allowNull: false,
 				type: Sequelize.STRING,
 			},
 			class: {
-				allowNull: false,
 				type: Sequelize.STRING,
 			},
 			status: {

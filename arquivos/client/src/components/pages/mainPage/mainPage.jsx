@@ -10,6 +10,7 @@ import RequisitionPage from "../requisitionPage/requisitionPage";
 import ManageRequestsPage from "../manageRequestsPage/manageRequestsPage";
 import ManageRoomsPage from "../manageRoomsPage/manageRoomsPage";
 import ManageEquipmentPage from "../manageEquipmentPage/manageEquipmentPage";
+import ManageUsers from "../manageUsers/manageUsers";
 
 class MainPage extends Component {
 
@@ -55,6 +56,10 @@ class MainPage extends Component {
                                         <label>Gerir Requisições</label>
                                         <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
                                     </NavLink>
+                                    <NavLink to="/main/gerir/utilizadores" className="menu-item">
+                                        <label>Gerir Utilizadores</label>
+                                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
+                                    </NavLink>
                                 </ul>
                             </div>
                             <div id="main-content">
@@ -64,6 +69,7 @@ class MainPage extends Component {
                                 <Route path="/main/gerir/salas" component={ManageRoomsPage} />
                                 <Route path="/main/gerir/equipamento" component={ManageEquipmentPage} />
                                 <Route path="/main/gerir/requisicoes" component={ManageRequestsPage} />
+                                <Route path="/main/gerir/utilizadores" component={ManageUsers} />
                             </div>
                         </React.Fragment>
                     </HashRouter>

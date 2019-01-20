@@ -1,0 +1,14 @@
+#manage-users {
+    width: 90%;
+    margin: 0 auto;
+}
+
+#manage-users #dashboard {
+    border: 0.2rem solid #a2c775;
+    border-radius: 1rem;
+    margin: 5rem auto 12rem auto;
+    padding: 4rem 0;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+}

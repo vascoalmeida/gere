@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import AddRoom from "../../popups/addRoom/addRoom";
 import ListItem from "../../listItem/listItem";
-
-var css_loaded = false;
+import "./manageRoomsPage.css";
 
 class ManageRoomsPage extends Component {
 
@@ -16,13 +15,6 @@ class ManageRoomsPage extends Component {
 
         this.closePopups = this.closePopups.bind(this);
         this.showAddRoomPopup = this.showAddRoomPopup.bind(this);
-    }
-
-    componentWillMount() {
-        if(!css_loaded) {
-            css_loaded = true;
-            import("./manageRoomsPage.css");
-        }
     }
 
     componentDidMount() {

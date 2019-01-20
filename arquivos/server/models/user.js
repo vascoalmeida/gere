@@ -8,11 +8,9 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.INTEGER,
 		},
 		name: {
-			allowNull: false,
 			type: DataTypes.STRING,
 		},
 		password: {
-			allowNull: false,
 			type: DataTypes.STRING,
 		},
 		email: {
@@ -21,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 		},
 		passwordSalt: {
-			allowNull: false,
 			type: DataTypes.STRING,
 		},
 		class: {
