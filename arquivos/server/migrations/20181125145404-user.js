@@ -28,6 +28,9 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.STRING,
 			},
+			clearanceLvl: {
+				type: Sequelize.INTEGER, 
+			},
 			createdAt: {
 				type: Sequelize.DATE,
 			},

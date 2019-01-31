@@ -40,7 +40,7 @@ class LoginForm extends Component {
         })
         .then((r) => {
             if(r.status === 200) {
-                window.location = "/#/main";
+                window.location = "/#/main/requisitar/sala";
             }
             else {
                 alert("Email e/ou password errados");
@@ -54,7 +54,7 @@ class LoginForm extends Component {
     render() {
         return (
             <form id="login-form">
-                <div id="form-name">Login</div>
+                <div id="form-name">Entrar</div>
 
                 <input type="email" className="login-register-input" placeholder="Email" onChange={this.handleEmailChange} required />
                 <input type="password" className="login-register-input" placeholder="Password" onChange={this.handlePassChange} required />

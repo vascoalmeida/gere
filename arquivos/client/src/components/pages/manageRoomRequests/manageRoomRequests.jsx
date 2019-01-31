@@ -67,7 +67,7 @@ class ManageRoomRequests extends Component {
 
                         :
 
-                        <p>a</p>
+                        <label className="faded-label">Não existem requisições</label>
                     }
                 </div>
             </div>

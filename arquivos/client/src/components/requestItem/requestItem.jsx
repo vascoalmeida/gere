@@ -18,14 +18,17 @@ class RequestItem extends Component {
             user_class: "",
             confirm_request_visible: false,
             reject_request_visible: false,
+            cancel_request_visible: false,
             status_color_class: "text",
         }
 
         this.closePopups = this.closePopups.bind(this);
         this.showAcceptRequestPopup = this.showAcceptRequestPopup.bind(this);
         this.showRejectRequestPopup = this.showRejectRequestPopup.bind(this);
+        this.showCancelRequestPopup = this.showCancelRequestPopup.bind(this);
         this.acceptRequest = this.acceptRequest.bind(this);
         this.rejectRequest = this.rejectRequest.bind(this);
+        this.cancelRequest = this.cancelRequest.bind(this);
     }
 
     componentDidMount() {
@@ -86,6 +89,7 @@ class RequestItem extends Component {
         this.setState({
             confirm_request_visible: false,
             reject_request_visible: false,
+            cancel_request_visible: false,
         });
     }
 
@@ -101,6 +105,12 @@ class RequestItem extends Component {
         });
     }
 
+    showCancelRequestPopup() {
+        this.setState({
+            cancel_request_visible: true,
+        });
+    }
+
     acceptRequest() {
         var form_data = new FormData();
         form_data.append("status", "Aceite");
@@ -110,7 +120,7 @@ class RequestItem extends Component {
             body: form_data,
         })
         .then(r => {
-            console.log(r);
+            window.location.reload();
         })
         .catch(err => {
             console.log(err);
@@ -133,10 +143,27 @@ class RequestItem extends Component {
         });
     }
 
+    cancelRequest() {
+        var form_data = new FormData();
+        form_data.append("status", "Cancelado");
+
+        fetch("/"+ this.props.object_type +"/request/" + this.props.object_id, {
+            method: "PUT",
+            body: form_data,
+        })
+        .then(r => {
+            window.location.reload();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
     render() {
         var active_popup;
         var visible_buttons;
         var status_color;
+        var last_section;
 
         if(this.state.confirm_request_visible) {
             active_popup = (
@@ -150,11 +177,43 @@ class RequestItem extends Component {
             );
         }
 
+        else if(this.state.cancel_request_visible) {
+            active_popup = (
+                <ConfirmAction type="confirm-requisition" message="Deseja cancelar a requisição?" accept_btn_msg="Sim, cancelar" reject_btn_msg="Não, voltar" accept_btn_action={this.cancelRequest} reject_btn_action={this.closePopups} close_popup={this.closePopups} />
+            );
+        }
+
         else {
             active_popup = null;
         }
+
+        if(this.props.viewed_by === "admin") {
+            last_section = (
+                <React.Fragment>
+                    <div>
+                        <label className="label-title">Requisitado por:</label>
+                        <span className="text">{this.state.user}</span>
+                    </div>
+
+                    <div>
+                        <label className="label-title">Turma:</label>
+                        <span className="text">{this.state.user_class}</span>
+                    </div>
+                </React.Fragment>
+            );
+        }
+
+        else if(this.state.status === "Pendente" && this.props.viewed_by === "user") {
+            last_section = (
+                <div className="form-button red-btn" onClick={this.showCancelRequestPopup}>Cancelar</div>
+            );
+        }
+
+        else {
+            last_section = null;
+        }
         
-        if(this.state.status === "Pendente") {
+        if(this.state.status === "Pendente" && this.props.viewed_by === "admin") {
             visible_buttons = (
                 <div className="ri-section btn-container">
                     <div className="form-button white-btn" onClick={this.showAcceptRequestPopup}>Aceitar</div>
@@ -167,7 +226,7 @@ class RequestItem extends Component {
             status_color = "text-green";
         }
 
-        else if(this.state.status === "Recusado") {
+        else if(this.state.status === "Recusado" || this.state.status === "Cancelado") {
             status_color = "text-red";
         }
 
@@ -210,15 +269,7 @@ class RequestItem extends Component {
                         </div>
 
                         <div className="ri-section">
-                            <div>
-                                <label className="label-title">Requisitado por:</label>
-                                <span className="text">{this.state.user}</span>
-                            </div>
-
-                            <div>
-                                <label className="label-title">Turma:</label>
-                                <span className="text">{this.state.user_class}</span>
-                            </div>
+                            {last_section}
                         </div>
                     </div>
                     

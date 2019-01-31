@@ -4,10 +4,6 @@
     margin-bottom: 8rem;
 }
 
-.popup-content {
-    display: flex;
-}
-
 #equipment-img {
     width: 80rem;
     height: 50rem;
@@ -16,13 +12,15 @@
     border-radius: 1rem;
 }
 
-.popup-section {
+#add-room .popup-section {
     width: 50%;
     height: 100% !important;
 }
 
 .ps1 {
     margin-right: 5rem;
+    position: relative;
+    height: 96% !important;
 }
 
 .ps1 .form-input:nth-child(4) {
@@ -53,5 +51,12 @@
 }
 
 #create-room-btn {
-    display: none !important;
+    position: absolute;
+    width: 100%;
+}
+
+.ps1 #create-room-btn {
+    padding: 0;
+    bottom: 0;
+    position: absolute;
 }

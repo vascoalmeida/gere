@@ -1,0 +1,25 @@
+#profile {
+    width: 90%;
+    margin: 0 auto;
+}
+
+#personal-info {
+    width: 100%;
+}
+
+#personal-info .label-title {
+    margin-right: 3rem;
+    width: 10rem;
+}
+
+#user-requisitions {
+    margin-top: 10rem;
+}
+
+#requisition-header {
+    margin: 7rem 0;
+}
+
+#requisition-header > * {
+    display: inline;
+}

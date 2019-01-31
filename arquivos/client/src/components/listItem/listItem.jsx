@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import RemoveListItem from "../popups/removeListItem/removeListItem";
 import AddEquipment from "../popups/AddEquipment/AddEquipment";
 import AddRoom from "../popups/addRoom/addRoom";
+import "./listItem.css";
 
-var css_loaded = false;
 var buttons_available;
 
 class ListItem extends Component {
@@ -25,13 +25,6 @@ class ListItem extends Component {
         this.showEditPopup = this.showEditPopup.bind(this);
         this.closePopups = this.closePopups.bind(this);
         this.deleteObject = this.deleteObject.bind(this);
-    }
-    
-    componentWillMount() {
-        if(!css_loaded) {
-            css_loaded = true;
-            import("./listItem.css");
-        }
     }
 
     componentDidMount() {

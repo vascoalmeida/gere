@@ -6,9 +6,31 @@ const router = express.Router();
 const models = require("../models");
 const crypto_functions = require("../middleware/crypto_functions");
 const output_message = require("../middleware/output_message").output_message;
+const authentication = require("../middleware/authentication");
 
 router.use(body_parser.urlencoded({ extended: true }));
 router.use(body_parser.json());
+
+router.get("/", authentication.authenticate_session, (req, res) =>{
+    // Get logged user
+
+    models.User.findAll({
+        attributes: ["name", "class"],
+        where: {
+            email: req.session.user,
+        },
+    })
+    .then(r => {
+        var user_info = r[0].dataValues;
+        user_info["email"] = req.session.user;
+
+        res.json(user_info);
+    })
+    .catch(err => {
+        output_message("error", "Failed to get requested " + "User".bold + ". More details below:\n" + err);
+        res.end();
+    });
+});
 
 router.post("/login", (req, res) => {
     // Login user
@@ -51,7 +73,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/activate", (req, res) => {
+router.post("/activate", authentication.authenticate_session, (req, res) => {
     // Activate user
 
     let message = "Recieved request to activate " + "User".bold;
@@ -92,7 +114,22 @@ router.post("/activate", (req, res) => {
         output_message("error", msg);
         res.end();
     });
+});
 
+router.get("/deactivate/:user_email", authentication.authenticate_session, (req, res) => {
+    models.User.update({
+        status: "Inativo",
+    }, {
+        where: {
+            email: req.params.user_email,
+        },
+    })
+    .then(r => {
+        output_message("success", "Deactivated object " + "User".bold + ".");
+    })
+    .catch(err => {
+        output_message("error", "Failed to deactivate object " + "User".bold + ". More details below:\n" + err);
+    });
 });
 
 router.post("/register", (req, res) => {
@@ -128,12 +165,52 @@ router.post("/register", (req, res) => {
     res.end();
 });
 
-/*router.post("/em", (req, res) => {
+router.get("/list", authentication.authenticate_session, (req, res) => {
+    // Send list of emails
+
+    models.User.findAll({
+        attributes: ["email"],
+    })
+    .then(r => {
+        var users_list = [];
+        r.forEach(user => {
+            users_list.push(user.dataValues.email);
+        });
+        
+        res.json({users_list});
+    })
+    .catch(err => {
+        let msg = "Failed to get list of users from Database. More details below:\n" + err;
+        output_message("error", msg);
+        res.end();
+    });
+});
+
+router.get("/info/:user_email", authentication.authenticate_session, (req, res) => {
+    // Get info of a certain user
+
+    models.User.findAll({
+        attributes: ["name", "email", "class", "status", "clearanceLvl"],
+        where: {
+            email: req.params.user_email,
+        },
+    })
+    .then(r => {
+        res.json(r[0].dataValues);
+    })
+    .catch(err => {
+        let msg = "Failed to get " + "User".bold + " info from Database. More details below:\n" + err;
+        output_message("error", msg);
+        res.end();
+    });
+});
+
+router.post("/em", (req, res) => {
     console.log(req.body);
     var password_salt = crypto_functions.gen_random_string(10);
     var hashed_password = crypto_functions.hash_string(req.body.password, password_salt).hashed_string;
 
-    req.body.status = "pendent";
+    req.body.status = "Pendente";
     req.body.password = hashed_password;
     req.body.passwordSalt = password_salt;
 
@@ -146,9 +223,9 @@ router.post("/register", (req, res) => {
         output_message("error", "Failed to create " + "User".bold + ". More details below.");
         console.log(err);
     });
-});*/
+});
 
-router.get("/logout", (req, res) => {
+router.get("/logout", authentication.authenticate_session, (req, res) => {
     // Logout current user
 
     req.session.destroy();

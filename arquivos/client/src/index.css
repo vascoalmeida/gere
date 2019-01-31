@@ -273,3 +273,12 @@ select:focus {
 .popup-content .form-button {
     margin: 0 auto;
 }
+
+.arrow-up {
+	width: 0;
+	height: 0;
+	border: 3rem solid;
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}

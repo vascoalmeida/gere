@@ -2,9 +2,9 @@ const express = require("express");
 const body_parser = require("body-parser");
 const Sequelize = require("sequelize");
 const db_cred = require("./db_credentials.json");
-const room = require("./controllers/room");
+const room = require("./controllers/room/room");
 const user = require("./controllers/user");
-const equipment = require("./controllers/equipment");
+const equipment = require("./controllers/equipment/equipment");
 const output_message = require("./middleware/output_message").output_message;
 const session_middleware = require("./middleware/session");
 
@@ -24,7 +24,7 @@ app.use("/user", user);
 
 sequelize.authenticate()
 .then((r) => {
-    output_message("success", "Successfully connected to DB");
+    output_message("success", "Successfully connected to database");
 })
 .catch((err) => {
     output_message("error", "Failed to connect to database. Error output below:\n" + err);
