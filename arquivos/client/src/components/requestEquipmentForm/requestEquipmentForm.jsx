@@ -77,6 +77,11 @@ class RequestEquipmentForm extends Component {
                 time_end: this.state.delivery_time,
             }),
         })
+        .then(r => {
+            if(r.status === 205) {
+                window.location.reset();
+            }
+        })
         .catch((err) => console.log(err));
     }
 

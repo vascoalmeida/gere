@@ -85,7 +85,7 @@ class RegisterForm extends Component {
                         <option value="1ºAV">1ºAV</option>
                     </select>
                 <button className="form-button" type="button" onClick={this.handleSubmit}>Registar</button>
-                <div className="blue-text-link" onClick={this.props.changeForm}>Já é membro?</div>
+                <div className="blue-text-link" onClick={this.props.changeForm}>Já és membro?</div>
             </form>
         );
     }

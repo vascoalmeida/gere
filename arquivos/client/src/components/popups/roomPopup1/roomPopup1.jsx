@@ -19,8 +19,6 @@ class RoomPopup1 extends Component {
         this.handleChosenTimeStart = this.handleChosenTimeStart.bind(this);
         this.handleChosenTimeEnd = this.handleChosenTimeEnd.bind(this);
         this.allowContinue = this.allowContinue.bind(this);
-
-        console.log(this.props);
     }
 
     handleBtnClick() {
@@ -41,15 +39,21 @@ class RoomPopup1 extends Component {
     }
 
     handleChosenDay(ev) {
-        this.setState({date: ev.target.value}, this.allowContinue);
+        this.setState({
+            date: ev.target.value
+        }, this.allowContinue);
     }
 
     handleChosenTimeStart(ev) {
-        this.setState({time_start: ev.target.value}, this.allowContinue);
+        this.setState({
+            time_start: ev.target.value
+        }, this.allowContinue);
     }
 
     handleChosenTimeEnd(ev) {
-        this.setState({time_end: ev.target.value}, this.allowContinue);
+        this.setState({
+            time_end: ev.target.value
+        }, this.allowContinue);
     }
 
     render() {

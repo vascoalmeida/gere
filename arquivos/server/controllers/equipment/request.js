@@ -16,53 +16,117 @@ router.post("/", (req, res) => {
     let message = "Recieved form submission to request " + "Equipment".bold;
     output_message("info", message);
 
+    var rejected_equipment = [];
+    var accepted_equipment = [];
+
     req.body.requested_equipment.map(eq_id => {
         var req_body = {};
         Object.assign(req_body, req.body);
 
+        //console.log(req_body);
+
         models.Material.findAll({
-            attributes: ["id"],
+            attributes: ["name"],
             where: {
-                id: eq_id
-            }
+                id: eq_id,
+            },
         })
         .then(r => {
-            if(r[0].dataValues.length === 0) {
-                res.sendStatus(404);
+            if(r.length === 0) {
+                res.end();
                 return;
             }
 
-            req_body.material_id = eq_id;
-            req_body.user_id = req.session.user;
-            req_body.status = "Pendente";
-
-            models.RequestMaterial.create(req_body)
+            models.RequestMaterial.findAll({
+                attributes: ["id", "material_id"],
+                where: {
+                    $or: [
+                        {status: "Pendente"},
+                        {status: "Aceite"},
+                    ],
+                    $and: {
+                        material_id: eq_id,
+                        $or: [
+                            {
+                                day_start: {
+                                    $between: [req_body.day_start, req_body.day_end],
+                                },
+                            },
+                            {
+                                day_end: {
+                                    $between: [req_body.day_start, req_body.day_end],
+                                },
+                            },
+                            {
+                                time_start: {
+                                    $between: [req_body.time_start, req_body.time_end],
+                                },
+                            },
+                            {
+                                time_end: {
+                                    $between: [req_body.time_start, req_body.time_end],
+                                },
+                            },
+                        ],
+                    },
+                },
+            })
             .then(r => {
-                let message = "Successfully created new object " + "equipment request".bold;
-                output_message("success", message);
+                //console.log(r);
+                if(r.length > 0) {
+                    r.forEach(result => {
+                        req_body.requested_equipment = req_body.requested_equipment.filter(eq => eq !== result.dataValues.material_id);
+
+                        models.Material.findAll({
+                            attributes: ["name"],
+                            where: {
+                                id: result.dataValues.material_id,
+                            },
+                        })
+                        .then(r => {
+                            rejected_equipment.push(r.dataValues.name);
+                        })
+                        .catch(err => {
+                            output_message("error", "Failed to run query on database. More details below:\n" + err);
+                        });
+                    })
+                    //console.log("AFTER FILTER:", req_body);
+                    res.sendStatus(205);
+                    return;
+                }
+
+                accepted_equipment = req_body.requested_equipment;
+                req_body.material_id = eq_id;
+                req_body.user_id = req.session.user;
+                req_body.status = "Pendente";
+
+                models.RequestMaterial.create(req_body)
+                .then(data => {
+                    let message = "Successfully created new object " + "equipment request".bold;
+                    output_message("success", message);
+                    res.end();
+                })
+                .catch(err => {
+                    output_message("error", "Failed to create object " + "room request".bold + ". More details below:\n" + err);
+                    res.end();
+                })
             })
             .catch(err => {
-                output_message("error", "Failed to create new " + "equipment request".bold + ". More details below.");
-                console.log(err);
+                output_message("error", "Failed to run query on database. More details below:\n" + err);
             });
         })
         .catch(err => {
-            let msg = "Error while retrieving info from database. More details below:";
-            output_message("error", msg);
-            console.log(err);
-            return;
+            output_message("error", "Failed to run query on database. More details below:\n" + err);
         });
     });
-    
-    res.end();
 });
 
-router.get("/list/:user_email", (req, res) => {
+router.get("/list/:user_email?", (req, res) => {
     // Get id list of equipment requests
 
     var where_statement = {};
 
-    if(Object.keys(req.params).length > 0) {
+    if(req.params.user_email !== undefined) {
         where_statement = {
             user_id: req.params.user_email,
         }

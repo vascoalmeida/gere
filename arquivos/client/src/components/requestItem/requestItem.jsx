@@ -212,7 +212,7 @@ class RequestItem extends Component {
         else {
             last_section = null;
         }
-        
+
         if(this.state.status === "Pendente" && this.props.viewed_by === "admin") {
             visible_buttons = (
                 <div className="ri-section btn-container">

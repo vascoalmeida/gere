@@ -53,7 +53,7 @@ class ManageEquipmentRequests extends Component {
                     {
                         this.state.requests_list.length !== 0 ? 
 
-                        this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="equipment" object_id={request_item} />)
+                        this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="equipment" viewed_by="admin" object_id={request_item} />)
 
                         :
 

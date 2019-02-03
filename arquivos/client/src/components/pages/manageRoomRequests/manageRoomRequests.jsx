@@ -63,7 +63,7 @@ class ManageRoomRequests extends Component {
                     {
                         this.state.requests_list.length !== 0 ? 
 
-                        this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="room" object_id={request_item} />)
+                        this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="room" viewed_by="admin" object_id={request_item} />)
 
                         :
 

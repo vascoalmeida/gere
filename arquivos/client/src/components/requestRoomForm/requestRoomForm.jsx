@@ -80,7 +80,9 @@ class RequestRoomForm extends Component {
             }),
         })
         .then((res) => {
-            window.location.reload();
+            if(res.status === 205) {
+                window.location.reload();
+            }
         })
         .catch(err => {
             console.error(err);
@@ -105,24 +107,6 @@ class RequestRoomForm extends Component {
             remove_room_popup_visible: false,
             edit_room_popup_visible: false,
         });
-    }
-
-    handleRemoveRoomClick(room_id) {
-        /*let clicked_room = this.state.room_list.filter(room => room === room_id);
-
-        this.setState({
-            chosen_room: clicked_room,
-            remove_room_popup_visible: true,
-        });*/
-    }
-
-    handleEditRoomClick(room_id) {
-        /*let clicked_room = this.state.room_list.filter(room => room === room_id)[0];
-
-        this.setState({
-            chosen_room: clicked_room,
-            edit_room_popup_visible: true,
-        });*/
     }
 
     removeRoom() {
