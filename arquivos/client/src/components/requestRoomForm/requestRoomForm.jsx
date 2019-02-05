@@ -29,7 +29,6 @@ class RequestRoomForm extends Component {
         this.closePopup = this.closePopup.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.recieveFromPopup1 = this.recieveFromPopup1.bind(this);
-        this.handleRemoveRoomClick = this.handleRemoveRoomClick.bind(this);
         this.removeRoom = this.removeRoom.bind(this);
     }
 

@@ -23,8 +23,6 @@ router.post("/", (req, res) => {
         var req_body = {};
         Object.assign(req_body, req.body);
 
-        //console.log(req_body);
-
         models.Material.findAll({
             attributes: ["name"],
             where: {
@@ -58,6 +56,16 @@ router.post("/", (req, res) => {
                                 },
                             },
                             {
+                                $and: {
+                                    day_start: {
+                                        $lte: req.body.day_start,
+                                    },
+                                    day_end: {
+                                        $gte: req.body.day_end,
+                                    },
+                                },
+                            },
+                            {
                                 time_start: {
                                     $between: [req_body.time_start, req_body.time_end],
                                 },
@@ -67,12 +75,21 @@ router.post("/", (req, res) => {
                                     $between: [req_body.time_start, req_body.time_end],
                                 },
                             },
+                            {
+                                $and: {
+                                    time_start: {
+                                        $lte: req.body.time_start,
+                                    },
+                                    time_end: {
+                                        $gte: req.body.time_end,
+                                    },
+                                },
+                            },
                         ],
                     },
                 },
             })
             .then(r => {
-                //console.log(r);
                 if(r.length > 0) {
                     r.forEach(result => {
                         req_body.requested_equipment = req_body.requested_equipment.filter(eq => eq !== result.dataValues.material_id);
@@ -89,8 +106,8 @@ router.post("/", (req, res) => {
                         .catch(err => {
                             output_message("error", "Failed to run query on database. More details below:\n" + err);
                         });
-                    })
-                    //console.log("AFTER FILTER:", req_body);
+                    });
+
                     res.sendStatus(205);
                     return;
                 }

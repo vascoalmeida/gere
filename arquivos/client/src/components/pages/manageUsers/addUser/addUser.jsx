@@ -44,7 +44,7 @@ class AddUser extends Component {
             <div id="add-user">
                 <div className="au-section">
                     <h1 className="section-title">Emails permitidos</h1>
-                    <p className="section-desc text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod, sapien at mollis sodales, felis nibh vestibulum est, ut malesuada libero tortor ut arcu. Proin faucibus ultricies erat mattis ultrices.</p>
+                    <p className="section-desc text">Caso necessário, é possível carregar uma lista de emails para criar utilizadores mais rapidamente, poupando ao trabalho de adicionar um utilizador de cada vez. Carregue no botão abaixo para carregar um ficheiro (do tipo ".txt" ou ".csv") que contenha os emails dos utilizadores que deseja criar.</p>
 
                     <input type="file" name="uploaded_img" id="file" className="input-file" onChange={this.handleEmailsFileChange} accept=".csv,text/plain" required />
                     <label className="form-button" htmlFor="file">Importar emails</label>

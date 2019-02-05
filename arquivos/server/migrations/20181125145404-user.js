@@ -31,6 +31,9 @@ module.exports = {
 			clearanceLvl: {
 				type: Sequelize.INTEGER, 
 			},
+			rank: {
+				type: Sequelize.STRING,
+			},
 			createdAt: {
 				type: Sequelize.DATE,
 			},

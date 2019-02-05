@@ -16,8 +16,6 @@ router.post("/", (req, res) => {
     let message = "Recieved form submission to request " + "Room".bold;
     output_message("info", message);
 
-    console.log(req.body.day);
-
     models.RoomRequest.findAll({
         attributes: ["day", "time_start", "time_end"],
         where: {
@@ -37,6 +35,16 @@ router.post("/", (req, res) => {
                     {
                         time_end: {
                             $between: [req.body.time_start, req.body.time_end],
+                        },
+                    },
+                    {
+                        $and: {
+                            time_start: {
+                                $lte: req.body.time_start,
+                            },
+                            time_end: {
+                                $gte: req.body.time_end,
+                            },
                         },
                     },
                 ],
