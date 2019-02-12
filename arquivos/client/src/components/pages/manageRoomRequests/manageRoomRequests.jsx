@@ -1,5 +1,7 @@
 import React, {Component} from "react";
+import Dashboard from "../../dashboard/dashboard";
 import RequestItem from "../../requestItem/requestItem";
+import "./manageRoomRequests.css";
 
 var css_loaded = false;
 
@@ -11,19 +13,36 @@ class ManageRoomRequests extends Component {
         this.state = {
             requests_list: [],
         }
+
+        this.getRequestsList = this.getRequestsList.bind(this);
     }
 
     componentDidMount() {
-        if(!css_loaded) {
-            css_loaded = true;
-            import("./manageRoomRequests.css");
+        this.getRequestsList("GET");
+    }
+    
+    getRequestsList(req_method, req_body) {
+        var headers;
+        var body;
+
+        if(req_method === "POST") {
+            headers = {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            };
+            body = JSON.stringify(req_body);
+        }
+
+        else if(req_method === "GET") {
+            headers = {
+                Accept: "application/json",
+            };
         }
 
         fetch("/room/request/list", {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-            },
+            method: req_method,
+            headers: headers,
+            body: body,
         })
         .then(r => {
             r.json()
@@ -44,20 +63,7 @@ class ManageRoomRequests extends Component {
     render() {
         return(
             <div id="manage-room-requests">
-                <div id="rm-dashboard">
-                    <div className="rm-d-section">
-                        <label className="label-title">Filtros</label>
-                        <select className="filter-search">
-                            <option value="op1">Opt 1</option>
-                            <option value="op2">Opt 2</option>
-                            <option value="op3">Opt 3</option>
-                        </select>
-                    </div>
-
-                    <div className="rm-d-section button-container">
-                        <div className="form-button" onClick={this.handleBtnClick}>Filtrar</div>
-                    </div>
-                </div>
+                <Dashboard filter_status={true} order_by_day={true} get_data={this.getRequestsList} />
 
                 <div id="room-requests-container">
                     {

@@ -1,0 +1,25 @@
+#dashboard {
+    border: 0.2rem solid #a2c775;
+    border-radius: 1rem;
+    width: 100%;
+    margin: 5rem auto 12rem auto;
+    padding: 4rem 0;
+    display: flex;
+}
+
+#dashboard .d-section {
+    padding: 5rem 7rem;
+}
+
+#dashboard select:first-child {
+    margin-bottom: 3rem;
+}
+
+#dashboard .label-title {
+    margin-bottom: 1rem;
+}
+
+#dashboard .d-section .label-title:last-child {
+    margin-top: 3rem;
+    display: none !important;
+}

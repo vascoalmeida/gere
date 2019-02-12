@@ -4,7 +4,8 @@ const body_parser = require("body-parser");
 const formidable = require("formidable");
 const models = require("../../models");
 const authentication = require("../../middleware/authentication");
-const output_message = require("../../middleware/output_message").output_message;
+const output_message = require("../../common_modules/output_message").output_message;
+const order_filter_request = require("../../common_modules/filter_order_requests").order_filter_request;
 const multer_configuration = require("../../middleware/multer_configuration");
 const equipment_request = require("./request");
 
@@ -96,28 +97,21 @@ router.post("/", (req, res) => {
     });
 });
 
-router.get("/list", (req, res) => {
+router.all("/list", (req, res) => {
     // Get list of equipment
+
+    var order_filter = order_filter_request(req, res);
 
     models.Material.findAll({
         attributes: ["id"],
+        where: order_filter.where,
+        order: order_filter.order,
     })
-    .then(r => {
-        if(r.length === 0) {
-            res.end();
-            return;
-        }
-
-        var equipment_id = [];
-        r.map(eq => { equipment_id.push(eq.dataValues.id) });
-        
-        res.json(equipment_id);
+    .then(r => {      
+        res.json(r.map(eq => eq.dataValues.id));
     })
     .catch(err => {
-        let msg = "Failed to get list of " + "Room".bold + " objects. Error output below:";
-        output_message("error", msg);
-        console.log(err);
-        res.sendStatus(500);
+        output_message("error", "Failed to run query on database. More details below:\n" + err);
         res.end();
     });
 });

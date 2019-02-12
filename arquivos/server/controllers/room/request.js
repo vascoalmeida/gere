@@ -4,7 +4,8 @@ const body_parser = require("body-parser");
 const formidable = require("formidable");
 const models = require("../../models");
 const authentication = require("../../middleware/authentication");
-const output_message = require("../../middleware/output_message").output_message;
+const output_message = require("../../common_modules/output_message").output_message;
+const order_filter_request = require("../../common_modules/filter_order_requests").order_filter_request;
 
 router.use(body_parser.urlencoded({ extended: true }));
 router.use(body_parser.json());
@@ -26,7 +27,7 @@ router.post("/", (req, res) => {
             ],
             $and: {
                 room_id: req.body.room_id,
-                $or:[
+                $or: [
                     {
                         time_start: {
                             $between: [req.body.time_start, req.body.time_end],
@@ -121,30 +122,20 @@ router.put("/:request_id", (req, res) => {
     });
 });
 
-router.get("/list/:user_email?", (req, res) => {
+router.all("/list/:user_email?", (req, res) => {
     // Get id list of room requests
-
-    var where_statement = {};
-
-    if(req.params.user_email !== undefined) {
-        where_statement = {
-            user_id: req.params.user_email,
-        }
-    }
+    
+    var order_filter = order_filter_request(req, res);
 
     models.RoomRequest.findAll({
         attributes: ["id"],
-        where: where_statement,
+        where: order_filter.where,
+        order: order_filter.order,
     })
     .then(r => {
-        if(r.length === 0) {
-            res.end();
-            return;
-        }
-
         res.json(r.map(request => request.dataValues.id));
     })
-    .catch(err => console.log(err));
+    .catch(err => output_message("error", "Failed to run query on database. More details below:\n" + err));
 });
 
 router.get("/info/:request_id", (req, res) => {
@@ -215,9 +206,8 @@ router.get("/info/:request_id", (req, res) => {
         });
     })
     .catch(err => {
-        let msg = "Failed to get " + "Room Request".bold + " data from DB. More details below:";
+        let msg = "Failed to get " + "Room Request".bold + " data from DB. More details below:\n" + err;
         output_message("error", msg);
-        console.error(err);
         res.sendStatus(500);
         res.end();
     });

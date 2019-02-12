@@ -4,8 +4,8 @@ const fs = require("fs");
 const formidable = require("formidable");
 const router = express.Router();
 const models = require("../models");
-const crypto_functions = require("../middleware/crypto_functions");
-const output_message = require("../middleware/output_message").output_message;
+const crypto_functions = require("../common_modules/crypto_functions");
+const output_message = require("../common_modules/output_message").output_message;
 const authentication = require("../middleware/authentication");
 
 router.use(body_parser.urlencoded({ extended: true }));

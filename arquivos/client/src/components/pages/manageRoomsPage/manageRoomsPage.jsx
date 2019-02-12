@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import AddRoom from "../../popups/addRoom/addRoom";
 import ListItem from "../../listItem/listItem";
+import Dashboard from "../../dashboard/dashboard";
 import "./manageRoomsPage.css";
 
 class ManageRoomsPage extends Component {
@@ -15,16 +16,38 @@ class ManageRoomsPage extends Component {
 
         this.closePopups = this.closePopups.bind(this);
         this.showAddRoomPopup = this.showAddRoomPopup.bind(this);
+        this.getRoomList = this.getRoomList.bind(this);
     }
 
     componentDidMount() {
+        this.getRoomList("GET");
+    }
+
+    getRoomList(req_method, req_body) {
+        var headers;
+        var body;
+
+        if(req_method === "POST") {
+            headers = {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            };
+            body = JSON.stringify(req_body);
+        }
+
+        else if(req_method === "GET") {
+            headers = {
+                Accept: "application/json",
+            };
+        }
+
         fetch("/room/list", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-            },
+            method: req_method,
+            headers: headers,
+            body: body,
         })
         .then(r => {
+            console.log(r);
             r.json()
             .then(res => {
                 this.setState({
@@ -70,23 +93,8 @@ class ManageRoomsPage extends Component {
                     <div id="form-options"></div>
                 </div>
 
-                <div id="dashboard">
-                    <div className="db-section">
-                        <label className="label-title">Filtros</label>
-                        <select className="filter-search">
-                            <option value="op1">Opt 1</option>
-                            <option value="op2">Opt 2</option>
-                            <option value="op3">Opt 3</option>
-                        </select>
-                    </div>
-
-                    <div className="db-section button-container">
-                        <div className="form-button">Filtrar</div>
-                    </div>
-
-                    <div className="db-section button-container">
-                        <div className="form-button" onClick={this.showAddRoomPopup}>Criar sala</div>
-                    </div>
+                <div className="dashboard-container">
+                    <Dashboard filter_status={false} order_by_day={true} main_action={this.showAddRoomPopup} main_action_msg="Criar sala" get_data={this.getRoomList} />
                 </div>
 
                 <div id="room-container">

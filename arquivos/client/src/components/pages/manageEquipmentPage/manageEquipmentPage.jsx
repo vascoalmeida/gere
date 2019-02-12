@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import ListItem from "../../listItem/listItem";
 import EditEquipment from "../../popups/AddEquipment/AddEquipment";
-
-var css_loaded = false;
+import Dashboard from "../../dashboard/dashboard";
+import "./manageEquipmentPage.css";
 
 class ManageEquipmentPage extends Component {
 
@@ -16,21 +16,35 @@ class ManageEquipmentPage extends Component {
 
         this.closePopup = this.closePopup.bind(this);
         this.showAddEquipmentPopup = this.showAddEquipmentPopup.bind(this);
-    }
-
-    componentWillMount() {
-        if(!css_loaded) {
-            css_loaded = true;
-            import("./manageEquipmentPage.css");
-        }
+        this.getEquipmentList = this.getEquipmentList.bind(this);
     }
 
     componentDidMount() {
+        this.getEquipmentList("GET");
+    }
+    
+    getEquipmentList(req_method, req_body) {
+        var headers;
+        var body;
+
+        if(req_method === "POST") {
+            headers = {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            };
+            body = JSON.stringify(req_body);
+        }
+
+        else if(req_method === "GET") {
+            headers = {
+                Accept: "application/json",
+            };
+        }
+
         fetch("/equipment/list", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-            },
+            method: req_method,
+            headers: headers,
+            body: body,
         })
         .then(res => {
             res.json()
@@ -81,24 +95,7 @@ class ManageEquipmentPage extends Component {
                 </div>
 
                 <form id="manage-equipment">
-                    <div id="rm-dashboard">
-                        <div className="rm-d-section">
-                            <label className="label-title">Filtros</label>
-                            <select className="filter-search">
-                                <option value="op1">Opt 1</option>
-                                <option value="op2">Opt 2</option>
-                                <option value="op3">Opt 3</option>
-                            </select>
-                        </div>
-
-                        <div className="rm-d-section button-container">
-                            <div className="form-button">Filtrar</div>
-                        </div>
-
-                        <div className="rm-d-section button-container">
-                            <div className="form-button" onClick={this.showAddEquipmentPopup}>Adicionar equipamento</div>
-                        </div>
-                    </div>
+                    <Dashboard filter_status={false} order_by_day={true} main_action={this.showAddEquipmentPopup} main_action_msg="Criar equipamento" get_data={this.getEquipmentList} />
 
                     <div id="material-container">
                         {

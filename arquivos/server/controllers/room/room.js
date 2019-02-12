@@ -4,7 +4,8 @@ const body_parser = require("body-parser");
 const formidable = require("formidable");
 const models = require("../../models");
 const authentication = require("../../middleware/authentication");
-const output_message = require("../../middleware/output_message").output_message;
+const output_message = require("../../common_modules/output_message").output_message;
+const order_filter_request = require("../../common_modules/filter_order_requests").order_filter_request;
 const multer_configuration = require("../../middleware/multer_configuration");
 const room_request = require("./request");
 
@@ -75,11 +76,9 @@ router.post("/", (req, res) => {
                 console.log(err);
             });
             
-            res.redirect("/#/main/gerir-salas/adicionar");
             res.end();
         });
     });
-
 });
 
 router.put("/", (req, res) => {
@@ -146,29 +145,22 @@ router.delete("/:room_id", (req, res) => {
     });
 });
 
-router.get("/list", (req, res) => {
+router.all("/list", (req, res) => {
     //Get list of rooms
+
+    console.log("BODY", req.body);
+    var order_filter = order_filter_request(req, res);
+
 
     models.Room.findAll({
         attributes: ["id"],
+        where: order_filter.where,
+        order: order_filter.order,
     })
     .then(r => {
-        if(r.length === 0) {
-            res.end();
-            return;
-        }
-        var room_id = [];
-        
-        r.map(room => { room_id.push(room.dataValues.id) });
-        res.json(room_id);
+        res.json(r.map(room => room.dataValues.id));
     })
-    .catch(err => {
-        let msg = "Failed to get list of " + "Room".bold + " objects. Error output below:";
-        output_message("error", msg);
-        console.log(err);
-        res.sendStatus(500);
-        res.end();
-    });
+    .catch(err => output_message("error", "Failed to run query on database. More details below:\n" + err));
 });
 
 router.get("/img/:room_id", (req, res) => {

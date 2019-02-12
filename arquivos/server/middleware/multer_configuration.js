@@ -1,6 +1,6 @@
 const multer = require("multer");
 const path = require("path");
-const crypto_functions = require("./crypto_functions");
+const crypto_functions = require("../common_modules/crypto_functions");
 
 const storage = multer.diskStorage({
     destination: "./media/img/",

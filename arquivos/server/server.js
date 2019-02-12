@@ -5,7 +5,7 @@ const db_cred = require("./db_credentials.json");
 const room = require("./controllers/room/room");
 const user = require("./controllers/user");
 const equipment = require("./controllers/equipment/equipment");
-const output_message = require("./middleware/output_message").output_message;
+const output_message = require("./common_modules/output_message").output_message;
 const session_middleware = require("./middleware/session");
 
 const app = express();
