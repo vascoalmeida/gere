@@ -6,6 +6,7 @@ const models = require("../../models");
 const authentication = require("../../middleware/authentication");
 const output_message = require("../../common_modules/output_message").output_message;
 const order_filter_request = require("../../common_modules/filter_order_requests").order_filter_request;
+const email = require("../../common_modules/email");
 
 router.use(body_parser.urlencoded({ extended: true }));
 router.use(body_parser.json());
@@ -109,6 +110,8 @@ router.post("/", (req, res) => {
                         });
                     });
 
+                    email.send("notification", "deny", req.session.user);
+
                     res.sendStatus(205);
                     return;
                 }
@@ -120,6 +123,8 @@ router.post("/", (req, res) => {
 
                 models.RequestMaterial.create(req_body)
                 .then(data => {
+                    email.send("notification", "accept", req.session.user);
+
                     let message = "Successfully created new object " + "equipment request".bold;
                     output_message("success", message);
                     res.end();
@@ -238,9 +243,7 @@ router.put("/:request_id", (req, res) => {
 
     new formidable.IncomingForm().parse(req, (err, fields, files) => {
         if(err) {
-            let msg = "Failed to parse received info. More details below:";
-            output_message("error", msg);
-            console.log(err);
+            output_message("error", "Failed to parse received info. More details below:\n" + err);
             res.end();
             return;
         }
@@ -252,10 +255,16 @@ router.put("/:request_id", (req, res) => {
                 id: request_id
             },
         })
+        .then(r => {
+            if(fields.status !== "Aceite") {
+                email.send("notification", "deny", req.session.user);
+                return;
+            }
+
+            email.send("notification", "accept", req.session.user);
+        })
         .catch(err => {
-            let msg = "Error updating " + "Equipment Request".bold + " status. More details below:";
-            output_message("error", msg);
-            console.log(err);
+            output_message("error", "Error updating " + "Equipment Request".bold + " status. More details below:\n" + err);
         });
 
         res.end();

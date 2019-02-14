@@ -73,7 +73,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/activate", authentication.authenticate_session, (req, res) => {
+router.post("/activate", (req, res) => {
     // Activate user
 
     let message = "Recieved request to activate " + "User".bold;
@@ -83,7 +83,7 @@ router.post("/activate", authentication.authenticate_session, (req, res) => {
     var hashed_password = crypto_functions.hash_string(req.body.password, password_salt).hashed_string;
 
     req.body.password = hashed_password;
-    req.body.password_salt = password_salt;    
+    req.body.password_salt = password_salt;
 
     models.User.update({
         name: req.body.name,

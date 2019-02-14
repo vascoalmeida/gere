@@ -4,6 +4,7 @@ const body_parser = require("body-parser");
 const formidable = require("formidable");
 const models = require("../../models");
 const authentication = require("../../middleware/authentication");
+const email = require("../../common_modules/email");
 const output_message = require("../../common_modules/output_message").output_message;
 const order_filter_request = require("../../common_modules/filter_order_requests").order_filter_request;
 
@@ -54,6 +55,7 @@ router.post("/", (req, res) => {
     })
     .then(r => {
         if(r.length > 0) {
+            email.send("notification", "deny", req.session.user);
             res.sendStatus(205);
             return;
         }
@@ -74,12 +76,12 @@ router.post("/", (req, res) => {
         
             models.RoomRequest.create(req.body)
             .then(data => {
-                let message = "Successfully created new object " + "room request".bold;
-                output_message("success", message);
+                email.send("notification", "accept", req.session.user);
+                output_message("success", "Successfully created new object " + "room request".bold);
             })
             .catch(err => {
                 output_message("error", "Failed to create object " + "room request".bold + ". More details below:\n" + err);
-                res.end();
+                res.end(); 
             });
         });
     })
@@ -104,7 +106,7 @@ router.put("/:request_id", (req, res) => {
             res.end();
             return;
         }
-        console.log(fields);
+
         models.RoomRequest.update({
             status: fields.status,
         }, {
@@ -112,10 +114,16 @@ router.put("/:request_id", (req, res) => {
                 id: request_id
             },
         })
+        .then(r => {
+            if(fields.status !== "Aceite") {
+                email.send("notification", "deny", req.session.user);
+                return;
+            } 
+
+            email.send("notification", "deny", req.session.user);
+        })
         .catch(err => {
-            let msg = "Error updating " + "Room Request".bold + " status. More details below:";
-            output_message("error", msg);
-            console.log(err);
+            output_message("error", "Error updating " + "Room Request".bold + " status. More details below:\n" + err);
         });
 
         res.end();

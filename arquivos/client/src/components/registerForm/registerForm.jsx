@@ -53,6 +53,7 @@ class RegisterForm extends Component {
     }
 
     handleSubmit() {
+        console.log("SENT");
         fetch("/user/activate", {
             headers: {
                 "Accept": "application/json",

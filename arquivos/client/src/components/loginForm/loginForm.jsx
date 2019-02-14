@@ -13,6 +13,15 @@ class LoginForm extends Component {
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePassChange = this.handlePassChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.detectEnter = this.detectEnter.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.detectEnter);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.detectEnter);
     }
 
     handleEmailChange(ev) {
@@ -25,6 +34,12 @@ class LoginForm extends Component {
         this.setState({
             password: ev.target.value,
         });
+    }
+
+    detectEnter(ev) {
+        if(ev.keyCode === 13) {
+            this.handleSubmit();
+        }
     }
 
     handleSubmit() {

@@ -1,7 +1,7 @@
 const express = require("express");
 const body_parser = require("body-parser");
 const Sequelize = require("sequelize");
-const db_cred = require("./db_credentials.json");
+const db_cred = require("./credentials/db_credentials.json");
 const room = require("./controllers/room/room");
 const user = require("./controllers/user");
 const equipment = require("./controllers/equipment/equipment");
@@ -30,4 +30,4 @@ sequelize.authenticate()
     output_message("error", "Failed to connect to database. Error output below:\n" + err);
 });
 
-app.listen(port, () => output_message("info", "Server running on port " + (port.toString()).bold));
+app.listen(port, output_message("info", "Server running on port " + (port.toString()).bold));
