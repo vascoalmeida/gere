@@ -17,7 +17,30 @@ class MainPage extends Component {
     constructor() {
         super();
 
+        this.state = {
+            usr_rank: 0,
+        }
+
         this.logout = this.logout.bind(this);
+    }
+
+    componentWillMount() {
+        fetch("/user/", {
+            method: "GET",
+            headers: {
+                accept: "application/json",
+            },
+        })
+        .then(r => {
+            r.json()
+            .then(res => {
+                this.setState({
+                    usr_rank: res.rank,
+                });
+            })
+            .catch(err => console.log(err));
+        })
+        .catch();
     }
 
     logout() {
@@ -30,6 +53,40 @@ class MainPage extends Component {
     }
 
     render() {
+        var management_links;
+
+        if(this.state.usr_rank == 1) {
+            management_links = (
+                <React.Fragment>
+                    <NavLink to="/main/gerir/salas" className="menu-item">
+                        <label>Gerir Salas</label>
+                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
+                    </NavLink>
+
+                    <NavLink to="/main/gerir/equipamento" className="menu-item">
+                        <label>Gerir Equipamento</label>
+                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
+                    </NavLink>
+
+                    <NavLink to="/main/gerir/requisicoes" className="menu-item">
+                        <label>Gerir Requisições</label>
+                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
+                    </NavLink>
+
+                    <NavLink to="/main/gerir/utilizadores" className="menu-item">
+                        <label>Gerir Utilizadores</label>
+                        <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
+                    </NavLink>
+                </React.Fragment>
+            );
+        }
+
+        else {
+            management_links = null;
+        }
+
+        console.log(management_links)
+
         return(
             <HashRouter>
                 <React.Fragment>
@@ -49,27 +106,7 @@ class MainPage extends Component {
                                     <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
                                 </NavLink>
 
-                                <NavLink to="/main/gerir/salas" className="menu-item">
-                                    <label>Gerir Salas</label>
-                                    <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
-                                </NavLink>
-
-                                <NavLink to="/main/gerir/equipamento" className="menu-item">
-                                    <label>Gerir Equipamento</label>
-                                    <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
-                                </NavLink>
-
-                                <NavLink to="/main/gerir/requisicoes" className="menu-item">
-                                    <label>Gerir Requisições</label>
-                                    <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
-                                </NavLink>
-
-                                <NavLink to="/main/gerir/utilizadores" className="menu-item">
-                                    <label>Gerir Utilizadores</label>
-                                    <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
-                                </NavLink>
-
-
+                                {management_links}
                             </ul>
                         </div>
                         <div id="main-content">

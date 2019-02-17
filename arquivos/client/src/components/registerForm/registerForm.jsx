@@ -48,12 +48,9 @@ class RegisterForm extends Component {
         this.setState({
             class: ev.target.value
         });
-
-        console.log(ev.target.value);
     }
 
     handleSubmit() {
-        console.log("SENT");
         fetch("/user/activate", {
             headers: {
                 "Accept": "application/json",
@@ -67,7 +64,7 @@ class RegisterForm extends Component {
                 "class": this.state.class,
             })
         })
-        .then(r => console.log(r));
+        .catch();
     }
 
     render() {

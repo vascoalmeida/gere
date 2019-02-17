@@ -15,7 +15,7 @@ router.get("/", authentication.authenticate_session, (req, res) =>{
     // Get logged user
 
     models.User.findAll({
-        attributes: ["name", "class"],
+        attributes: ["name", "class", "rank"],
         where: {
             email: req.session.user,
         },
@@ -117,6 +117,8 @@ router.post("/activate", (req, res) => {
 });
 
 router.get("/deactivate/:user_email", authentication.authenticate_session, (req, res) => {
+    // Deactivate user
+
     models.User.update({
         status: "Inativo",
     }, {
@@ -145,6 +147,7 @@ router.post("/register", (req, res) => {
         var user_info = {};
         user_info["email"] = email;
         user_info["status"] = "Pendente";
+        user_info["rank"] = 0;
 
         models.User.create(user_info)
         .then(r => {
@@ -190,7 +193,7 @@ router.get("/info/:user_email", authentication.authenticate_session, (req, res) 
     // Get info of a certain user
 
     models.User.findAll({
-        attributes: ["name", "email", "class", "status", "clearanceLvl"],
+        attributes: ["name", "email", "class", "status", "rank"],
         where: {
             email: req.params.user_email,
         },
@@ -210,9 +213,10 @@ router.post("/em", (req, res) => {
     var password_salt = crypto_functions.gen_random_string(10);
     var hashed_password = crypto_functions.hash_string(req.body.password, password_salt).hashed_string;
 
-    req.body.status = "Pendente";
+    req.body.status = "Ativo";
     req.body.password = hashed_password;
     req.body.passwordSalt = password_salt;
+    req.body.rank = 1;
 
     models.User.create(req.body)
     .then(data => {

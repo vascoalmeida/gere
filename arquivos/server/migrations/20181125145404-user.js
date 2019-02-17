@@ -28,7 +28,7 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.STRING,
 			},
-			clearanceLvl: {
+			rank: {
 				type: Sequelize.INTEGER, 
 			},
 			rank: {
