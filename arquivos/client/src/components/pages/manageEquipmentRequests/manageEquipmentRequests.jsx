@@ -10,9 +10,14 @@ class ManageEquipmentRequests extends Component {
 
         this.state = {
             requests_list: [],
+            limit: 5,
+            filters: {},
+            order: {},
         }
 
         this.getRequestsList = this.getRequestsList.bind(this);
+        this.increaseLimit = this.increaseLimit.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     componentDidMount() {
@@ -23,13 +28,24 @@ class ManageEquipmentRequests extends Component {
         var headers;
         var body;
 
+        console.log({
+            filters: this.state.filters,
+            order: this.state.order,
+            limit: this.state.limit,
+        });
+
         if(req_method === "POST") {
             headers = {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             };
-            body = JSON.stringify(req_body);
+            body = JSON.stringify({
+                filters: this.state.filters,
+                order: this.state.order,
+                limit: this.state.limit,
+            });
         }
+
 
         else if(req_method === "GET") {
             headers = {
@@ -37,7 +53,7 @@ class ManageEquipmentRequests extends Component {
             };
         }
 
-        fetch("/equipment/request/list", {
+        fetch("/equipment/request/list/" + this.state.limit, {
             method: req_method,
             headers: headers,
             body: body,
@@ -54,10 +70,27 @@ class ManageEquipmentRequests extends Component {
         .catch(err => console.log(err));
     }
 
+    increaseLimit() {
+        this.setState({
+            limit: this.state.limit + 5,
+        }, () => {
+            this.getRequestsList("POST");
+        });
+    }
+
+    getData(req_info) {
+        this.setState({
+            filters: req_info[1].filters,
+            order: req_info[1].order,
+        }, () => {
+            this.getRequestsList("POST");
+        });
+    }
+
     render() {
         return(
             <div id="manage-equipment-requests">
-                <Dashboard filter_status={true} order_by_day={true} get_data={this.getRequestsList} />
+                <Dashboard filter_status={true} order_by_day={true} get_data={this.getData} />
 
                 <div id="equipment-requests-container">
                     {
@@ -70,6 +103,8 @@ class ManageEquipmentRequests extends Component {
                         <label className="faded-label">Não existem requisições</label>
                     }
                 </div>
+
+                <div className="form-button" onClick={this.increaseLimit} >Carregar mais</div>
             </div>
         );
     }

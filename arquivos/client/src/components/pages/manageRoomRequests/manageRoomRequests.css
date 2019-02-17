@@ -10,3 +10,8 @@
     margin: 8rem 0;
     padding: 4rem 0;
 }
+
+#manage-room-requests > .form-button {
+    width: 28rem;
+    margin-bottom: 5rem;
+}

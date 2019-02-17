@@ -2,3 +2,8 @@
     width: 90%;
     margin: 0 auto;
 }
+
+#manage-equipment-requests > .form-button {
+    width: 28rem;
+    margin-bottom: 5rem;
+}

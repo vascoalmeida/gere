@@ -25,7 +25,7 @@ class Dashboard extends Component {
             order: this.state.order,
         }
 
-        this.props.get_data("POST", filters_order);
+        this.props.get_data(["POST", filters_order]);
     }
 
     handleStatusFilterChange(ev) {

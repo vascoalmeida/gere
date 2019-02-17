@@ -144,15 +144,21 @@ router.post("/", (req, res) => {
     });
 });
 
-router.all("/list/:user_email?", (req, res) => {
+router.all("/list/:limit?/:user_email?", (req, res) => {
     // Get id list of equipment requests
 
     var order_filter = order_filter_request(req, res);
+    var limit;
+
+    if(req.params.limit != 0) {
+        limit = req.params.limit;
+    }
     
     models.RequestMaterial.findAll({
         attributes: ["id"],
         where: order_filter.where,
         order: order_filter.order,
+        limit: limit,
     })
     .then(r => {
         res.json(r.map(request => request.dataValues.id));
