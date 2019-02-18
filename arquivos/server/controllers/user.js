@@ -116,7 +116,7 @@ router.post("/activate", (req, res) => {
     });
 });
 
-router.get("/deactivate/:user_email", authentication.authenticate_session, (req, res) => {
+router.get("/deactivate/:user_email", authentication.authenticate_session, authentication.authenticate_admin, (req, res) => {
     // Deactivate user
 
     models.User.update({
@@ -134,7 +134,7 @@ router.get("/deactivate/:user_email", authentication.authenticate_session, (req,
     });
 });
 
-router.post("/register", (req, res) => {
+router.post("/register", authentication.authenticate_session, authentication.authenticate_admin, (req, res) => {
     // Create users from received emails
 
     var emails_arr = req.body.emails.split("\n");
@@ -168,7 +168,7 @@ router.post("/register", (req, res) => {
     res.end();
 });
 
-router.get("/list", authentication.authenticate_session, (req, res) => {
+router.get("/list", authentication.authenticate_session, authentication.authenticate_admin, (req, res) => {
     // Send list of emails
 
     models.User.findAll({
@@ -189,7 +189,7 @@ router.get("/list", authentication.authenticate_session, (req, res) => {
     });
 });
 
-router.get("/info/:user_email", authentication.authenticate_session, (req, res) => {
+router.get("/info/:user_email", authentication.authenticate_session, authentication.authenticate_admin, (req, res) => {
     // Get info of a certain user
 
     models.User.findAll({

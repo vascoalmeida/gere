@@ -93,7 +93,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/:request_id", (req, res) => {
+router.put("/:request_id", authentication.authenticate_admin, (req, res) => {
     // Change room request status
 
     var request_id = req.params.request_id;

@@ -14,7 +14,7 @@ router.use(body_parser.json());
 router.use(authentication.authenticate_session);
 router.use("/request", room_request);
 
-router.post("/", (req, res) => {
+router.post("/", authentication.authenticate_admin, (req, res) => {
     //Create new room
 
     let msg = "Received form submission to " + "create".bold + " new object " + "Room".bold;
@@ -81,7 +81,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/", (req, res) => {
+router.put("/", authentication.authenticate_admin, (req, res) => {
     // Edit existing room
 
     new formidable.IncomingForm().parse(req, (err, fields, files) => {
@@ -119,7 +119,7 @@ router.put("/", (req, res) => {
     });
 });
 
-router.delete("/:room_id", (req, res) => {
+router.delete("/:room_id", authentication.authenticate_admin, (req, res) => {
     // Delete existing room
 
     var msg = "Recieved request to " + "delete".bold + " object " + "Room".bold;

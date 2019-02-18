@@ -167,7 +167,7 @@ router.all("/list/:limit?/:user_email?", (req, res) => {
 })
 
 router.get("/info/:request_id", (req, res) => {
-    // Get equipment requets info
+    // Get equipment requests info
 
     var request_id = req.params.request_id;
 
@@ -242,7 +242,7 @@ router.get("/info/:request_id", (req, res) => {
     });
 });
 
-router.put("/:request_id", (req, res) => {
+router.put("/:request_id", authentication.authenticate_admin, (req, res) => {
     // Change equipment request status
     
     var request_id = req.params.request_id;

@@ -14,7 +14,7 @@ router.use(body_parser.json());
 router.use(authentication.authenticate_session);
 router.use("/request", equipment_request);
 
-router.post("/", (req, res) => {
+router.post("/", authentication.authenticate_admin, (req, res) => {
     // Create new equipment
 
     new formidable.IncomingForm().parse(req, (err, fields, files) => {
@@ -116,7 +116,7 @@ router.all("/list", (req, res) => {
     });
 });
 
-router.put("/:equipment_id", (req, res) => {
+router.put("/:equipment_id", authentication.authenticate_admin, (req, res) => {
     // Edit existing equipment
 
     new formidable.IncomingForm().parse(req, (err, fields, files) => {
@@ -154,7 +154,7 @@ router.put("/:equipment_id", (req, res) => {
     });
 });
 
-router.delete("/:equipment_id", (req, res) => {
+router.delete("/:equipment_id", authentication.authenticate_admin, (req, res) => {
     // Delete existing equipment
 
     var msg = "Recieved request to " + "delete".bold + " object " + "Equipment".bold;

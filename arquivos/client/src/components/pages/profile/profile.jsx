@@ -58,7 +58,7 @@ class Profile extends Component {
 
                     });
                 })
-                .catch();
+                .catch(err => console.log(err));
             }
             else if(r.status === 401) {
                 window.location = "/#/home";
