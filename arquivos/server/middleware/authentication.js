@@ -6,6 +6,8 @@ function auth_session(req, res, next) {
 }
 
 function auth_admin(req, res, next) {
+    console.log(req.session);
+
     if(req.session && req.session.rank === 1) {
         return next();
     }

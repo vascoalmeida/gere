@@ -13,6 +13,7 @@ class RequestRoomForm extends Component {
         super();
         
         this.state = {
+            limit: 10,
             room_list: [],
             popup1_visible: false,
             popup2_visible: false,
@@ -31,38 +32,63 @@ class RequestRoomForm extends Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.recieveFromPopup1 = this.recieveFromPopup1.bind(this);
         this.removeRoom = this.removeRoom.bind(this);
+        this.getRequestsList = this.getRequestsList.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     componentDidMount() {
-        var room_list = [];
-        
-        fetch("/room/list", {
-            method: "GET",
-            headers: {
-                Accept: 'application/json',
-            },
+        this.getRequestsList("GET");
+    }
+
+    getRequestsList(req_method) {
+        var headers;
+        var body;
+
+        if(req_method === "POST") {
+            headers = {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            };
+            body = JSON.stringify({
+                filters: this.state.filters,
+                order: this.state.order,
+                limit: this.state.limit,
+            });
+        }
+
+        else if(req_method === "GET") {
+            headers = {
+                Accept: "application/json",
+            };
+        }
+
+        fetch("/room/list/", {
+            method: req_method,
+            headers: headers,
+            body: body,
         })
         .then(r => {
-            if(r.status === 200) {    
-                r.json()
-                .then(res => {
-                    room_list = res.slice();
-                })
-                .catch(err => {
-                    console.log(err);
+            r.json()
+            .then(res => {
+                this.setState({
+                    room_list: res,
                 });
-            }
-            else if(r.status === 401) {
-                window.location = "/#/home";
-            }
-        })
-        .then(r => {
-            this.setState({
-                room_list: room_list,
+            })
+            .catch(err => {
+                console.log("Error parsing JSON: " + err);
             });
         })
         .catch(err => {
-            alert("Ocorreu um erro, por favor tente mais tarde");
+            console.log("Error with response received:" + err);
+        });
+    }
+
+    getData(req_info) {
+        this.setState({
+            filters: req_info[1].filters,
+            order: req_info[1].order,
+        }, () => {
+            this.getRequestsList("POST");
         });
     }
 
@@ -80,12 +106,9 @@ class RequestRoomForm extends Component {
             }),
         })
         .then((res) => {
-            if(res.status === 205) {
-                window.location.reload();
-            }
+            window.location.reload();
         })
         .catch(err => {
-            console.error(err);
             alert("Ocorreu um erro, por favor tente mais tarde");
         });
     }
@@ -178,20 +201,7 @@ class RequestRoomForm extends Component {
             <form id="request-room" onSubmit={this.handleFormSubmit} >
                 {active_popup}
 
-                <div id="rm-dashboard">
-                    <div className="rm-d-section">
-                        <label className="label-title">Filtros</label>
-                        <select className="filter-search">
-                            <option value="op1">Opt 1</option>
-                            <option value="op2">Opt 2</option>
-                            <option value="op3">Opt 3</option>
-                        </select>
-                    </div>
-
-                    <div className="rm-d-section button-container">
-                        <div className="form-button" onClick={this.handleBtnClick}>Filtrar</div>
-                    </div>
-                </div>
+                <Dashboard filter_status={false} order_by_day={true} get_data={this.getData} />
 
                 <div id="room-list">
                     {

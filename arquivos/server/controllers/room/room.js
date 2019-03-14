@@ -151,13 +151,13 @@ router.all("/list", (req, res) => {
     console.log("BODY", req.body);
     var order_filter = order_filter_request(req, res);
 
-
     models.Room.findAll({
         attributes: ["id"],
         where: order_filter.where,
         order: order_filter.order,
     })
     .then(r => {
+        console.log(r);
         res.json(r.map(room => room.dataValues.id));
     })
     .catch(err => output_message("error", "Failed to run query on database. More details below:\n" + err));

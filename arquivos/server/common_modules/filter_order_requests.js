@@ -40,6 +40,11 @@ function ord_fil_req(req, res) {
         }
     }
 
+    console.log({
+        where: where_statement, 
+        order: order_statement,
+    });
+
     return {
         where: where_statement, 
         order: order_statement,

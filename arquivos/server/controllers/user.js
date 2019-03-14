@@ -53,6 +53,7 @@ router.post("/login", (req, res) => {
 
         if(crypto_functions.hash_string(req.body.password, salt).hashed_string === password) {
             req.session.user = result[0].dataValues.email;
+            req.session.rank = parseInt(result[0].dataValues.rank);
             res.writeHead(200, {"Content-Type": "application/json"});
             res.end();
         }

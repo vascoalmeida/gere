@@ -32,6 +32,9 @@ class AddRoom extends Component {
             body: form_data,
             credentials: 'include',
         })
+        .then(r => {
+            window.location.reload();
+        })
         .catch(err => {
             console.log(err);
             alert("Ocorreu um erro, por favor tente mais tarde");
