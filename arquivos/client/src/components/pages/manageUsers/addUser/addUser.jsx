@@ -32,7 +32,9 @@ class AddUser extends Component {
                 },
                 body: JSON.stringify({emails: file_reader.result}),
             })
-            .then(r => console.log(r))
+            .then(r => {
+                alert("Utilizador(es) criado(s) com sucesso!");
+            })
             .catch(err => console.log(err));
         }
 

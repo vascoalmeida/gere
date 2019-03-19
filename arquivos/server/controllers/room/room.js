@@ -81,7 +81,7 @@ router.post("/", authentication.authenticate_admin, (req, res) => {
     });
 });
 
-router.put("/", authentication.authenticate_admin, (req, res) => {
+router.put("/:room_id", authentication.authenticate_admin, (req, res) => {
     // Edit existing room
 
     new formidable.IncomingForm().parse(req, (err, fields, files) => {
@@ -99,7 +99,7 @@ router.put("/", authentication.authenticate_admin, (req, res) => {
             description: fields.description,
         }, {
             where: {
-                id: fields.id,
+                id: req.params.room_id,
             },
         })
         .then(r => {
@@ -148,7 +148,6 @@ router.delete("/:room_id", authentication.authenticate_admin, (req, res) => {
 router.all("/list", (req, res) => {
     //Get list of rooms
 
-    console.log("BODY", req.body);
     var order_filter = order_filter_request(req, res);
 
     models.Room.findAll({
@@ -157,7 +156,6 @@ router.all("/list", (req, res) => {
         order: order_filter.order,
     })
     .then(r => {
-        console.log(r);
         res.json(r.map(room => room.dataValues.id));
     })
     .catch(err => output_message("error", "Failed to run query on database. More details below:\n" + err));

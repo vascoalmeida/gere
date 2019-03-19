@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import UserItem from "../userItem/userItem";
+import Dashboard from "../../../dashboard/dashboard";
 import "./usersList.css";
 
 class UsersList extends Component {
@@ -10,44 +11,76 @@ class UsersList extends Component {
         this.state = {
             users_list: [],
         }
+
+        this.getRequestsList = this.getRequestsList.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     componentDidMount() {
-        fetch("/user/list", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",   
-            },
+        this.getRequestsList("GET");
+    }
+
+    getRequestsList(req_method) {
+        var headers;
+        var body;
+
+        if(req_method === "POST") {
+            headers = {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            };
+            body = JSON.stringify({
+                filters: this.state.filters,
+                order: this.state.order,
+                limit: this.state.limit,
+            });
+        }
+
+        else if(req_method === "GET") {
+            headers = {
+                Accept: "application/json",
+            };
+        }
+
+        fetch("/user/list/", {
+            method: req_method,
+            headers: headers,
+            body: body,
         })
         .then(r => {
+            if(r.status === 401) {
+                window.location = "/#/home";
+                return;
+            }
+            
             r.json()
             .then(res => {
                 this.setState({
                     users_list: res.users_list,
                 });
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log("Error parsing JSON: " + err);
+            });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log("Error with response received:" + err);
+        });
+    }
+
+    getData(req_info) {
+        this.setState({
+            filters: req_info[1].filters,
+            order: req_info[1].order,
+        }, () => {
+            this.getRequestsList("POST");
+        });
     }
 
     render() {
         return(
             <div id="users-list">
-                <div id="dashboard">
-                    <div className="db-section">
-                        <label className="label-title">Filtros</label>
-                        <select className="filter-search">
-                            <option value="op1">Opt 1</option>
-                            <option value="op2">Opt 2</option>
-                            <option value="op3">Opt 3</option>
-                        </select>
-                    </div>
-
-                    <div className="db-section button-container">
-                        <div className="form-button">Filtrar</div>
-                    </div>
-                </div>
+                <Dashboard filter_user_status={true} order_by_day={true} get_data={this.getData} />
 
                 <div id="users-list">
                     {

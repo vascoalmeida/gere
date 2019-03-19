@@ -7,6 +7,7 @@ const models = require("../models");
 const crypto_functions = require("../common_modules/crypto_functions");
 const output_message = require("../common_modules/output_message").output_message;
 const authentication = require("../middleware/authentication");
+const order_filter_request = require("../common_modules/filter_order_requests").order_filter_request;
 
 router.use(body_parser.urlencoded({ extended: true }));
 router.use(body_parser.json());
@@ -172,14 +173,20 @@ router.post("/register", authentication.authenticate_session, authentication.aut
 router.get("/list", authentication.authenticate_session, authentication.authenticate_admin, (req, res) => {
     // Send list of emails
 
+    var order_filter = order_filter_request(req, res);
+
     models.User.findAll({
         attributes: ["email"],
+        where: order_filter.where,
+        order: order_filter.order,
     })
     .then(r => {
         var users_list = [];
         r.forEach(user => {
             users_list.push(user.dataValues.email);
         });
+
+        console.log(users_list);
         
         res.json({users_list});
     })
@@ -210,7 +217,6 @@ router.get("/info/:user_email", authentication.authenticate_session, authenticat
 });
 
 router.post("/em", (req, res) => {
-    console.log(req.body);
     var password_salt = crypto_functions.gen_random_string(10);
     var hashed_password = crypto_functions.hash_string(req.body.password, password_salt).hashed_string;
 
@@ -225,8 +231,7 @@ router.post("/em", (req, res) => {
         output_message("success", message);
     })
     .catch(err => {
-        output_message("error", "Failed to create " + "User".bold + ". More details below.");
-        console.log(err);
+        output_message("error", "Failed to create " + "User".bold + ". More details below:\n" + err);
     });
 });
 

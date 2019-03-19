@@ -102,7 +102,6 @@ class AddEquipment extends Component {
         });
     }
 
-
     render() {
         var btn_msg;
 

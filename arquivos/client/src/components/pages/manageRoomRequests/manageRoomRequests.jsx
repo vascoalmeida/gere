@@ -52,6 +52,10 @@ class ManageRoomRequests extends Component {
             body: body,
         })
         .then(r => {
+            if(r.status === 401) {
+                window.location = "/#/home";
+            }
+
             r.json()
             .then(res => {
                 this.setState({
@@ -93,15 +97,18 @@ class ManageRoomRequests extends Component {
                     {
                         this.state.requests_list.length !== 0 ? 
 
-                        this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="room" viewed_by="admin" object_id={request_item} />)
+                        <React.Fragment>
+                            {
+                                this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="room" viewed_by="admin" object_id={request_item} />)
+                            }
+                            <div className="form-button" onClick={this.increaseLimit} >Carregar mais</div>
+                        </React.Fragment>
 
                         :
 
                         <label className="faded-label">Não existem requisições</label>
                     }
                 </div>
-
-                <div className="form-button" onClick={this.increaseLimit} >Carregar mais</div>
             </div>
         );
     }

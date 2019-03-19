@@ -47,7 +47,11 @@ class ManageRoomsPage extends Component {
             body: body,
         })
         .then(r => {
-            console.log(r);
+            if(r.status === 401) {
+                window.location = "/#/home";
+                return;
+            }
+
             r.json()
             .then(res => {
                 this.setState({

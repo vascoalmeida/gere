@@ -52,7 +52,7 @@ class UserItem extends Component {
             method: "GET",
         })
         .then(r => {
-            console.log(r);
+            window.location.reload();
         })
         .catch(err => console.log(err));
     }

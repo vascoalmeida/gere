@@ -18,17 +18,31 @@ class AddRoom extends Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        console.log(this.props);
     }
 
     handleSubmit() {
+        var req_method;
+        var req_url;
+
+        if(this.props.edit_active) {
+            req_method = "PUT";
+            req_url = "/room/" + this.props.id;
+        } 
+        else {
+            req_method = "POST";
+            req_url = "/room"
+        }
+
         var form_data = new FormData();
         form_data.append("image", this.state.room_img);
         form_data.append("name", this.state.room_name);
         form_data.append("description", this.state.room_description);
         form_data.append("id", this.props.room_id);
         
-        fetch("/room", {
-            method: this.props.method,
+        fetch(req_url, {
+            method: req_method,
             body: form_data,
             credentials: 'include',
         })
@@ -61,6 +75,15 @@ class AddRoom extends Component {
     }
 
     render() {
+        var btn_msg;
+
+        if(this.props.edit_active) {
+            btn_msg = "Gravar alterações";
+        }
+        else {
+            btn_msg = "Criar sala";
+        }
+
         return(
             <div className="popup-container" id="add-room">
                 <div className="popup-content">
@@ -69,7 +92,7 @@ class AddRoom extends Component {
                     <div className="popup-section ps1">
                         <input className="form-input" type="text" value={this.state.room_name} placeholder="Nome da sala" onChange={this.handleNameChange} required />
                         <input className="form-input" type="text" value={this.state.room_description} placeholder="Descrição" onChange={this.handleDescriptionChange} required />
-                        <div id="create-room-btn" className="form-button" onClick={this.handleSubmit}>Criar sala</div>
+                        <div id="create-room-btn" className="form-button" onClick={this.handleSubmit}>{btn_msg}</div>
                     </div>
 
                     <div className="popup-section ps2">

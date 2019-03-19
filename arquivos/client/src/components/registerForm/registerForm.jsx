@@ -64,6 +64,9 @@ class RegisterForm extends Component {
                 "class": this.state.class,
             })
         })
+        .then(r => {
+            window.location.reload();
+        })
         .catch();
     }
 

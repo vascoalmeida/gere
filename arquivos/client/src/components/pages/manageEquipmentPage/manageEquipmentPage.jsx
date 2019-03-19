@@ -47,6 +47,11 @@ class ManageEquipmentPage extends Component {
             body: body,
         })
         .then(res => {
+            if(res.status === 401) {
+                window.location = "/#/home";
+                return;
+            }
+            
             res.json()
             .then(r => {
                 this.setState({

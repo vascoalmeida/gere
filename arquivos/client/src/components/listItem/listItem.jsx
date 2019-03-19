@@ -112,7 +112,7 @@ class ListItem extends Component {
             });
         })
         .then(r => {
-            //window.location.reload();
+            window.location.reload();
         })
         .catch(err => {
             alert("Ocorreu um erro, por favor tente mais tarde");

@@ -68,6 +68,11 @@ class RequestRoomForm extends Component {
             body: body,
         })
         .then(r => {
+            if(r.status === 401) {
+                window.location = "/#/home";
+                return;
+            }
+            
             r.json()
             .then(res => {
                 this.setState({

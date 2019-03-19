@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import EquipmentPopup1 from "../popups/equipmentPopup1/equipmentPopup1";
 import EquipmentPopup2 from "../popups/equipmentPopup2/equipmentPopup2";
 import ListItem from "../listItem/listItem";
+import Dashboard from "../dashboard/dashboard";
 import "./requestEquipmentForm.css";
 
 class RequestEquipmentForm extends Component {
@@ -51,6 +52,7 @@ class RequestEquipmentForm extends Component {
             }
             else if(r.status === 401) {
                 window.location = "/#/home";
+                return;
             }
         })
         .then(r => {

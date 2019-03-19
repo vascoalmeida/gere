@@ -25,7 +25,7 @@ class Dashboard extends Component {
             order: this.state.order,
         }
         //console.log(this.props)
-        this.props.get_data(["POST", filters_order]);
+        this.props.get_data("POST", filters_order);
     }
 
     handleStatusFilterChange(ev) {
@@ -69,6 +69,18 @@ class Dashboard extends Component {
                     <select className="filter-search" onChange={this.handleDateOrderChange}>
                         <option value="ASC" selected>Mais recentes</option>
                         <option value="DESC">Mais antigos</option>
+                    </select>
+                </div>
+            );
+        }
+
+        if(this.props.filter_user_status) {
+            options.push(
+                <div className="d-section">
+                    <label className="label-title">Estado</label>
+                    <select className="filter-search" onChange={this.handleDateOrderChange}>
+                        <option value="ASC" selected>Ativo</option>
+                        <option value="DESC">Inativo</option>
                     </select>
                 </div>
             );
