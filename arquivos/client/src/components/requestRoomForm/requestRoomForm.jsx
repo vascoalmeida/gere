@@ -174,6 +174,7 @@ class RequestRoomForm extends Component {
         }
 
         else if(this.state.popup2_visible) {
+            console.log("ROOM", this.state.chosen_room);
             active_popup = <RoomPopup2 room={this.state.chosen_room} date={this.state.chosen_day} time_start={this.state.chosen_time_start} time_end={this.state.chosen_time_end}  close_popup={this.closePopup} />
         }
 

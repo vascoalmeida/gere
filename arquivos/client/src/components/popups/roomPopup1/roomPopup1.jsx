@@ -12,6 +12,7 @@ class RoomPopup1 extends Component {
             time_end: "",
             room: this.props.room,
             button_lock: this.props.blocked_button_class,
+            chosen_room: "...",
         }
 
         this.handleBtnClick = this.handleBtnClick.bind(this);
@@ -19,6 +20,25 @@ class RoomPopup1 extends Component {
         this.handleChosenTimeStart = this.handleChosenTimeStart.bind(this);
         this.handleChosenTimeEnd = this.handleChosenTimeEnd.bind(this);
         this.allowContinue = this.allowContinue.bind(this);
+    }
+
+    componentDidMount() {
+        fetch("/room/info/" + this.props.room, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+            },
+        })
+        .then(r => {
+            r.json()
+            .then(res => {
+                this.setState({
+                    chosen_room: res.name,
+                });
+            })
+            .catch();
+        })
+        .catch();
     }
 
     handleBtnClick() {
@@ -81,7 +101,7 @@ class RoomPopup1 extends Component {
 
                     <div className="rm-d-section">
                         <label className="label-title">Sala escolhida:</label>
-                        <label>{this.props.room}</label>
+                        <label>{this.state.chosen_room}</label>
                     </div>
 
                     <div className="rm-d-section button-container">

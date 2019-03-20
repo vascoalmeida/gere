@@ -2,6 +2,39 @@ import React, {Component} from "react";
 import "./equipmentPopup2.css";
 
 class EquipmentPopup2 extends Component {
+
+    constructor() {
+        super();
+
+        this.state = {
+            chosen_material: [],
+        }
+    }
+
+    componentDidMount() {
+        this.props.equipment.map(eq => {
+            fetch("/equipment/info/" + eq, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                },
+            })
+            .then(r => {
+                r.json()
+                .then(res => {
+                    console.log(this.state.chosen_material);
+                    var new_chosen_material = this.state.chosen_material;
+                    new_chosen_material.push(res.name);
+                    this.setState({
+                        chosen_material: new_chosen_material,
+                    }, () => console.log(this.state));
+                })
+                .catch();
+            })
+            .catch();
+        });
+    }
+
     render() {
         console.log(this.props);
         return (
@@ -28,11 +61,10 @@ class EquipmentPopup2 extends Component {
 
                     <div className="popup-info">
                         <label className="label-title">Material requisitado:</label>
-                        {this.props.equipment.map(mat => {
+                        {this.state.chosen_material.map(mat => {
                             return(
-                                <div className="material-overview" key={mat.id}>
-                                    <span>{mat.name}</span>
-                                    <span>x{mat.quantity}</span>
+                                <div className="material-overview">
+                                    <span>{mat}</span>
                                 </div>
                             )
                         })}

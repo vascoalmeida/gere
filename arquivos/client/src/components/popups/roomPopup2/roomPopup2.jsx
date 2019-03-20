@@ -2,6 +2,33 @@ import React, {Component} from "react";
 import "./roomPopup2.css";
 
 class RoomPopup2 extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            chosen_room : "Nenhuma",
+        }
+    }
+
+    componentDidMount() {
+        fetch("/room/info/" + this.props.room, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+            },
+        })
+        .then(r => {
+            r.json()
+            .then(res => {
+                this.setState({
+                    chosen_room: res.name,
+                });
+            })
+            .catch();
+        })
+        .catch();
+    }
+
     render() {
         return(
             <div id="rm-popup-container" >
@@ -19,7 +46,7 @@ class RoomPopup2 extends Component {
 
                     <div className="popup-info">
                         <label className="label-title">Sala requisitada:</label>
-                        <span>{this.props.room}</span>
+                        <span>{this.state.chosen_room}</span>
                     </div>
 
                     <div className="popup-info">
