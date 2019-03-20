@@ -25,6 +25,7 @@ class RequestEquipmentForm extends Component {
         this.handleNextClick = this.handleNextClick.bind(this);
         this.handleQuantityChange = this.handleQuantityChange.bind(this);
         this.handleFormSubmission = this.handleFormSubmission.bind(this);
+        this.getMaterialList = this.getMaterialList.bind(this);
         this.addMaterial = this.addMaterial.bind(this);
         this.removeMaterial = this.removeMaterial.bind(this);
         this.recieveFromPopup1 = this.recieveFromPopup1.bind(this);
@@ -32,36 +33,51 @@ class RequestEquipmentForm extends Component {
     }
 
     componentDidMount() {
-        var equipment_list = [];
+        this.getMaterialList("GET");
+    }
 
-        fetch("/equipment/list", {
-            method: "GET",
-            headers: {
-                Accept: 'application/json',
-            },
+    getMaterialList(req_method, req_body) {
+        var headers;
+        var body;
+
+        if(req_method === "POST") {
+            headers = {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            };
+            console.log("BODY", req_body);
+            body = JSON.stringify(req_body);
+        }
+
+        else if(req_method === "GET") {
+            headers = {
+                Accept: "application/json",
+            };
+        }
+
+        fetch("/equipment/list/", {
+            method: req_method,
+            headers: headers,
+            body: body,
         })
         .then(r => {
-            if(r.status === 200) {    
-                r.json()
-                .then(res => {
-                    equipment_list = res.slice();
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-            }
-            else if(r.status === 401) {
+            if(r.status === 401) {
                 window.location = "/#/home";
                 return;
             }
-        })
-        .then(r => {
-            this.setState({
-                equipment_list: equipment_list,
+            
+            r.json()
+            .then(res => {
+                this.setState({
+                    equipment_list: res,
+                });
+            })
+            .catch(err => {
+                console.log("Error parsing JSON: " + err);
             });
         })
         .catch(err => {
-            alert("Ocorreu um erro, por favor tente mais tarde");
+            console.log("Error with response received:" + err);
         });
     }
 
@@ -177,20 +193,7 @@ class RequestEquipmentForm extends Component {
             <form id="material-form" onSubmit={this.handleFormSubmission}>
                 {active_popup}
 
-                <div id="mf-dashboard">
-                    <div className="mf-d-section">
-                        <label className="label-title">Filtros</label>
-                        <select>
-                            <option value="opt1">Opt 1</option>
-                            <option value="opt2">Opt 2</option>
-                            <option value="opt3">Opt 3</option>
-                        </select>
-                    </div>
-
-                    <div className="mf-d-section button-container">
-                        <div id="request-btn" className="form-button">Filtrar</div>
-                    </div>
-                </div>
+                <Dashboard filter_status={false} order_by_day={true} get_data={this.getMaterialList} />
 
                 <div className="section-title">Equipamento escolhido</div>
 

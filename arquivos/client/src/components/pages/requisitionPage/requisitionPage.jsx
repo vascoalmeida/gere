@@ -13,7 +13,7 @@ class RequisitionPage extends Component {
                         <div id="form-title">Requisitar</div>
                         <div id="form-options">
                             <NavLink className="form-select" to="/main/requisitar/sala">Sala</NavLink>
-                            <NavLink className="form-select" to="/main/requisitar/material">Material</NavLink>
+                            <NavLink className="form-select" to="/main/requisitar/material">Equipamento</NavLink>
                         </div>
                     </div>
 
