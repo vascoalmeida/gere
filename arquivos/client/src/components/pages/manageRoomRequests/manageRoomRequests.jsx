@@ -33,11 +33,12 @@ class ManageRoomRequests extends Component {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             };
-            body = JSON.stringify({
+            body = {
                 filters: this.state.filters,
                 order: this.state.order,
                 limit: this.state.limit,
-            });
+            };
+            console.log("AAAAAAAAAAAAAAAAAAAAAAA", body);
         }
 
         else if(req_method === "GET") {
@@ -46,10 +47,10 @@ class ManageRoomRequests extends Component {
             };
         }
 
-        fetch("/room/request/list/" + this.state.limit, {
+        fetch("/room/request/list/", {
             method: req_method,
             headers: headers,
-            body: body,
+            body: JSON.stringify(body),
         })
         .then(r => {
             if(r.status === 401) {
@@ -101,7 +102,6 @@ class ManageRoomRequests extends Component {
                             {
                                 this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="room" viewed_by="admin" object_id={request_item} />)
                             }
-                            <div className="form-button" onClick={this.increaseLimit} >Carregar mais</div>
                         </React.Fragment>
 
                         :

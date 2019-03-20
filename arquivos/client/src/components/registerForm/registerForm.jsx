@@ -51,6 +51,16 @@ class RegisterForm extends Component {
     }
 
     handleSubmit() {
+        if(this.state.username.length === 0 || this.state.password1.length === 0 || this.state.password2.length === 0 || this.state.email.length === 0 || this.state.class.length === 0) {
+            alert("Por favor preencha todos os campos");
+            return;
+        }
+
+        else if(this.state.password1 !== this.state.password2) {
+            alert("As passwords não correspondem");
+            return;
+        }
+
         fetch("/user/activate", {
             headers: {
                 "Accept": "application/json",
@@ -65,6 +75,12 @@ class RegisterForm extends Component {
             })
         })
         .then(r => {
+            if(r.status === 401) {
+                alert("O email que introduziu não está registado.");
+                return;
+            }
+
+            alert("Foi registado/a com sucesso!");
             window.location.reload();
         })
         .catch();
@@ -73,7 +89,7 @@ class RegisterForm extends Component {
     render() {
         return (
             <form id="register-form" action="/register">
-                <div id="form-name">Registar</div>
+                <div id="form-name">Ativar Conta</div>
                     <input className="login-register-input" type="text" placeholder="Nome" onChange={this.handleUserChange}></input>
                     <input className="login-register-input" type="password" placeholder="Password" onChange={this.handlePass1Change}></input>
                     <input className="login-register-input" type="password" placeholder="Verificar password" onChange={this.handlePass2Change}></input>
@@ -84,6 +100,11 @@ class RegisterForm extends Component {
                         <option value="2ºTM">2ºTM</option>
                         <option value="3ºTM">3ºTM</option>
                         <option value="1ºAV">1ºAV</option>
+                        <option value="1ºAV">2ºAV</option>
+                        <option value="1ºAV">3ºAV</option>
+                        <option value="1ºAV">1ºFOT</option>
+                        <option value="1ºAV">2ºFOT</option>
+                        <option value="1ºAV">3ºFOT</option>
                     </select>
                 <button className="form-button" type="button" onClick={this.handleSubmit}>Registar</button>
                 <div className="blue-text-link" onClick={this.props.changeForm}>Já és membro?</div>

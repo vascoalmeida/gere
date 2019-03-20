@@ -40,7 +40,7 @@ class RequestRoomForm extends Component {
         this.getRequestsList("GET");
     }
 
-    getRequestsList(req_method) {
+    getRequestsList(req_method, req_body) {
         var headers;
         var body;
 
@@ -49,11 +49,8 @@ class RequestRoomForm extends Component {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             };
-            body = JSON.stringify({
-                filters: this.state.filters,
-                order: this.state.order,
-                limit: this.state.limit,
-            });
+            console.log("BODY", req_body);
+            body = JSON.stringify(req_body);
         }
 
         else if(req_method === "GET") {
@@ -93,7 +90,7 @@ class RequestRoomForm extends Component {
             filters: req_info[1].filters,
             order: req_info[1].order,
         }, () => {
-            this.getRequestsList("POST");
+            this.getRequestsList("POST", req_info);
         });
     }
 
@@ -206,7 +203,7 @@ class RequestRoomForm extends Component {
             <form id="request-room" onSubmit={this.handleFormSubmit} >
                 {active_popup}
 
-                <Dashboard filter_status={false} order_by_day={true} get_data={this.getData} />
+                <Dashboard filter_status={false} order_by_day={true} get_data={this.getRequestsList} />
 
                 <div id="room-list">
                     {

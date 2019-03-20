@@ -25,6 +25,7 @@ class Dashboard extends Component {
             order: this.state.order,
         }
         //console.log(this.props)
+        console.log("FILTERS_ORDER:", filters_order);
         this.props.get_data("POST", filters_order);
     }
 
@@ -37,6 +38,7 @@ class Dashboard extends Component {
     }    
 
     handleDateOrderChange(ev) {
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAA");
         this.setState({
             order: {
                 date: ev.target.value,

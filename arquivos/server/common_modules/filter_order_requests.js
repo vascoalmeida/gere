@@ -13,7 +13,8 @@ function ord_fil_req(req, res) {
             status: ["Pendente", "Rejeitado", "Cancelado", "Aceite"],
         };
         var order = ["date"];
-    
+        
+        console.log(req.body);
         var req_filter_arr = Object.keys(req.body.filters);
         var req_order_arr = Object.keys(req.body.order);
         
