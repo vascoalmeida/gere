@@ -77,6 +77,12 @@ class RoomPopup1 extends Component {
     }
 
     render() {
+        var today = new Date();
+        var today_day = today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
+        var today_month = today.getMonth() < 10 ? "0" + (today.getMonth() + 1) : today.getMonth() + 1;
+        var today_year = today.getFullYear();
+        var min_date = today_year + "-" + today_month + "-" + today_day;
+        
         return(
             <div id="rm-popup-container">
                 <div id="rm-popup">
@@ -85,7 +91,7 @@ class RoomPopup1 extends Component {
                         <label className="label-title">Período da requisição</label>
                         <div>
                             <label>Data</label>
-                            <input className="input-date" type="date" onChange={this.handleChosenDay} required></input>
+                            <input className="input-date" type="date" min={min_date} onChange={this.handleChosenDay} required></input>
                         </div>
 
                         <div>

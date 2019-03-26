@@ -25,6 +25,7 @@ class ListItem extends Component {
         this.showEditPopup = this.showEditPopup.bind(this);
         this.closePopups = this.closePopups.bind(this);
         this.deleteObject = this.deleteObject.bind(this);
+        this.removeItem = this.removeItem.bind(this);
     }
 
     componentDidMount() {
@@ -79,6 +80,11 @@ class ListItem extends Component {
         .catch(err => {
             alert("Ocorreu um erro ao carregar informação, por favor tente mais tarde.");
         });
+    }
+    
+    removeItem() {
+        console.log("BBBBBBBBBBBBBBBBBBBB", this.props.object_id);
+        //this.props.remove_equipment(this.props.object_id);
     }
 
     showRemovePopup() {

@@ -134,6 +134,7 @@ class RequestEquipmentForm extends Component {
     }
     
     removeMaterial(index) {
+        console.log("AAAAAAAAAAAAAAAAAAA", index);
         var s_chosen_equipment = this.state.chosen_equipment;
         var s_equipment_list = this.state.equipment_list;
 
@@ -206,7 +207,7 @@ class RequestEquipmentForm extends Component {
                             <React.Fragment>
                             {
                                 this.state.chosen_equipment.map(equipment => (
-                                    <ListItem key={equipment} object_type="equipment" object_id={equipment} selected={true} />
+                                    <ListItem key={equipment} object_type="equipment" object_id={equipment} selected={true} remove_equipment={this.removeMaterial} />
                                 ))
                             }
 

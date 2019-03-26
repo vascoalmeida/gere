@@ -111,7 +111,7 @@ class RequestRoomForm extends Component {
             window.location.reload();
         })
         .catch(err => {
-            alert("Ocorreu um erro, por favor tente mais tarde");
+            //alert("Ocorreu um erro, por favor tente mais tarde");
         });
     }
 

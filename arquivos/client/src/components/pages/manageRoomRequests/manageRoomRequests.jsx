@@ -24,7 +24,7 @@ class ManageRoomRequests extends Component {
         this.getRequestsList("GET");
     }
     
-    getRequestsList(req_method) {
+    getRequestsList(req_method, req_body) {
         var headers;
         var body;
 
@@ -33,12 +33,8 @@ class ManageRoomRequests extends Component {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             };
-            body = {
-                filters: this.state.filters,
-                order: this.state.order,
-                limit: this.state.limit,
-            };
-            console.log("AAAAAAAAAAAAAAAAAAAAAAA", body);
+            body = JSON.stringify(req_body);
+            console.log("AAAAAAAAAAAAAAAAAAAAA", req_body);
         }
 
         else if(req_method === "GET") {
@@ -50,7 +46,7 @@ class ManageRoomRequests extends Component {
         fetch("/room/request/list/", {
             method: req_method,
             headers: headers,
-            body: JSON.stringify(body),
+            body: body,
         })
         .then(r => {
             if(r.status === 401) {
@@ -92,7 +88,7 @@ class ManageRoomRequests extends Component {
     render() {
         return(
             <div id="manage-room-requests">
-                <Dashboard filter_status={true} order_by_day={true} get_data={this.getData} />
+                <Dashboard filter_status={true} order_by_day={true} get_data={this.getRequestsList} />
 
                 <div id="room-requests-container">
                     {

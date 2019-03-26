@@ -38,7 +38,6 @@ class Dashboard extends Component {
     }    
 
     handleDateOrderChange(ev) {
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAAA");
         this.setState({
             order: {
                 date: ev.target.value,
@@ -69,8 +68,8 @@ class Dashboard extends Component {
                 <div className="d-section">
                     <label className="label-title">Dia criado</label>
                     <select className="filter-search" onChange={this.handleDateOrderChange}>
-                        <option value="ASC" selected>Mais recentes</option>
-                        <option value="DESC">Mais antigos</option>
+                        <option value="DESC">Mais recentes</option>
+                        <option value="ASC" selected>Mais antigos</option>
                     </select>
                 </div>
             );

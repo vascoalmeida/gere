@@ -130,7 +130,7 @@ router.put("/:request_id", authentication.authenticate_admin, (req, res) => {
     });
 });
 
-router.all("/list/:limit?/:user_email?", (req, res) => {
+router.all("/list/", (req, res) => {
     // Get id list of room requests
     
     var order_filter = order_filter_request(req, res);
