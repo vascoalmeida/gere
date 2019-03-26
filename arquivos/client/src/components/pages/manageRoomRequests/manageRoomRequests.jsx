@@ -73,7 +73,7 @@ class ManageRoomRequests extends Component {
             filters: req_info[1].filters,
             order: req_info[1].order,
         }, () => {
-            this.getRequestsList("POST");
+            this.getRequestsList("POST", req_info);
         });
     }
 
@@ -81,7 +81,7 @@ class ManageRoomRequests extends Component {
         this.setState({
             limit: this.state.limit + 5,
         }, () => {
-            this.getRequestsList("POST");
+            this.getRequestsList("POST", {limit: this.state.limit});
         });
     }
 
@@ -95,9 +95,8 @@ class ManageRoomRequests extends Component {
                         this.state.requests_list.length !== 0 ? 
 
                         <React.Fragment>
-                            {
-                                this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="room" viewed_by="admin" object_id={request_item} />)
-                            }
+                            {this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="room" viewed_by="admin" object_id={request_item} />)}
+                            <div className="form-button" id="load-more-btn" onClick={this.increaseLimit} >Carregar mais</div>
                         </React.Fragment>
 
                         :

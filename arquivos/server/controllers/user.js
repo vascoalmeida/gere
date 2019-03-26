@@ -170,8 +170,9 @@ router.post("/register", authentication.authenticate_session, authentication.aut
     res.end();
 });
 
-router.get("/list", authentication.authenticate_session, authentication.authenticate_admin, (req, res) => {
+router.all("/list", authentication.authenticate_session, authentication.authenticate_admin, (req, res) => {
     // Send list of emails
+    console.log("AAAAAAAAAAAAAAAAAA", req.body)
 
     var order_filter = order_filter_request(req, res);
 

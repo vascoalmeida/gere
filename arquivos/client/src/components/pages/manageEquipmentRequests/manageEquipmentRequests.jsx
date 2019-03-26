@@ -83,7 +83,7 @@ class ManageEquipmentRequests extends Component {
             filters: req_info[1].filters,
             order: req_info[1].order,
         }, () => {
-            this.getRequestsList("POST");
+            this.getRequestsList("POST", req_info);
         });
     }
 
@@ -95,8 +95,11 @@ class ManageEquipmentRequests extends Component {
                 <div id="equipment-requests-container">
                     {
                         this.state.requests_list.length !== 0 ? 
+                        <React.Fragment>
+                            {this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="equipment" viewed_by="admin" object_id={request_item} />)}
+                            <div className="form-button" id="load-more-btn" onClick={this.increaseLimit} >Carregar mais</div>
 
-                        this.state.requests_list.map(request_item => <RequestItem key={request_item} object_type="equipment" viewed_by="admin" object_id={request_item} />)
+                        </React.Fragment>
 
                         :
 
@@ -104,7 +107,6 @@ class ManageEquipmentRequests extends Component {
                     }
                 </div>
 
-                <div className="form-button" onClick={this.increaseLimit} >Carregar mais</div>
             </div>
         );
     }

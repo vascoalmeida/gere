@@ -79,9 +79,10 @@ class Dashboard extends Component {
             options.push(
                 <div className="d-section">
                     <label className="label-title">Estado</label>
-                    <select className="filter-search" onChange={this.handleDateOrderChange}>
-                        <option value="ASC" selected>Ativo</option>
-                        <option value="DESC">Inativo</option>
+                    <select className="filter-search" onChange={this.handleStatusFilterChange}>
+                        <option value="" selected>---</option>
+                        <option value="Ativo">Ativo</option>
+                        <option value="Inativo">Inativo</option>
                     </select>
                 </div>
             );

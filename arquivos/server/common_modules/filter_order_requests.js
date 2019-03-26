@@ -15,8 +15,13 @@ function ord_fil_req(req, res) {
         var order = ["date"];
         
         console.log(req.body);
-        var req_filter_arr = Object.keys(req.body.filters);
-        var req_order_arr = Object.keys(req.body.order);
+        try {
+            var req_filter_arr = Object.keys(req.body.filters);
+            var req_order_arr = Object.keys(req.body.order);
+        }
+        catch(err) {
+            console.log(err);
+        }
         
         for(i in req_filter_arr) {
             if(!(Object.keys(filters).includes(req_filter_arr[i]))) {
