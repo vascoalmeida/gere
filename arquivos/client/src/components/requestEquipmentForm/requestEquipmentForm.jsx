@@ -97,7 +97,8 @@ class RequestEquipmentForm extends Component {
         })
         .then(r => {
             if(r.status === 205) {
-                window.location.reset();
+                alert("Equipamento(s) requisitado(s) com sucesso.");
+                window.location.reload();
             }
         })
         .catch((err) => console.log(err));
@@ -194,7 +195,7 @@ class RequestEquipmentForm extends Component {
             <form id="material-form" onSubmit={this.handleFormSubmission}>
                 {active_popup}
 
-                <Dashboard filter_status={false} order_by_day={true} get_data={this.getMaterialList} />
+                {/*<Dashboard filter_status={false} order_by_day={true} get_data={this.getMaterialList} />*/}
 
                 <div className="section-title">Equipamento escolhido</div>
 

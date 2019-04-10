@@ -96,22 +96,22 @@ class MainPage extends Component {
                     <div id="panels-container">
                         <div id="menu-panel">
                             <ul id="menu">
-                                <NavLink to="/main/requisitar" className="menu-item">
-                                    <label>Requisitar</label>
-                                    <img className="item-icon" src={window.location.origin + "/img/icon-book.png"} alt="book-icon" />
-                                </NavLink>
-                                
                                 <NavLink to="/main/perfil" className="menu-item">
                                     <label>Perfil</label>
                                     <img className="item-icon" src={window.location.origin + "/img/icon-room.png"} alt="book-icon" />
+                                </NavLink>
+
+                                <NavLink to="/main/requisitar" className="menu-item">
+                                    <label>Requisitar</label>
+                                    <img className="item-icon" src={window.location.origin + "/img/icon-book.png"} alt="book-icon" />
                                 </NavLink>
 
                                 {management_links}
                             </ul>
                         </div>
                         <div id="main-content">
-                            <Route path="/main/requisitar" component={RequisitionPage} />
                             <Route path="/main/perfil" component={Profile} />
+                            <Route path="/main/requisitar" component={RequisitionPage} />
                             <Route path="/main/gerir/salas" component={ManageRoomsPage} />
                             <Route path="/main/gerir/equipamento" component={ManageEquipmentPage} />
                             <Route path="/main/gerir/requisicoes" component={ManageRequestsPage} />

@@ -72,7 +72,7 @@ class EquipmentPopup2 extends Component {
 
                     <div className="popup-info">
                         <input type="checkbox" required></input>
-                        <label className="cb-label">Declaro que me responsabilizo pela entrega, pelo bom uso e estado de conservação de todo o material/equipamento requisitado, desde o seu levantamento até à sua devolução e conferência, assumindo inegralmente os custos com qualquer estrago causado.</label>
+                        <label className="cb-label">Declaro que me responsabilizo pela entrega, pelo bom uso e estado de conservação de todo o material/equipamento requisitado, desde o seu levantamento até à sua devolução e conferência, assumindo integralmente os custos com qualquer estrago causado.</label>
                     </div>
 
                     <button type="submit" className="form-button">Requisitar</button>

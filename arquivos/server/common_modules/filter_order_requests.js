@@ -8,6 +8,8 @@ function ord_fil_req(req, res) {
         }
     }
 
+    console.log(where_statement);
+
     if(req.method === "POST") {
         var filters = {
             status: ["Pendente", "Rejeitado", "Cancelado", "Aceite"],

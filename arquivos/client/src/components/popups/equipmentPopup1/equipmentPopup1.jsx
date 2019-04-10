@@ -56,15 +56,25 @@ class EquipmentPopup1 extends Component {
     }
 
     render() {
+        var today = new Date();
+        var today_day = today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
+        var today_month = today.getMonth() < 10 ? "0" + (today.getMonth() + 1) : today.getMonth() + 1;
+        var today_year = today.getFullYear();
+        var min_date = today_year + "-" + today_month + "-" + today_day;
+
         return(
-            <div id="rm-popup-container">
+            <div id="rm-popup-container" className="equipment-popup">
                 <div id="rm-popup">
                     <img src={window.location.origin + "/img/icon-close.png"} alt="Close icon" className="close-icon" onClick={this.props.close_popup} />
+
+                    <div id="disclaimer-eq">
+                        <label>As requisições só serão vistas pelos administradores no período da manhã (10:00h às 13:00h) e no período da tarde (14:30h às 17:00h)</label>
+                    </div>
                     <div className="rm-d-section">
                         <label className="label-title">Saída do material</label>
                         <div>
                             <label>Data</label>
-                            <input className="input-date" type="date" onChange={this.handleLeaveDay} required></input>
+                            <input className="input-date" type="date" onChange={this.handleLeaveDay} min={min_date} required></input>
                         </div>
 
                         <div>
@@ -77,7 +87,7 @@ class EquipmentPopup1 extends Component {
                         <label className="label-title">Entrega do material</label>
                         <div>
                             <label>Data</label>
-                            <input className="input-date" type="date" onChange={this.handleDeliveryDay} required></input>
+                            <input className="input-date" type="date" onChange={this.handleDeliveryDay} min={min_date} required></input>
                         </div>
 
                         <div>

@@ -29,6 +29,7 @@ class ListItem extends Component {
     }
 
     componentDidMount() {
+        console.log("PROPS", this.props);
         var image_request = "/" + this.props.object_type + "/img/" + this.props.object_id;
         var data_request = "/" + this.props.object_type + "/info/" + this.props.object_id;
 
@@ -142,11 +143,12 @@ class ListItem extends Component {
         }
 
         else if(this.props.selected) {
-            buttons_available = (
+            /*buttons_available = (
                 <React.Fragment>
                     <div className="form-button red-btn" onClick={this.props.remove_equipment}>Remover</div>
                 </React.Fragment>
-            )
+            )*/
+            buttons_available = null;
         }
 
         else {
@@ -181,9 +183,13 @@ class ListItem extends Component {
                     <img src={this.state.image} alt={this.state.name} />
 
                     <div className="item-info">
-                        <h1 className="item-name">{this.state.name}</h1>
-                        <div className="item-description text">{this.state.description}</div>
-                        {buttons_available}
+                        <div>
+                            <h1 className="item-name">{this.state.name}</h1>
+                            <div className="item-description text">{this.state.description}</div>
+                        </div>
+                        <div id="btn-container">
+                            {buttons_available}
+                        </div>
                     </div>
                 </div>
             </React.Fragment>

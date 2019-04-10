@@ -68,8 +68,8 @@ class Dashboard extends Component {
                 <div className="d-section">
                     <label className="label-title">Dia criado</label>
                     <select className="filter-search" onChange={this.handleDateOrderChange}>
-                        <option value="DESC">Mais recentes</option>
-                        <option value="ASC" selected>Mais antigos</option>
+                        <option value="DESC" selected>Mais recentes</option>
+                        <option value="ASC">Mais antigos</option>
                     </select>
                 </div>
             );

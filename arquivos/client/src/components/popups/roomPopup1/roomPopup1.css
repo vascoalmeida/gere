@@ -35,10 +35,18 @@
     margin-right: 1rem;
 }
 
+#rm-popup .input-date, #rm-popup .input-time {
+    width: 30rem;
+}
+
 .popup-info {
     margin-bottom: 10rem;
 }
 
 #rm-popup .form-button {
     margin: 0 auto;
+}
+
+#disclaimer {
+    margin-top: 11rem;
 }

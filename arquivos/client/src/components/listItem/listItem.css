@@ -1,25 +1,32 @@
 .list-item {
     border: 0.2rem solid #91C651;
     border-radius: 1rem;
-    padding: 8rem;
+    padding: 3rem;
     display: flex;
-    margin-bottom: 10rem;
+    margin: 0 auto 6rem auto;
+    max-width: 170rem;
 }
 
 .list-item img {
-    width: 60rem;
-    height: 40rem;
+    width: 25rem;
+    height: 15rem;
     border-radius: 1rem;
 }
 
 .item-info {
     padding-left: 5rem;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-info > * {
+    width: 100%;
 }
 
 .item-name {
     font-size: 6rem;
-    margin-bottom: 6rem;
+    margin-bottom: 0rem;
     color: #394648;
     font-family: "Pontano Sans";
     font-weight: normal;
@@ -27,11 +34,9 @@
 
 .item-description {
     width: 80%;
-    text-align: justify;
 }
 
 .list-item .form-button {
     width: 35rem;
     float: right;
-    margin-top: 5rem;
 }

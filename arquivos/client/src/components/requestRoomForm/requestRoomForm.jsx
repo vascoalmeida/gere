@@ -150,6 +150,7 @@ class RequestRoomForm extends Component {
             });
         })
         .then(r => {
+            alert("Sala requisitada com sucesso.");
             window.location.reload();
         })
         .catch(err => {
@@ -204,7 +205,7 @@ class RequestRoomForm extends Component {
             <form id="request-room" onSubmit={this.handleFormSubmit} >
                 {active_popup}
 
-                <Dashboard filter_status={false} order_by_day={true} get_data={this.getRequestsList} />
+                {/*<Dashboard filter_status={false} order_by_day={true} get_data={this.getRequestsList} />*/}
 
                 <div id="room-list">
                     {

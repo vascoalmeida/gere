@@ -12,7 +12,7 @@ class RoomRequests extends Component {
     }
 
     componentDidMount() {
-        fetch("/room/request/list/0/" + this.props.email, {
+        fetch("/room/request/list/" + this.props.email, {
             method: "GET"
         })
         .then(requests_raw => {

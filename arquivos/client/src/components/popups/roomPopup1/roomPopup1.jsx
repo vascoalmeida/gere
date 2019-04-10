@@ -106,8 +106,14 @@ class RoomPopup1 extends Component {
                     </div>
 
                     <div className="rm-d-section">
-                        <label className="label-title">Sala escolhida:</label>
-                        <label>{this.state.chosen_room}</label>
+                        <div>
+                            <label className="label-title">Sala escolhida:</label>
+                            <label>{this.state.chosen_room}</label>
+                        </div>
+
+                        <div id="disclaimer">
+                            <label>As requisições só serão vistas pelos administradores no período da manhã (10:00h às 13:00h) e no período da tarde (14:30h às 17:00h)</label>
+                        </div>
                     </div>
 
                     <div className="rm-d-section button-container">

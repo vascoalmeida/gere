@@ -130,7 +130,7 @@ router.put("/:request_id", authentication.authenticate_admin, (req, res) => {
     });
 });
 
-router.all("/list/", (req, res) => {
+router.all("/list/:user_email?", (req, res) => {
     // Get id list of room requests
     
     var order_filter = order_filter_request(req, res);
@@ -147,6 +147,7 @@ router.all("/list/", (req, res) => {
         limit: limit,
     })
     .then(r => {
+        console.log(r);
         res.json(r.map(request => request.dataValues.id));
     })
     .catch(err => output_message("error", "Failed to run query on database. More details below:\n" + err));

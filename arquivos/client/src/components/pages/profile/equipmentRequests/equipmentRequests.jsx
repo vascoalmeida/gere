@@ -20,7 +20,7 @@ class EquipmentRequests extends Component {
             .then(requests => {
                 this.setState({
                     requests: requests,
-                }, () => console.log(this.state));
+                });
             })
             .catch(err => console.log(err));
         })
