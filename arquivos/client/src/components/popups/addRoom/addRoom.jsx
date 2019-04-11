@@ -47,6 +47,7 @@ class AddRoom extends Component {
             credentials: 'include',
         })
         .then(r => {
+            alert("Sala criada com sucesso!");
             window.location.reload();
         })
         .catch(err => {

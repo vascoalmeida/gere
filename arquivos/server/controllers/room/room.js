@@ -6,6 +6,7 @@ const models = require("../../models");
 const authentication = require("../../middleware/authentication");
 const output_message = require("../../common_modules/output_message").output_message;
 const order_filter_request = require("../../common_modules/filter_order_requests").order_filter_request;
+const crypto_functions = require("../../common_modules/crypto_functions");
 const multer_configuration = require("../../middleware/multer_configuration");
 const room_request = require("./request");
 
@@ -23,61 +24,56 @@ router.post("/", authentication.authenticate_admin, (req, res) => {
     var room_info = {};
     var img_name;
 
-    new formidable.IncomingForm().parse(req, (err, fields, files) => {
+    var form = new formidable.IncomingForm();
+
+    form.on("fileBegin", function(name, file) {
+        console.log("OINFILE", name);
+        var file_ext = file.name.slice(file.name.lastIndexOf("."));
+        img_name = crypto_functions.gen_random_string(20) + file_ext;
+        file.path = __dirname + "/../../media/img/" + img_name;
+    })
+    
+    form.parse(req, (err, fields, files) => {
         if(err) {
             let msg = "Failed to parse received data. Error output below:";
             output_message("error", msg);
             console.log(err);
+            res.end();
             return;
         }
 
+        console.log("FILES", files);
+
         room_info["name"] = fields.name;
         room_info["description"] = fields.description;
-        
-        try {
-            img_name = files["image"].path.slice(files["image"].path.indexOf("_")+1);
-        }
 
-        catch(err) {
-            console.log(err);
-        }
-        
-        multer_configuration.upload(req, res, (err) => {
-            if(err) {
-                res.end();
-                output_message("error", "Failed to upload image. More details below:")
-                console.log(err);
-                return;
-            }
-            
-            models.Image.create({name: img_name})
+        models.Image.create({name: img_name})
+        .then(r => {
+            room_info.img_id = r.dataValues.id;
+            models.Room.create(room_info)
             .then(r => {
-                room_info.img_id = r.dataValues.id;
-                models.Room.create(room_info)
-                .then(r => {
-                    let msg = "Successfully created new object " + "Room".bold;
-                    output_message("success", msg);
-                })
-                .catch(err => {
-                    let msg = "Failed to create new object " + "Room".bold + ". Error output below:";
-                    
-                    output_message("error", msg);
-                    console.log(err);
-                    
-                    msg = "Stored received image in " + "/media/img".bold + ", but Room was not saved in DB";
-                    output_message("warning", msg);
-                    
-                    return;
-                });
+                let msg = "Successfully created new object " + "Room".bold;
+                output_message("success", msg);
             })
             .catch(err => {
-                let msg = "Failed to create new object " + "Image".bold + ". Error output below:";
+                let msg = "Failed to create new object " + "Room".bold + ". Error output below:";
+                
                 output_message("error", msg);
                 console.log(err);
+                
+                msg = "Stored received image in " + "/media/img".bold + ", but Room was not saved in DB";
+                output_message("warning", msg);
+                
+                return;
             });
-            
-            res.end();
+        })
+        .catch(err => {
+            let msg = "Failed to create new object " + "Image".bold + ". Error output below:";
+            output_message("error", msg);
+            console.log(err);
         });
+        
+        res.end();
     });
 });
 
