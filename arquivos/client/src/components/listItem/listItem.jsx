@@ -33,6 +33,8 @@ class ListItem extends Component {
         var image_request = "/" + this.props.object_type + "/img/" + this.props.object_id;
         var data_request = "/" + this.props.object_type + "/info/" + this.props.object_id;
 
+        console.log(image_request);
+
         fetch(image_request, {
             method: "GET",
             headers: {
@@ -47,11 +49,11 @@ class ListItem extends Component {
             file_reader.readAsDataURL(img_blob);
 
             file_reader.onload = () => {
-                //var base_64_data = file_reader.result;
+                var base_64_data = file_reader.result;
                 
-                /*this.setState({
+                this.setState({
                     image: base_64_data,
-                });*/
+                });
             }
         })
         .catch(err => {

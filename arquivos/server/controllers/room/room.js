@@ -162,14 +162,33 @@ router.get("/img/:room_id", (req, res) => {
 
     var room_id = req.params.room_id;
     
-    models.Image.findAll({
-        attributes: ["name"],
+    models.Room.findAll({
+        attributes: ["img_id"],
         where: {
             id: room_id,
         },
     })
     .then(r => {
-        res.sendFile(r[0].dataValues.name, {"root": __dirname + "/../media/img/"});
+        models.Image.findAll({
+            attributes: ["name"],
+            where: {
+                id: r[0].dataValues.img_id,
+            },
+        })
+        .then(r_img => {
+            try {
+                res.sendFile(r_img[0].dataValues.name, {"root": __dirname + "/../../media/img/"});
+            }
+            catch(err) {
+                output_message("error", "Failed to send requested image to client. More details below:\n" + err);
+                res.end();
+                return;
+            }
+        })
+        .catch(err => {
+            output_message("error", "Failed to fetch image from DB. More details below:");
+            console.log(err);
+        });
     })
     .catch(err => {
         output_message("error", "Failed to fetch image from DB. More details below:");
