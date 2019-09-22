@@ -12,7 +12,7 @@ const app = express();
 const port = 8080;
 const sequelize = new Sequelize(db_cred.database, db_cred.username, db_cred.password, {
     host: db_cred.host,
-    dialect: db_cred.dialect,
+    dialect: "mysql",
 });
 
 app.use(body_parser.urlencoded({ extended: true }));
