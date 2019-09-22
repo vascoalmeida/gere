@@ -1,5 +1,0 @@
-21/Dez)
-	-Arranjar a forma de enviar imagens para o servidor de forma a aceitar DataForm
-22/Dez)
-	-Enviado id da imagem para o servidor pedindo a imagem de cada sala
-	-Criado endpoint para enviar imagens para o cliente
